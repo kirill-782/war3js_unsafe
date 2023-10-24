@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "module": "ES6",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "outDir": "dist/lib",
+    "declaration": true,
+    "esModuleInterop": true,
+    "declarationDir": "dist/types"
+  },
+  "include": ["src/**/*"]
+}
