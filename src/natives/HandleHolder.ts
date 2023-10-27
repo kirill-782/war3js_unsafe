@@ -1,4 +1,6 @@
-export class HandleHolder<S extends string> {
+
+
+export class HandleHolder<S extends string = string> {
   public readonly type: S;
   public payload: any;
 

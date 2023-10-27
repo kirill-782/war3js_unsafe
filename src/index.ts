@@ -8,12 +8,18 @@ declare global {
   interface HandleHolder<S extends string> extends hh<S> {}
 }
 
+globalThis.HandleHolder = hh;
+
+export const fakeHandleType = "_enum";
+
 export const isDevMode = true;
 
 export const HandleHolder = hh;
 
-export {
-  setToHandleHolder,
-  setOnHandleDestroy,
-  setOnNewHandle,
-} from "./events/index.js";
+export const readMpqFile = (path: string): null | Uint8Array => {
+  return Uint8Array.of();
+};
+
+
+export { getGlobal, appendGlobalHandleTypes } from "./constants/index.js";
+export { setToHandleHolder, setOnHandleDestroy, setOnNewHandle } from "./events/index.js";
