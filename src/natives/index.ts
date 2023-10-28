@@ -8,7 +8,7 @@ const primitiveMapping = {
   code: "C",
   boolean: "B",
   string: "S",
-  nothing: "V"
+  nothing: "V",
 } as Record<string, string>;
 
 export interface Native<R, A extends Array<any>> {
@@ -63,11 +63,7 @@ export function getNativeByName<R, A extends Array<any>>(
 
     for (let i = 0; i < args.length; ++i) {
       if (!isValueType(args[i], nativeMeta.parametres[i])) {
-        throw new TypeError(
-          `Error in parameter type ${i + 1}. Exception ${
-            nativeMeta.parametres[i]
-          } got ${args[i]}`
-        );
+        throw new TypeError(`Error in parameter type ${i + 1}. Exception ${nativeMeta.parametres[i]} got ${args[i]}`);
       }
     }
 
@@ -88,7 +84,11 @@ export function getNativeByName<R, A extends Array<any>>(
     if (nativeMeta.returnType === "S") return "" as R;
     if (nativeMeta.returnType === "V") return;
 
-    return new HandleHolder(returnType) as R;
+    const newHandle = new HandleHolder(returnType) as R;
+
+    if (callbacks.onNewHandle) callbacks.onNewHandle(newHandle as HandleHolder, name);
+
+    return newHandle;
   };
 
   return Object.assign(nativeFunc, nativeMeta);
