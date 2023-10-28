@@ -5,11 +5,7 @@ export { consoleLog } from "./console/index.js";
 declare global {
   var HandleHolder: typeof hh;
 
-  interface HandleHolder<S extends string = string> extends hh {
-    get type(): S;
-    payload: any;
-    equals: (handle: HandleHolder<string> | null) => boolean;
-  }
+  interface HandleHolder<S extends string> extends hh<S> {}
 }
 
 globalThis.HandleHolder = hh;
@@ -23,6 +19,7 @@ export const HandleHolder = hh;
 export const readMpqFile = (path: string): null | Uint8Array => {
   return Uint8Array.of();
 };
+
 
 export { getGlobal, appendGlobalHandleTypes } from "./constants/index.js";
 export { setToHandleHolder, setOnHandleDestroy, setOnNewHandle } from "./events/index.js";

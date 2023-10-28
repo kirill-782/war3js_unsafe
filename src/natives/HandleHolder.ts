@@ -8,7 +8,7 @@ export class HandleHolder<S extends string = string> {
     this.type = type;
   }
 
-  public equals(holder: HandleHolder<string>): boolean {
+  public equals(holder: HandleHolder<string> | null): boolean {
     return this === holder;
   }
 }
