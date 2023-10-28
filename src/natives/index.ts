@@ -86,7 +86,7 @@ export function getNativeByName<R, A extends Array<any>>(
 
     const newHandle = new HandleHolder(returnType) as R;
 
-    if (callbacks.onNewHandle) callbacks.onNewHandle(newHandle as HandleHolder, name);
+    if (callbacks.onNewHandle && !noNotify) callbacks.onNewHandle(newHandle as HandleHolder, name);
 
     return newHandle;
   };
