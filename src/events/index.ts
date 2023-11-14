@@ -1,10 +1,10 @@
-type ToHandleHolderFunction = (arg: any) => any;
+type ToHandleHolderFunction = (arg: unknown) => unknown;
 type OnNewHandleFunction = (
   handle: HandleHolder<string>,
   creatorNativeName: string
-) => any;
+) => unknown;
 
-type OnHandleDestroyFunction = (handle: HandleHolder<string>) => any;
+type OnHandleDestroyFunction = (handle: HandleHolder<string>) => unknown;
 
 export interface Callbacks {
   toHandleHolder?: ToHandleHolderFunction;

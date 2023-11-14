@@ -7,7 +7,7 @@ export const appendGlobalHandleTypes = (types: Record<string, string>) => {
   globalHandleTypes = { ...globalHandleTypes, ...types };
 };
 
-export const getGlobal = <O extends Record<string, any>, K extends keyof O = keyof O>(name: K): O[K] => {
+export const getGlobal = <O extends Record<string, unknown>, K extends keyof O = keyof O>(name: K): O[K] => {
   if (typeof name !== "string") return;
 
   const nameLower = name.toLowerCase();

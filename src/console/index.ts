@@ -1,4 +1,4 @@
-export const consoleLog = (kind: number, ...args: any) => {
+export const consoleLog = (kind: number, ...args: unknown[]) => {
   switch (kind) {
     case 0:
       console.log(...args);

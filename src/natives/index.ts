@@ -11,13 +11,13 @@ const primitiveMapping = {
   nothing: "V",
 } as Record<string, string>;
 
-export interface Native<R, A extends Array<any>> {
+export interface Native<R, A extends Array<unknown>> {
   (...args: A): R;
   parametres: Array<string>;
   returnType: string;
 }
 
-interface NativeInternal<R, A extends Array<any>> extends Native<R, A> {
+interface NativeInternal<R, A extends Array<unknown>> extends Native<R, A> {
   binaryMode?: boolean;
   noNotify?: boolean;
 }
@@ -26,19 +26,19 @@ const isDestructor = (nativeName: string) => {
   return nativeName.startsWith("Destroy") || nativeName.startsWith("Remove");
 };
 
-const isValueType = (value: any, type: string) => {
+const isValueType = (value: unknown, type: string) => {
   if (type === "S") return true;
 
   if (type === "I") return Number.isInteger(Number(value));
 
-  if (type === "R") return !isNaN(value) && isFinite(value);
+  if (type === "R") return typeof value === "number" && !isNaN(value) && isFinite(value);
 
   if (type === "C") return typeof value === "function";
 
   return value instanceof HandleHolder;
 };
 
-export function getNativeByName<R, A extends Array<any>>(
+export function getNativeByName<R, A extends Array<unknown>>(
   name: string,
   binaryMode?: boolean,
   noNotify?: boolean
@@ -95,7 +95,7 @@ export function getNativeByName<R, A extends Array<any>>(
 }
 
 export const getListNatives = () => {
-  const result: Record<string, Native<any, Array<any>>> = {};
+  const result: Record<string, Native<unknown, Array<unknown>>> = {};
 
   Object.keys(nativeList).forEach((i) => {
     result[i] = getNativeByName(i);
