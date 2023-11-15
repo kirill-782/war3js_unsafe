@@ -14,6 +14,7 @@ const primitiveMapping = {
 export interface Native<R, A extends Array<unknown>> {
     (...args: A): R;
     parametres: Array<string>;
+    parametresName: Array<string>;
     returnType: string;
 }
 
