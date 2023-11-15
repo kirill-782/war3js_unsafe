@@ -53,7 +53,7 @@ export function getNativeByName<R, A extends Array<unknown>>(
 
     const nativeMeta = {
         parametres: parametres.map((i) => primitiveMapping[i.type] || i.type),
-        parametresName: parametres.map((i) => primitiveMapping[i.name]),
+        parametresName: parametres.map((i) => i.name),
         returnType: primitiveMapping[returnType] || returnType,
         binaryMode,
         noNotify,
