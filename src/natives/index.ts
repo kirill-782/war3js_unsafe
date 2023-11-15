@@ -11,17 +11,17 @@ const primitiveMapping = {
     nothing: "V",
 } as Record<string, string>;
 
-export interface Native<R, A extends Array<unknown>> {
+export type JassCodeCallback = () => number | void;
+
+export type JassUnknownType = number | boolean | string | JassCodeCallback | HandleHolder<string>;
+export type JassUnknownReturnType = JassUnknownType | void;
+
+export interface Native<R extends JassUnknownReturnType, A extends Array<JassUnknownType>> {
     (...args: A): R;
     parametres: Array<string>;
     parametresName: Array<string>;
     nativeName: string;
     returnType: string;
-}
-
-interface NativeInternal<R, A extends Array<unknown>> extends Native<R, A> {
-    binaryMode?: boolean;
-    noNotify?: boolean;
 }
 
 const isDestructor = (nativeName: string) => {
@@ -40,7 +40,7 @@ const isValueType = (value: unknown, type: string) => {
     return value instanceof HandleHolder;
 };
 
-export function getNativeByName<R, A extends Array<unknown>>(
+export function getNativeByName<R extends JassUnknownReturnType, A extends Array<JassUnknownType>>(
     name: string,
     binaryMode?: boolean,
     noNotify?: boolean,
@@ -101,7 +101,7 @@ export function getNativeByName<R, A extends Array<unknown>>(
 }
 
 export const getListNatives = () => {
-    const result: Record<string, Native<unknown, Array<unknown>>> = {};
+    const result: Record<string, Native<JassUnknownReturnType, Array<JassUnknownType>>> = {};
 
     Object.keys(nativeList).forEach((i) => {
         result[i] = getNativeByName(i);
