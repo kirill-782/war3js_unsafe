@@ -15,6 +15,7 @@ export interface Native<R, A extends Array<unknown>> {
     (...args: A): R;
     parametres: Array<string>;
     parametresName: Array<string>;
+    nativeName: string;
     returnType: string;
 }
 
@@ -58,6 +59,7 @@ export function getNativeByName<R, A extends Array<unknown>>(
         binaryMode,
         noNotify,
         noWrap,
+        nativeName: name,
     };
 
     const nativeFunc = (...args: A): R => {
