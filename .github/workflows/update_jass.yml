@@ -1,0 +1,57 @@
+name: Download ujapi common.j and jassdoc common.j
+
+on:
+    workflow_dispatch:
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        permissions:
+              contents: write
+        
+        steps:
+            - name: Install Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "16"
+
+            - name: Checkout ujapi
+              uses: actions/checkout@v4
+              with:
+                  repository: UnryzeC/UjAPI
+                  path: ujapi
+
+            - name: Checkout ujapi
+              uses: actions/checkout@v4
+              with:
+                  repository: lep/jassdoc
+                  path: jassdoc
+
+            - name: Checkout current repository
+              uses: actions/checkout@v4
+              with:
+                  path: unsafe
+
+            - name: Install unsafe dependencies
+              run: npm install
+              working-directory: ./unsafe
+
+            - name: Copy jassDoc common.j
+              run: cp ./jassdoc/common.j ./unsafe/jass/common-jassDoc.j
+
+            - name: Copy ujapi common.j
+              run: cp ./ujapi/uJAPIFiles/common.j ./unsafe/jass/common-uj.j
+
+            - name: Generate src files
+              run: npm run parseJass
+              working-directory: ./unsafe
+
+            - name: Build unsafe
+              run: npm run build
+              working-directory: ./unsafe
+
+            - name: Commit files
+              uses: stefanzweifel/git-auto-commit-action@v5
+              with:
+                  commit_message: Automatic update database
