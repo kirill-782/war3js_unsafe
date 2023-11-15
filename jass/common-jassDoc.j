@@ -16331,3 +16331,4 @@ Stops the current order and optionally clears the queue.
 
 */
 native BlzUnitForceStopOrder takes unit whichUnit, boolean clearQueue returns nothing
+
