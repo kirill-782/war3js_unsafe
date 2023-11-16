@@ -3,11 +3,11 @@ export interface HandleHolder {
     [key: symbol]: unknown;
 }
 
-export class HandleHolder<S extends string = string> {
-    public readonly type: S;
-    public payload: unknown;
+export class HandleHolder<T extends string = string, P extends unknown = unknown> {
+    public readonly type: T;
+    public payload: P;
 
-    constructor(type: S) {
+    constructor(type: T) {
         this.type = type;
     }
 

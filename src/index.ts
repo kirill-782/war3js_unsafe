@@ -8,7 +8,7 @@ import docKeys from "./database/docKeys.js";
 declare global {
     var HandleHolder: typeof hh;
 
-    interface HandleHolder<S extends string> extends hh<S> {
+    interface HandleHolder<T extends string = string, P = unknown> extends hh<T, P> {
         [key: string]: unknown;
         [key: symbol]: unknown;
     }

@@ -13,10 +13,7 @@ const primitiveMapping = {
 
 export type JassCodeCallback = () => number | void;
 
-export type JassUnknownType = number | boolean | string | JassCodeCallback | HandleHolder<string>;
-export type JassUnknownReturnType = JassUnknownType | void;
-
-export interface Native<R extends JassUnknownReturnType, A extends Array<JassUnknownType>> {
+export interface Native<R extends any, A extends Array<any>> {
     (...args: A): R;
     parametres: Array<string>;
     parametresName: Array<string>;
@@ -40,7 +37,7 @@ const isValueType = (value: unknown, type: string) => {
     return value instanceof HandleHolder;
 };
 
-export function getNativeByName<R extends JassUnknownReturnType, A extends Array<JassUnknownType>>(
+export function getNativeByName<R extends any, A extends Array<any>>(
     name: string,
     binaryMode?: boolean,
     noNotify?: boolean,
@@ -101,7 +98,7 @@ export function getNativeByName<R extends JassUnknownReturnType, A extends Array
 }
 
 export const getListNatives = () => {
-    const result: Record<string, Native<JassUnknownReturnType, Array<JassUnknownType>>> = {};
+    const result: Record<string, Native<any, Array<any>>> = {};
 
     Object.keys(nativeList).forEach((i) => {
         result[i] = getNativeByName(i);
