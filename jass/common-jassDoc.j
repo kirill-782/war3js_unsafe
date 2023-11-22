@@ -4348,6 +4348,34 @@ to set each player's color.
 
 */
 native SetPlayerColor           takes player whichPlayer, playercolor color returns nothing
+
+/**
+Sets the given alliance setting on `sourcePlayer` towards `otherPlayer`.
+
+Example, make it so red has vision of blue's units:
+
+```{.jass}
+function ShowBlueToRed takes nothing returns nothing
+   local player red = Player(0)
+   local player blue = Player(1)
+   // note the reversed order: "blue's vision is shared to red"
+   call SetPlayerAlliance(blue, red, ALLIANCE_SHARED_VISION, true)
+endfunction
+```
+
+@note Players are not required to be allies. Tested in v1.07.
+
+However in this case after sharing control, the player with control will see controllable enemy units
+colored in "green-ally" color when hovering over them. The minimap will still correctly show all of them
+as enemies (for all ally color modes, see `GetAllyColorFilterState`). Enemy units will attack correctly.
+
+@note See: `ShareEverythingWithTeam` which is a more limited version available from GUI.
+
+@param sourcePlayer is the target being changed
+@param otherPlayer is the receiver of the effect (beneficiary)
+@param whichAllianceSetting handle to alliance type
+@param value `true` to share, `false` to stop sharing
+*/
 native SetPlayerAlliance        takes player sourcePlayer, player otherPlayer, alliancetype whichAllianceSetting, boolean value returns nothing
 native SetPlayerTaxRate         takes player sourcePlayer, player otherPlayer, playerstate whichResource, integer rate returns nothing
 
