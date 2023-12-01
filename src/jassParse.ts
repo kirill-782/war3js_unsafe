@@ -37,7 +37,7 @@ function processAstNode(node: unknown) {
         if (docMode) {
             lastDocComment && (docKeys[node.name.toString()] = lastDocComment);
         } else {
-            if (!constatntMode || node.constant) {
+            if ((!constatntMode || node.constant) && !node.array) {
                 globals[node.name.toString()] = node.type;
             }
         }
