@@ -5227,7 +5227,7 @@ it MAY return the same handle depending on unknown conditions (consecutive calls
 For this reason, do **not** destroy filterfuncs created with `Condition` in Jass,
 in the best case it does nothing but in the worst case it would affect some internals.
 
-This behavior is similar to `Condition`.
+This behavior is similar to `Filter`.
 
 @pure 
 
@@ -13216,7 +13216,10 @@ Does not clear the buffer or timer after flushing. The file is overwritten. It's
 
 @note **Save Path:**
 
-Reforged: `%USERPROFILE%\Documents\Warcraft III\CustomMapData\`
+Reforged:
+
+- Windows: `%USERPROFILE%\Documents\Warcraft III\CustomMapData\`
+- MacOS: `~/Library/Application\ Support/Blizzard/Warcraft\ III/CustomMapData/`
 
 Classic: ?
 
