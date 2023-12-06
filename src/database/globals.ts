@@ -1627,6 +1627,8 @@ export default {
     BUFF_SF_ICON_NORMAL: "abilitystringfield",
     BUFF_SF_TOOLTIP_NORMAL: "abilitystringfield",
     BUFF_SF_TOOLTIP_NORMAL_EXTENDED: "abilitystringfield",
+    DESTRUCTABLE_SF_NAME: "destructablestringfield",
+    DESTRUCTABLE_SF_MODEL: "destructablestringfield",
     ITEM_IF_TINTING_COLOR: "itemintegerfield",
     ITEM_IF_TINTING_COLOR_RED: "itemintegerfield",
     ITEM_IF_TINTING_COLOR_GREEN: "itemintegerfield",

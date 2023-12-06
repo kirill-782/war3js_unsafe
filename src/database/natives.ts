@@ -80,6 +80,11 @@ export default {
         returnType: "abilitystringlevelarrayfield",
         args: [{ name: "i", type: "integer" }],
     },
+    ConvertDestructableStringField: { returnType: "destructablestringfield", args: [{ name: "i", type: "integer" }] },
+    ConvertItemIntegerField: { returnType: "itemintegerfield", args: [{ name: "i", type: "integer" }] },
+    ConvertItemRealField: { returnType: "itemrealfield", args: [{ name: "i", type: "integer" }] },
+    ConvertItemBooleanField: { returnType: "itembooleanfield", args: [{ name: "i", type: "integer" }] },
+    ConvertItemStringField: { returnType: "itemstringfield", args: [{ name: "i", type: "integer" }] },
     ConvertUnitIntegerField: { returnType: "unitintegerfield", args: [{ name: "i", type: "integer" }] },
     ConvertUnitRealField: { returnType: "unitrealfield", args: [{ name: "i", type: "integer" }] },
     ConvertUnitBooleanField: { returnType: "unitbooleanfield", args: [{ name: "i", type: "integer" }] },
@@ -88,10 +93,6 @@ export default {
     ConvertUnitWeaponRealField: { returnType: "unitweaponrealfield", args: [{ name: "i", type: "integer" }] },
     ConvertUnitWeaponBooleanField: { returnType: "unitweaponbooleanfield", args: [{ name: "i", type: "integer" }] },
     ConvertUnitWeaponStringField: { returnType: "unitweaponstringfield", args: [{ name: "i", type: "integer" }] },
-    ConvertItemIntegerField: { returnType: "itemintegerfield", args: [{ name: "i", type: "integer" }] },
-    ConvertItemRealField: { returnType: "itemrealfield", args: [{ name: "i", type: "integer" }] },
-    ConvertItemBooleanField: { returnType: "itembooleanfield", args: [{ name: "i", type: "integer" }] },
-    ConvertItemStringField: { returnType: "itemstringfield", args: [{ name: "i", type: "integer" }] },
     ConvertMoveType: { returnType: "movetype", args: [{ name: "i", type: "integer" }] },
     ConvertPathingAIType: { returnType: "pathingaitype", args: [{ name: "i", type: "integer" }] },
     ConvertCollisionType: { returnType: "collisiontype", args: [{ name: "i", type: "integer" }] },
@@ -110,7 +111,7 @@ export default {
     UnitId: { returnType: "integer", args: [{ name: "unitIdString", type: "string" }] },
     UnitId2String: { returnType: "string", args: [{ name: "unitId", type: "integer" }] },
     AbilityId: { returnType: "integer", args: [{ name: "abilityIdString", type: "string" }] },
-    AbilityId2String: { returnType: "string", args: [{ name: "abilityId", type: "integer" }] },
+    AbilityId2String: { returnType: "string", args: [{ name: "abilCode", type: "integer" }] },
     GetObjectName: { returnType: "string", args: [{ name: "objectId", type: "integer" }] },
     GetBJMaxPlayers: { returnType: "integer", args: [] },
     GetBJPlayerNeutralVictim: { returnType: "integer", args: [] },
@@ -2108,14 +2109,14 @@ export default {
         returnType: "boolean",
         args: [
             { name: "whichUnit", type: "unit" },
-            { name: "abilityId", type: "integer" },
+            { name: "abilCode", type: "integer" },
         ],
     },
     UnitRemoveAbility: {
         returnType: "boolean",
         args: [
             { name: "whichUnit", type: "unit" },
-            { name: "abilityId", type: "integer" },
+            { name: "abilCode", type: "integer" },
         ],
     },
     UnitMakeAbilityPermanent: {
@@ -2123,7 +2124,7 @@ export default {
         args: [
             { name: "whichUnit", type: "unit" },
             { name: "permanent", type: "boolean" },
-            { name: "abilityId", type: "integer" },
+            { name: "abilCode", type: "integer" },
         ],
     },
     UnitRemoveBuffs: {
@@ -5394,7 +5395,7 @@ export default {
     AddSpellEffectById: {
         returnType: "effect",
         args: [
-            { name: "abilityId", type: "integer" },
+            { name: "abilCode", type: "integer" },
             { name: "t", type: "effecttype" },
             { name: "x", type: "real" },
             { name: "y", type: "real" },
@@ -5403,7 +5404,7 @@ export default {
     AddSpellEffectByIdLoc: {
         returnType: "effect",
         args: [
-            { name: "abilityId", type: "integer" },
+            { name: "abilCode", type: "integer" },
             { name: "t", type: "effecttype" },
             { name: "where", type: "location" },
         ],
@@ -5420,7 +5421,7 @@ export default {
     AddSpellEffectTargetById: {
         returnType: "effect",
         args: [
-            { name: "abilityId", type: "integer" },
+            { name: "abilCode", type: "integer" },
             { name: "t", type: "effecttype" },
             { name: "targetWidget", type: "widget" },
             { name: "attachPoint", type: "string" },
@@ -5500,7 +5501,7 @@ export default {
     GetAbilityEffectById: {
         returnType: "string",
         args: [
-            { name: "abilityId", type: "integer" },
+            { name: "abilCode", type: "integer" },
             { name: "t", type: "effecttype" },
             { name: "index", type: "integer" },
         ],
@@ -5515,7 +5516,7 @@ export default {
     GetAbilitySoundById: {
         returnType: "string",
         args: [
-            { name: "abilityId", type: "integer" },
+            { name: "abilCode", type: "integer" },
             { name: "t", type: "soundtype" },
         ],
     },
@@ -6368,6 +6369,7 @@ export default {
         ],
     },
     GetUjAPIVersion: { returnType: "string", args: [] },
+    GetGameVersion: { returnType: "string", args: [] },
     GetLocale: { returnType: "string", args: [] },
     GetMiscDataString: {
         returnType: "string",
@@ -6945,7 +6947,7 @@ export default {
             { name: "index", type: "integer" },
         ],
     },
-    HandleListGetHandleByTypeId: {
+    HandleListGetHandleById: {
         returnType: "handle",
         args: [
             { name: "whichHandleList", type: "handlelist" },
@@ -7336,7 +7338,7 @@ export default {
             { name: "filter", type: "boolexpr" },
         ],
     },
-    HandleListEnumByTypeId: {
+    HandleListEnumById: {
         returnType: "nothing",
         args: [
             { name: "whichHandleList", type: "handlelist" },
@@ -7344,7 +7346,7 @@ export default {
             { name: "filter", type: "boolexpr" },
         ],
     },
-    HandleListEnumByTypeIdEx: {
+    HandleListEnumByIdEx: {
         returnType: "nothing",
         args: [
             { name: "whichHandleList", type: "handlelist" },
@@ -7376,7 +7378,7 @@ export default {
             { name: "c", type: "code" },
         ],
     },
-    HandleListForEachByTypeId: {
+    HandleListForEachById: {
         returnType: "nothing",
         args: [
             { name: "whichHandleList", type: "handlelist" },
@@ -7384,7 +7386,7 @@ export default {
             { name: "c", type: "code" },
         ],
     },
-    HandleListForEachByTypeIdEx: {
+    HandleListForEachByIdEx: {
         returnType: "nothing",
         args: [
             { name: "whichHandleList", type: "handlelist" },
@@ -8598,12 +8600,12 @@ export default {
     IsAbilityBaseTargetAllowed: {
         returnType: "boolean",
         args: [
-            { name: "abilityId", type: "integer" },
+            { name: "abilCode", type: "integer" },
             { name: "source", type: "widget" },
             { name: "target", type: "widget" },
         ],
     },
-    CreateAbility: { returnType: "ability", args: [{ name: "abilityId", type: "integer" }] },
+    CreateAbility: { returnType: "ability", args: [{ name: "abilCode", type: "integer" }] },
     GetAbilityOwner: { returnType: "unit", args: [{ name: "whichAbility", type: "ability" }] },
     SetAbilityOwner: {
         returnType: "nothing",
@@ -9818,6 +9820,7 @@ export default {
     },
     GetWidgetSprite: { returnType: "sprite", args: [{ name: "whichWidget", type: "widget" }] },
     GetWidgetTypeId: { returnType: "integer", args: [{ name: "whichWidget", type: "widget" }] },
+    GetWidgetName: { returnType: "string", args: [{ name: "whichWidget", type: "widget" }] },
     IsWidgetTipEnabled: { returnType: "boolean", args: [] },
     SetWidgetTipEnabled: { returnType: "nothing", args: [{ name: "enable", type: "boolean" }] },
     IsWidgetVisible: { returnType: "boolean", args: [{ name: "whichWidget", type: "widget" }] },
@@ -10094,6 +10097,21 @@ export default {
             { name: "whichTrigger", type: "trigger" },
             { name: "whichWidget", type: "widget" },
             { name: "whichWidgetEvent", type: "widgetevent" },
+        ],
+    },
+    GetDestructableStringField: {
+        returnType: "string",
+        args: [
+            { name: "whichDestructable", type: "destructable" },
+            { name: "whichField", type: "destructablestringfield" },
+        ],
+    },
+    SetDestructableStringField: {
+        returnType: "boolean",
+        args: [
+            { name: "whichDestructable", type: "destructable" },
+            { name: "whichField", type: "destructablestringfield" },
+            { name: "value", type: "string" },
         ],
     },
     GetDestructableVariation: { returnType: "integer", args: [{ name: "whichDestructable", type: "destructable" }] },
@@ -10525,18 +10543,46 @@ export default {
             { name: "maxLife", type: "real" },
         ],
     },
-    GetItemAbility: {
+    GetItemAbilityById: {
         returnType: "ability",
         args: [
             { name: "whichItem", type: "item" },
-            { name: "abilityId", type: "integer" },
+            { name: "abilCode", type: "integer" },
         ],
     },
     GetItemAbilityByIndex: {
         returnType: "ability",
         args: [
             { name: "whichItem", type: "item" },
-            { name: "abilityIndex", type: "integer" },
+            { name: "index", type: "integer" },
+        ],
+    },
+    ItemAddAbility: {
+        returnType: "boolean",
+        args: [
+            { name: "whichItem", type: "item" },
+            { name: "whichAbility", type: "ability" },
+        ],
+    },
+    ItemRemoveAbility: {
+        returnType: "boolean",
+        args: [
+            { name: "whichItem", type: "item" },
+            { name: "whichAbility", type: "ability" },
+        ],
+    },
+    ItemAddAbilityById: {
+        returnType: "boolean",
+        args: [
+            { name: "whichItem", type: "item" },
+            { name: "abilCode", type: "integer" },
+        ],
+    },
+    ItemRemoveAbilityById: {
+        returnType: "boolean",
+        args: [
+            { name: "whichItem", type: "item" },
+            { name: "abilCode", type: "integer" },
         ],
     },
     GetItemCooldown: { returnType: "real", args: [{ name: "whichItem", type: "item" }] },
@@ -11127,7 +11173,7 @@ export default {
         returnType: "boolean",
         args: [
             { name: "whichUnit", type: "unit" },
-            { name: "abilityId", type: "integer" },
+            { name: "abilCode", type: "integer" },
             { name: "checkForDuplicates", type: "boolean" },
         ],
     },
@@ -11135,7 +11181,7 @@ export default {
         returnType: "boolean",
         args: [
             { name: "whichUnit", type: "unit" },
-            { name: "abilityId", type: "integer" },
+            { name: "abilCode", type: "integer" },
             { name: "removeDuplicates", type: "boolean" },
         ],
     },
@@ -11143,14 +11189,14 @@ export default {
         returnType: "boolean",
         args: [
             { name: "whichUnit", type: "unit" },
-            { name: "abilityId", type: "integer" },
+            { name: "abilCode", type: "integer" },
         ],
     },
     ShowUnitAbility: {
         returnType: "nothing",
         args: [
             { name: "whichUnit", type: "unit" },
-            { name: "abilityId", type: "integer" },
+            { name: "abilCode", type: "integer" },
             { name: "show", type: "boolean" },
         ],
     },
@@ -11158,7 +11204,7 @@ export default {
         returnType: "nothing",
         args: [
             { name: "whichUnit", type: "unit" },
-            { name: "abilityId", type: "integer" },
+            { name: "abilCode", type: "integer" },
             { name: "show", type: "boolean" },
             { name: "checkDuplicates", type: "boolean" },
         ],
@@ -11167,7 +11213,7 @@ export default {
         returnType: "nothing",
         args: [
             { name: "whichUnit", type: "unit" },
-            { name: "abilityId", type: "integer" },
+            { name: "abilCode", type: "integer" },
             { name: "hide", type: "boolean" },
             { name: "disable", type: "boolean" },
         ],
@@ -11176,7 +11222,7 @@ export default {
         returnType: "nothing",
         args: [
             { name: "whichUnit", type: "unit" },
-            { name: "abilityId", type: "integer" },
+            { name: "abilCode", type: "integer" },
             { name: "hide", type: "boolean" },
             { name: "disable", type: "boolean" },
             { name: "checkDuplicates", type: "boolean" },
@@ -11186,7 +11232,7 @@ export default {
         returnType: "nothing",
         args: [
             { name: "whichUnit", type: "unit" },
-            { name: "abilityId", type: "integer" },
+            { name: "abilCode", type: "integer" },
             { name: "show", type: "boolean" },
             { name: "enable", type: "boolean" },
         ],
@@ -11195,7 +11241,7 @@ export default {
         returnType: "nothing",
         args: [
             { name: "whichUnit", type: "unit" },
-            { name: "abilityId", type: "integer" },
+            { name: "abilCode", type: "integer" },
             { name: "show", type: "boolean" },
             { name: "enable", type: "boolean" },
             { name: "checkDuplicates", type: "boolean" },
@@ -11660,8 +11706,8 @@ export default {
             { name: "manaRegen", type: "real" },
         ],
     },
-    GetUnitPrimaryStat: { returnType: "heroattribute", args: [{ name: "whichUnit", type: "unit" }] },
-    SetUnitPrimaryStat: {
+    GetHeroPrimaryAttribute: { returnType: "heroattribute", args: [{ name: "whichUnit", type: "unit" }] },
+    SetHeroPrimaryAttribute: {
         returnType: "nothing",
         args: [
             { name: "whichUnit", type: "unit" },
@@ -12486,6 +12532,7 @@ export default {
             { name: "whichUnit", type: "unit" },
         ],
     },
+    GetProjectileSourceAbility: { returnType: "ability", args: [{ name: "whichProjectile", type: "projectile" }] },
     GetProjectileTargetX: { returnType: "real", args: [{ name: "whichProjectile", type: "projectile" }] },
     SetProjectileTargetX: {
         returnType: "nothing",
@@ -13676,7 +13723,6 @@ export default {
     GetTriggerPlayerMouseScreenY: { returnType: "real", args: [] },
     GetEventDamageFlags: { returnType: "integer", args: [] },
     SetEventDamageFlags: { returnType: "boolean", args: [{ name: "flags", type: "integer" }] },
-    GetEventDamageAbilityId: { returnType: "integer", args: [] },
     GetEventDamageTarget: { returnType: "unit", args: [] },
     GetEventAttackType: { returnType: "attacktype", args: [] },
     SetEventAttackType: { returnType: "boolean", args: [{ name: "attackType", type: "attacktype" }] },
@@ -14846,7 +14892,7 @@ export default {
     CreateCommandButtonEffect: {
         returnType: "commandbuttoneffect",
         args: [
-            { name: "abilityId", type: "integer" },
+            { name: "abilCode", type: "integer" },
             { name: "order", type: "string" },
         ],
     },
@@ -14856,7 +14902,7 @@ export default {
     },
     CreateLearnCommandButtonEffect: {
         returnType: "commandbuttoneffect",
-        args: [{ name: "abilityId", type: "integer" }],
+        args: [{ name: "abilCode", type: "integer" }],
     },
     DestroyCommandButtonEffect: { returnType: "nothing", args: [{ name: "whichEffect", type: "commandbuttoneffect" }] },
     BlzBitOr: {
@@ -15177,6 +15223,13 @@ export default {
             { name: "abilCode", type: "integer" },
         ],
     },
+    BlzItemRemoveAbility: {
+        returnType: "boolean",
+        args: [
+            { name: "whichItem", type: "item" },
+            { name: "abilCode", type: "integer" },
+        ],
+    },
     BlzGetItemBooleanField: {
         returnType: "boolean",
         args: [
@@ -15235,13 +15288,6 @@ export default {
             { name: "whichItem", type: "item" },
             { name: "whichField", type: "itemstringfield" },
             { name: "value", type: "string" },
-        ],
-    },
-    BlzItemRemoveAbility: {
-        returnType: "boolean",
-        args: [
-            { name: "whichItem", type: "item" },
-            { name: "abilCode", type: "integer" },
         ],
     },
     BlzGetUnitBooleanField: {
