@@ -6450,6 +6450,10 @@ export default {
     },
     IsStatbarEnabled: { returnType: "boolean", args: [] },
     EnableStatbar: { returnType: "nothing", args: [{ name: "enable", type: "boolean" }] },
+    GetMapFogZ: { returnType: "real", args: [] },
+    SetMapFogZ: { returnType: "nothing", args: [{ name: "z", type: "real" }] },
+    GetMapFogColour: { returnType: "integer", args: [] },
+    SetMapFogColour: { returnType: "nothing", args: [{ name: "colour", type: "integer" }] },
     TriggerCountEvents: { returnType: "integer", args: [{ name: "whichTrigger", type: "trigger" }] },
     TriggerCountConditions: { returnType: "integer", args: [{ name: "whichTrigger", type: "trigger" }] },
     TriggerCountActions: { returnType: "integer", args: [{ name: "whichTrigger", type: "trigger" }] },
@@ -8666,6 +8670,7 @@ export default {
         ],
     },
     IsAbilityUsable: { returnType: "boolean", args: [{ name: "whichAbility", type: "ability" }] },
+    IsAbilityAutocastEnabled: { returnType: "boolean", args: [{ name: "whichAbility", type: "ability" }] },
     GetAbilityCastTime: { returnType: "real", args: [{ name: "whichAbility", type: "ability" }] },
     SetAbilityCastTime: {
         returnType: "nothing",
@@ -11640,6 +11645,7 @@ export default {
         ],
     },
     GetUnitTimeScale: { returnType: "real", args: [{ name: "whichUnit", type: "unit" }] },
+    GetUnitTotalMoveSpeed: { returnType: "real", args: [{ name: "whichUnit", type: "unit" }] },
     GetUnitBaseMoveSpeed: { returnType: "real", args: [{ name: "whichUnit", type: "unit" }] },
     SetUnitBaseMoveSpeed: {
         returnType: "nothing",
@@ -11648,7 +11654,6 @@ export default {
             { name: "baseMoveSpeed", type: "real" },
         ],
     },
-    GetUnitTotalMoveSpeed: { returnType: "real", args: [{ name: "whichUnit", type: "unit" }] },
     GetUnitBonusMoveSpeedPercent: { returnType: "real", args: [{ name: "whichUnit", type: "unit" }] },
     SetUnitBonusMoveSpeedPercent: {
         returnType: "nothing",
