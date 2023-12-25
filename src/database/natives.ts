@@ -6360,7 +6360,8 @@ export default {
             { name: "lineNumber", type: "integer" },
         ],
     },
-    TextFileReadAll: { returnType: "string", args: [{ name: "whichTextFile", type: "textfilehandle" }] },
+    TextFileReadAllLines: { returnType: "string", args: [{ name: "whichTextFile", type: "textfilehandle" }] },
+    TextFileRead: { returnType: "string", args: [{ name: "whichTextFile", type: "textfilehandle" }] },
     TextFileWriteLine: {
         returnType: "nothing",
         args: [
@@ -11663,6 +11664,29 @@ export default {
         ],
     },
     GetUnitVertexColour: { returnType: "integer", args: [{ name: "whichUnit", type: "unit" }] },
+    UnitAddItemToSlot: {
+        returnType: "boolean",
+        args: [
+            { name: "whichUnit", type: "unit" },
+            { name: "whichItem", type: "item" },
+            { name: "itemSlot", type: "integer" },
+        ],
+    },
+    ReviveUnit: {
+        returnType: "boolean",
+        args: [
+            { name: "whichUnit", type: "unit" },
+            { name: "x", type: "real" },
+            { name: "y", type: "real" },
+        ],
+    },
+    ReviveUnitLoc: {
+        returnType: "boolean",
+        args: [
+            { name: "whichUnit", type: "unit" },
+            { name: "loc", type: "location" },
+        ],
+    },
     GetUnitCurrentLife: { returnType: "real", args: [{ name: "whichUnit", type: "unit" }] },
     SetUnitCurrentLife: {
         returnType: "nothing",
