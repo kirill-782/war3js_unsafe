@@ -106,6 +106,7 @@ export default {
     ConvertTimeType: { returnType: "timetype", args: [{ name: "i", type: "integer" }] },
     ConvertVariableType: { returnType: "variabletype", args: [{ name: "i", type: "integer" }] },
     ConvertRenderStage: { returnType: "renderstage", args: [{ name: "i", type: "integer" }] },
+    ConvertConnectionType: { returnType: "connectiontype", args: [{ name: "i", type: "integer" }] },
     OrderId: { returnType: "integer", args: [{ name: "orderIdString", type: "string" }] },
     OrderId2String: { returnType: "string", args: [{ name: "orderId", type: "integer" }] },
     UnitId: { returnType: "integer", args: [{ name: "unitIdString", type: "string" }] },
@@ -6840,6 +6841,7 @@ export default {
     },
     ForceCountPlayers: { returnType: "integer", args: [{ name: "whichForce", type: "force" }] },
     GetHostPlayer: { returnType: "player", args: [] },
+    GetConnectionType: { returnType: "connectiontype", args: [] },
     IsReplay: { returnType: "boolean", args: [] },
     GroupGetCount: { returnType: "integer", args: [{ name: "whichGroup", type: "group" }] },
     GroupContainsUnit: {
