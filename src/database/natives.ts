@@ -106,6 +106,8 @@ export default {
     ConvertTimeType: { returnType: "timetype", args: [{ name: "i", type: "integer" }] },
     ConvertVariableType: { returnType: "variabletype", args: [{ name: "i", type: "integer" }] },
     ConvertRenderStage: { returnType: "renderstage", args: [{ name: "i", type: "integer" }] },
+    ConvertLayerStyleFlag: { returnType: "layerstyleflag", args: [{ name: "i", type: "integer" }] },
+    ConvertControlStyleFlag: { returnType: "controlstyleflag", args: [{ name: "i", type: "integer" }] },
     ConvertConnectionType: { returnType: "connectiontype", args: [{ name: "i", type: "integer" }] },
     OrderId: { returnType: "integer", args: [{ name: "orderIdString", type: "string" }] },
     OrderId2String: { returnType: "string", args: [{ name: "orderId", type: "integer" }] },
@@ -7941,12 +7943,53 @@ export default {
             { name: "roll", type: "real" },
         ],
     },
+    GetDoodadPlayerColour: { returnType: "playercolor", args: [{ name: "whichDoodad", type: "doodad" }] },
+    SetDoodadPlayerColour: {
+        returnType: "nothing",
+        args: [
+            { name: "whichDoodad", type: "doodad" },
+            { name: "color", type: "playercolor" },
+        ],
+    },
     GetDoodadModel: { returnType: "string", args: [{ name: "whichDoodad", type: "doodad" }] },
     SetDoodadModel: {
         returnType: "nothing",
         args: [
             { name: "whichDoodad", type: "doodad" },
-            { name: "whichModel", type: "string" },
+            { name: "modelFile", type: "string" },
+        ],
+    },
+    SetDoodadModelEx: {
+        returnType: "nothing",
+        args: [
+            { name: "whichDoodad", type: "doodad" },
+            { name: "modelFile", type: "string" },
+            { name: "playerId", type: "integer" },
+        ],
+    },
+    SetDoodadMaterialTexture: {
+        returnType: "nothing",
+        args: [
+            { name: "whichDoodad", type: "doodad" },
+            { name: "textureName", type: "string" },
+            { name: "materialId", type: "integer" },
+            { name: "textureIndex", type: "integer" },
+        ],
+    },
+    SetDoodadTexture: {
+        returnType: "nothing",
+        args: [
+            { name: "whichDoodad", type: "doodad" },
+            { name: "textureName", type: "string" },
+            { name: "textureIndex", type: "integer" },
+        ],
+    },
+    SetDoodadReplaceableTexture: {
+        returnType: "nothing",
+        args: [
+            { name: "whichDoodad", type: "doodad" },
+            { name: "textureName", type: "string" },
+            { name: "textureIndex", type: "integer" },
         ],
     },
     IsDoodadVisible: { returnType: "boolean", args: [{ name: "whichDoodad", type: "doodad" }] },
@@ -8881,6 +8924,55 @@ export default {
     GetTriggerBuffSourceAbility: { returnType: "ability", args: [] },
     GetTriggerBuffSourceUnit: { returnType: "unit", args: [] },
     GetTriggerBuffTarget: { returnType: "unit", args: [] },
+    GetWar3ImagePlayerColour: { returnType: "playercolor", args: [{ name: "whichWar3Image", type: "war3image" }] },
+    SetWar3ImagePlayerColour: {
+        returnType: "nothing",
+        args: [
+            { name: "whichWar3Image", type: "war3image" },
+            { name: "color", type: "playercolor" },
+        ],
+    },
+    SetWar3ImageMaterialTexture: {
+        returnType: "nothing",
+        args: [
+            { name: "whichWar3Image", type: "war3image" },
+            { name: "textureName", type: "string" },
+            { name: "materialId", type: "integer" },
+            { name: "textureIndex", type: "integer" },
+        ],
+    },
+    SetWar3ImageTexture: {
+        returnType: "nothing",
+        args: [
+            { name: "whichWar3Image", type: "war3image" },
+            { name: "textureName", type: "string" },
+            { name: "textureIndex", type: "integer" },
+        ],
+    },
+    SetWar3ImageReplaceableTexture: {
+        returnType: "nothing",
+        args: [
+            { name: "whichWar3Image", type: "war3image" },
+            { name: "textureName", type: "string" },
+            { name: "textureIndex", type: "integer" },
+        ],
+    },
+    GetWar3ImageModel: { returnType: "string", args: [{ name: "whichWar3Image", type: "war3image" }] },
+    SetWar3ImageModel: {
+        returnType: "nothing",
+        args: [
+            { name: "whichWar3Image", type: "war3image" },
+            { name: "modelName", type: "string" },
+        ],
+    },
+    SetWar3ImageModelEx: {
+        returnType: "nothing",
+        args: [
+            { name: "whichWar3Image", type: "war3image" },
+            { name: "modelName", type: "string" },
+            { name: "playerColour", type: "integer" },
+        ],
+    },
     CreateSprite: { returnType: "sprite", args: [{ name: "isUber", type: "boolean" }] },
     AttachSpriteToTarget: {
         returnType: "sprite",
@@ -8984,6 +9076,7 @@ export default {
             { name: "timescale", type: "real" },
         ],
     },
+    GetSpritePlayerColour: { returnType: "playercolor", args: [{ name: "whichSprite", type: "sprite" }] },
     SetSpritePlayerColour: {
         returnType: "nothing",
         args: [
@@ -9202,7 +9295,7 @@ export default {
     },
     GetSpecialEffectSprite: { returnType: "sprite", args: [{ name: "whichEffect", type: "effect" }] },
     IsSpecialEffectVisible: { returnType: "boolean", args: [{ name: "whichEffect", type: "effect" }] },
-    SetSpecialEffectVisibility: {
+    SetSpecialEffectVisible: {
         returnType: "nothing",
         args: [
             { name: "whichEffect", type: "effect" },
@@ -9284,6 +9377,7 @@ export default {
             { name: "timescale", type: "real" },
         ],
     },
+    GetSpecialEffectPlayerColour: { returnType: "playercolor", args: [{ name: "whichEffect", type: "effect" }] },
     SetSpecialEffectPlayerColour: {
         returnType: "nothing",
         args: [
@@ -9515,7 +9609,7 @@ export default {
     },
     GetTrackableSprite: { returnType: "sprite", args: [{ name: "whichTrackable", type: "trackable" }] },
     IsTrackableVisible: { returnType: "boolean", args: [{ name: "whichTrackable", type: "trackable" }] },
-    SetTrackableVisibility: {
+    SetTrackableVisible: {
         returnType: "nothing",
         args: [
             { name: "whichTrackable", type: "trackable" },
@@ -9597,6 +9691,7 @@ export default {
             { name: "timescale", type: "real" },
         ],
     },
+    GetTrackablePlayerColour: { returnType: "playercolor", args: [{ name: "whichTrackable", type: "trackable" }] },
     SetTrackablePlayerColour: {
         returnType: "nothing",
         args: [
@@ -9826,6 +9921,7 @@ export default {
             { name: "handlerFunc", type: "code" },
         ],
     },
+    GetWidgetUnderCursor: { returnType: "widget", args: [] },
     GetWidgetSprite: { returnType: "sprite", args: [{ name: "whichWidget", type: "widget" }] },
     GetWidgetTypeId: { returnType: "integer", args: [{ name: "whichWidget", type: "widget" }] },
     GetWidgetName: { returnType: "string", args: [{ name: "whichWidget", type: "widget" }] },
@@ -9887,6 +9983,14 @@ export default {
     },
     GetWidgetScreenX: { returnType: "real", args: [{ name: "whichWidget", type: "widget" }] },
     GetWidgetScreenY: { returnType: "real", args: [{ name: "whichWidget", type: "widget" }] },
+    GetWidgetPlayerColour: { returnType: "playercolor", args: [{ name: "whichWidget", type: "widget" }] },
+    SetWidgetPlayerColour: {
+        returnType: "nothing",
+        args: [
+            { name: "whichWidget", type: "widget" },
+            { name: "color", type: "playercolor" },
+        ],
+    },
     GetWidgetVertexColour: { returnType: "integer", args: [{ name: "whichWidget", type: "widget" }] },
     SetWidgetVertexColour: {
         returnType: "nothing",
@@ -10107,6 +10211,7 @@ export default {
             { name: "whichWidgetEvent", type: "widgetevent" },
         ],
     },
+    GetDestructableUnderCursor: { returnType: "destructable", args: [] },
     GetDestructableStringField: {
         returnType: "string",
         args: [
@@ -10195,6 +10300,17 @@ export default {
     },
     GetDestructableScreenX: { returnType: "real", args: [{ name: "whichDestructable", type: "destructable" }] },
     GetDestructableScreenY: { returnType: "real", args: [{ name: "whichDestructable", type: "destructable" }] },
+    GetDestructablePlayerColour: {
+        returnType: "playercolor",
+        args: [{ name: "whichDestructable", type: "destructable" }],
+    },
+    SetDestructablePlayerColour: {
+        returnType: "nothing",
+        args: [
+            { name: "whichDestructable", type: "destructable" },
+            { name: "color", type: "playercolor" },
+        ],
+    },
     GetDestructableVertexColour: { returnType: "integer", args: [{ name: "whichDestructable", type: "destructable" }] },
     SetDestructableVertexColour: {
         returnType: "nothing",
@@ -10532,6 +10648,8 @@ export default {
             { name: "value", type: "string" },
         ],
     },
+    GetItemUnderCursor: { returnType: "item", args: [] },
+    IsItemDroppable: { returnType: "boolean", args: [{ name: "whichItem", type: "item" }] },
     GetItemSprite: { returnType: "sprite", args: [{ name: "whichItem", type: "item" }] },
     GetItemScreenX: { returnType: "real", args: [{ name: "whichItem", type: "item" }] },
     GetItemScreenY: { returnType: "real", args: [{ name: "whichItem", type: "item" }] },
@@ -10615,6 +10733,14 @@ export default {
         args: [
             { name: "whichItem", type: "item" },
             { name: "cooldown", type: "real" },
+        ],
+    },
+    GetItemPlayerColour: { returnType: "playercolor", args: [{ name: "whichItem", type: "item" }] },
+    SetItemPlayerColour: {
+        returnType: "nothing",
+        args: [
+            { name: "whichItem", type: "item" },
+            { name: "color", type: "playercolor" },
         ],
     },
     GetItemVertexColour: { returnType: "integer", args: [{ name: "whichItem", type: "item" }] },
@@ -11095,6 +11221,7 @@ export default {
             { name: "value", type: "string" },
         ],
     },
+    GetUnitUnderCursor: { returnType: "unit", args: [] },
     GetUnitSprite: { returnType: "sprite", args: [{ name: "whichUnit", type: "unit" }] },
     GetUnitScreenX: { returnType: "real", args: [{ name: "whichUnit", type: "unit" }] },
     GetUnitScreenY: { returnType: "real", args: [{ name: "whichUnit", type: "unit" }] },
@@ -11105,7 +11232,6 @@ export default {
             { name: "newId", type: "integer" },
         ],
     },
-    GetUnitUnderCursor: { returnType: "unit", args: [] },
     GetUnitSelectedCountByPlayer: { returnType: "integer", args: [{ name: "whichPlayer", type: "player" }] },
     GetUnitSelected: { returnType: "unit", args: [{ name: "whichPlayer", type: "player" }] },
     GetUnitInSelectionByIndex: {
@@ -11313,6 +11439,15 @@ export default {
         args: [
             { name: "whichUnit", type: "unit" },
             { name: "duration", type: "real" },
+        ],
+    },
+    IsUnitGhosted: { returnType: "boolean", args: [{ name: "whichUnit", type: "unit" }] },
+    SetUnitGhosted: {
+        returnType: "nothing",
+        args: [
+            { name: "whichUnit", type: "unit" },
+            { name: "state", type: "boolean" },
+            { name: "transitionTime", type: "real" },
         ],
     },
     IsUnitSelectable: { returnType: "boolean", args: [{ name: "whichUnit", type: "unit" }] },
@@ -11663,6 +11798,14 @@ export default {
         args: [
             { name: "whichUnit", type: "unit" },
             { name: "bonusMoveSpeedPercent", type: "real" },
+        ],
+    },
+    GetUnitPlayerColour: { returnType: "playercolor", args: [{ name: "whichUnit", type: "unit" }] },
+    SetUnitPlayerColour: {
+        returnType: "nothing",
+        args: [
+            { name: "whichUnit", type: "unit" },
+            { name: "color", type: "playercolor" },
         ],
     },
     GetUnitVertexColour: { returnType: "integer", args: [{ name: "whichUnit", type: "unit" }] },
@@ -12333,6 +12476,7 @@ export default {
             { name: "timescale", type: "real" },
         ],
     },
+    GetProjectilePlayerColour: { returnType: "playercolor", args: [{ name: "whichProjectile", type: "projectile" }] },
     SetProjectilePlayerColour: {
         returnType: "nothing",
         args: [
@@ -12993,20 +13137,34 @@ export default {
             { name: "enabled", type: "boolean" },
         ],
     },
-    IsFrameDraggable: { returnType: "boolean", args: [{ name: "whichFrame", type: "framehandle" }] },
-    SetFrameDraggable: {
-        returnType: "nothing",
+    IsFrameLayerFlag: {
+        returnType: "boolean",
         args: [
             { name: "whichFrame", type: "framehandle" },
-            { name: "enabled", type: "boolean" },
+            { name: "whichLayerStyle", type: "layerstyleflag" },
         ],
     },
-    GetFrameTrackState: { returnType: "integer", args: [{ name: "whichFrame", type: "framehandle" }] },
-    SetFrameTrackState: {
+    SetFrameLayerFlag: {
         returnType: "nothing",
         args: [
             { name: "whichFrame", type: "framehandle" },
-            { name: "trackState", type: "integer" },
+            { name: "whichLayerStyle", type: "layerstyleflag" },
+            { name: "isSet", type: "boolean" },
+        ],
+    },
+    IsFrameControlFlag: {
+        returnType: "boolean",
+        args: [
+            { name: "whichFrame", type: "framehandle" },
+            { name: "whichControlStyle", type: "controlstyleflag" },
+        ],
+    },
+    SetFrameControlFlag: {
+        returnType: "nothing",
+        args: [
+            { name: "whichFrame", type: "framehandle" },
+            { name: "whichControlStyle", type: "controlstyleflag" },
+            { name: "isSet", type: "boolean" },
         ],
     },
     GetFrameColourEx: {
@@ -13123,6 +13281,13 @@ export default {
             { name: "whichFrame", type: "framehandle" },
             { name: "value", type: "real" },
             { name: "isFireEvent", type: "boolean" },
+        ],
+    },
+    GetFrameMinMaxValues: {
+        returnType: "real",
+        args: [
+            { name: "whichFrame", type: "framehandle" },
+            { name: "valueId", type: "integer" },
         ],
     },
     SetFrameMinMaxValues: {
@@ -13451,6 +13616,7 @@ export default {
             { name: "timescale", type: "real" },
         ],
     },
+    GetFrameSpritePlayerColour: { returnType: "playercolor", args: [{ name: "whichFrame", type: "framehandle" }] },
     SetFrameSpritePlayerColour: {
         returnType: "nothing",
         args: [

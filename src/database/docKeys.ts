@@ -235,6 +235,38 @@ export default {
     FOG_OF_WAR_MASKED: "\nSee `fogstate` for an explanation.\n\n",
     FOG_OF_WAR_FOGGED: "\nSee `fogstate` for an explanation.\n\n",
     FOG_OF_WAR_VISIBLE: "\nSee `fogstate` for an explanation.\n\n",
+    UNIT_WEAPON_IF_ATTACK_DAMAGE_NUMBER_OF_DICE:
+        "\n@note Has non-field native, see `BlzGetUnitDiceNumber` and `BlzSetUnitDiceNumber`.\n",
+    UNIT_WEAPON_IF_ATTACK_DAMAGE_BASE:
+        "\n@note Has non-field native, see `BlzGetUnitBaseDamage` and `BlzSetUnitBaseDamage`\n",
+    UNIT_WEAPON_IF_ATTACK_DAMAGE_SIDES_PER_DIE:
+        "\n@note Has non-field native, see `BlzGetUnitDiceSides` and `BlzSetUnitDiceSides`\n",
+    UNIT_WEAPON_IF_ATTACK_MAXIMUM_NUMBER_OF_TARGETS: "\n@note GET works, SET is ignored\n",
+    UNIT_WEAPON_IF_ATTACK_ATTACK_TYPE: "\n@note Works as intended\n",
+    UNIT_WEAPON_IF_ATTACK_WEAPON_SOUND: "\n@note Works as intended\n",
+    UNIT_WEAPON_IF_ATTACK_AREA_OF_EFFECT_TARGETS: "\n@note Doesn't work/crashes (version?)\n",
+    UNIT_WEAPON_IF_ATTACK_TARGETS_ALLOWED: "\n@note Works as intended\n",
+    UNIT_WEAPON_RF_ATTACK_BACKSWING_POINT: "\n@note Seems to work though I can't tell the difference\n",
+    UNIT_WEAPON_RF_ATTACK_DAMAGE_POINT: "\n@note Works as intended\n",
+    UNIT_WEAPON_RF_ATTACK_BASE_COOLDOWN:
+        "\n@note Has non-field native (which? because `BlzGetUnitAttackCooldown` and `BlzSetUnitAttackCooldown` modify the current cooldown).\n",
+    UNIT_WEAPON_RF_ATTACK_DAMAGE_LOSS_FACTOR: "\n@note GET works, SET is ignored.\n",
+    UNIT_WEAPON_RF_ATTACK_DAMAGE_FACTOR_MEDIUM: "\n@note Sets small and attack cooldown to same value.\n",
+    UNIT_WEAPON_RF_ATTACK_DAMAGE_FACTOR_SMALL: "\n@note Sets attack cooldown to same value.\n",
+    UNIT_WEAPON_RF_ATTACK_DAMAGE_SPILL_DISTANCE: "\n@note GET works, SET is ignored.\n",
+    UNIT_WEAPON_RF_ATTACK_DAMAGE_SPILL_RADIUS: "\n@note GET works, SET is ignored.\n",
+    UNIT_WEAPON_RF_ATTACK_PROJECTILE_SPEED: "\n@note Works as intended\n",
+    UNIT_WEAPON_RF_ATTACK_PROJECTILE_ARC: "\n@note Works as intended\n",
+    UNIT_WEAPON_RF_ATTACK_AREA_OF_EFFECT_FULL_DAMAGE: "\n@note Sets medium, small and attack cooldown to same value.\n",
+    UNIT_WEAPON_RF_ATTACK_AREA_OF_EFFECT_MEDIUM_DAMAGE: "\n@note Sets small and attack cooldown to same value.\n",
+    UNIT_WEAPON_RF_ATTACK_AREA_OF_EFFECT_SMALL_DAMAGE: "\n@note Sets attack cooldown to same value.\n",
+    UNIT_WEAPON_RF_ATTACK_RANGE:
+        "\n@note Index is +1 (offset by +1?), adds amount to value instead of setting the value\n",
+    UNIT_WEAPON_BF_ATTACK_SHOW_UI:
+        "\n@note Can set to false, not to true. Will remove attack/stop(/hold?) buttons, not the actual attack tooltip.\n",
+    UNIT_WEAPON_BF_ATTACKS_ENABLED: "\n@note Works as intended\n",
+    UNIT_WEAPON_BF_ATTACK_PROJECTILE_HOMING_ENABLED: "\n@note Ignored (always returns true?)\n",
+    UNIT_WEAPON_SF_ATTACK_PROJECTILE_ART: "\n@note Works as intended\n",
     Deg2Rad:
         "\nConverts degrees into radians. This is similar to multiplying the degree value by pi / 2.\n\n@param degrees The degree input.\n\n\n@note This is slightly more accurate than multiplying the degree value\nby `bj_PI / 2`. `bj_PI` has a value of 3.14159. This native uses a pi value closer to 3.141592496.\n\n@pure \n\n",
     Rad2Deg:
@@ -1217,9 +1249,9 @@ export default {
     AddSpellEffectTargetById:
         "\nAttaches the special effect to the attachment point attachPointName of the\ntarget widget, using the model file from the Object Editor field of type t from\nthe ability, unit or buff (works with all these types, though the name states\nit's ability-only function) with raw code abilityId. If this field has more than\none effect inside, it will only create the first effect stated in the field,\nignoring all others.\n\n\n",
     AddLightning:
-        "\nCreates a lightning between two points.\n\n@param codeName 4 letter id from the LightningData.slk.\n@param checkVisibility If this is true, the lightning won't be created and the function will return null unless the local player\ncurrently has as visibility of at least one of the endpoints of the to be created lightning.\n@param x1 x-coordinate (World) of source point.\n@param y1 y-coordinate (World) of source point.\n@param x2 x-coordinate (World) of target point.\n@param y2 y-coordinate (World) of target point.\n\n\n@note The source z value of the new lightning is set to match the current terrain height of the source point, analogously, the target z value\nmatches the current terrain height of the target point. Later changes to the terrain height do not affect herewith created existing lightnings anymore.\n\n",
+        "\nCreates a lightning between two points.\n\n@param codeName 4 letter id from the LightningData.slk.\n@param checkVisibility If this is true, the lightning won't be created and the function will return null unless the local player\ncurrently has as visibility of at least one of the endpoints of the to be created lightning.\n@param x1 x-coordinate (World) of source point.\n@param y1 y-coordinate (World) of source point.\n@param x2 x-coordinate (World) of target point.\n@param y2 y-coordinate (World) of target point.\n\n\n@note The source z value of the new lightning is set to match the current terrain height of the source point, analogously, the target z value\nmatches the current terrain height of the target point. Later changes to the terrain height do not affect herewith created existing lightnings anymore.\n\n@note For lightning types see:\n[screenshot](https://www.hiveworkshop.com/attachments/lightninglist-png.116282/)\nand [test map](https://www.hiveworkshop.com/threads/lightning-test-v1-0.204927/).\n",
     AddLightningEx:
-        "\nCreates a lightning between two points.\n\n@param codeName 4 letter id from the LightningData.slk.\n@param checkVisibility If this is true, the lightning won't be created and the function will return null unless the local player\ncurrently has visibility of at least one of the endpoints of the to be created lightning.\n@param x1 x-coordinate (World) of source point.\n@param y1 y-coordinate (World) of source point.\n@param z1 z-coordinate (World) of source point.\n@param x2 x-coordinate (World) of target point.\n@param y2 y-coordinate (World) of target point.\n@param z2 z-coordinate (World) of target point.\n\n\n",
+        "\nCreates a lightning between two points.\n\n@param codeName 4 letter id from the LightningData.slk.\n@param checkVisibility If this is true, the lightning won't be created and the function will return null unless the local player\ncurrently has visibility of at least one of the endpoints of the to be created lightning.\n@param x1 x-coordinate (World) of source point.\n@param y1 y-coordinate (World) of source point.\n@param z1 z-coordinate (World) of source point.\n@param x2 x-coordinate (World) of target point.\n@param y2 y-coordinate (World) of target point.\n@param z2 z-coordinate (World) of target point.\n\n@note For lightning types see:\n[screenshot](https://www.hiveworkshop.com/attachments/lightninglist-png.116282/)\nand [test map](https://www.hiveworkshop.com/threads/lightning-test-v1-0.204927/).\n",
     DestroyLightning: "\nDestroys a lightning.\n\n@param whichBolt The lightning to be destroyed.\n\n\n",
     MoveLightning:
         "\nMoves a lightning.\n\n@param whichBolt The lightning to be moved.\n@param checkVisibility If this is true, the lightning won't be moved (at all) unless the local player\ncurrently has visibility of at least one of the new endpoints.\n@param x1 x-coordinate (World) of the new source point.\n@param y1 y-coordinate (World) of the new source point.\n@param x2 x-coordinate (World) of the new target point.\n@param y2 y-coordinate (World) of the new target point.\n\n\n",
@@ -1446,7 +1478,7 @@ export default {
     BlzGetAbilityCooldown:
         "\nRequires an ability ID and the ability level and returns the ability’s (at the level passed) cooldown. *Since 1.31: use Level 0 to read cooldown from Level 1.*\n\n\n@patch 1.29\n\n",
     BlzSetUnitAbilityCooldown:
-        "\nChanges(set) an ability’s cooldown at runtime for a specific unit.\n\n@param whichUnit Target unit (handle).\n@param abilId Rawcode of ability.\n@param level Ability level.\n@param cooldown New cooldown.\n\n\n@note Cooldown is a real, which means that it supports negative and positive numbers with decimals, in this case setting it to negative allows you to reduce an ability’s cooldown.\n@note It does not reduce the cooldown if the ability is currently on CD, it will have its new cooldown after the CD is over though.\n\n@patch 1.29\n\n",
+        "\nChanges(set) an ability’s cooldown at runtime for a specific unit.\n\n@param whichUnit Target unit (handle).\n@param abilId Rawcode of ability.\n@param level Ability level.\n@param cooldown New cooldown.\n\n\n@note Cooldown is a real, which means that it supports negative and positive numbers with decimals, in this case setting it to negative allows you to reduce an ability’s cooldown.\n@note It does not reduce the cooldown if the ability is currently on CD, it will have its new cooldown after the CD is over though.\n\n@bug v1.29.2: Crashes when loading a saved game after this function was used on a unit.\nProbably fixed as of v1.31.1 like with `BlzSetUnitAbilityManaCost`.\n\n@patch 1.29\n\n",
     BlzGetUnitAbilityCooldown:
         "\nGet a specific unit’s specific ability cooldown from a specific level.\n\n\n@note It does not return the remaining cooldown when you use an ability but the max cooldown of that ability of that unit at that level.\n\n@patch 1.29\n\n",
     BlzGetUnitAbilityCooldownRemaining:
@@ -1457,7 +1489,7 @@ export default {
     BlzGetUnitAbilityManaCost:
         "\nGet a specific unit’s specific ability’s mana cost at a specific level.\n\n\n@patch 1.29\n\n",
     BlzSetUnitAbilityManaCost:
-        "\nSet manacost of an ability (at ability level) for a unit.\nWorks as expected, so you can dynamically calculate the mana cost.\n\n\n@patch 1.29\n\n",
+        "\nSet manacost of an ability (at ability level) for a unit.\nWorks as expected, so you can dynamically calculate the mana cost.\n\n@bug v1.29.2: Crashes when loading a saved game after this function was used on a unit. Confirmed as fixed as of v1.31.1.\nCrash likely related to `BlzSetUnitAbilityCooldown`.\n\n@patch 1.29\n\n",
     BlzGetLocalUnitZ:
         "\nReturn unit's (altitude) Z map coordinate ([Cartesian System](https://en.wikipedia.org/wiki/Cartesian_coordinate_system)). Unit may be alive or dead.\n\nReturns 0.0 if unit was removed or is null.\n\nRetrieving Z is desync prone, this version might cause desyncs, but (unconfirmed) should be faster than `BlzGetUnitZ`, hence why both exist. In case that you are doing a single player map (campaign), you might decide to use this one instead of `BlzGetUnitZ`.\n\n\n@note Terrain height is not synced between clients in multiplayer.\n\n@note Since unit extends from widget, you can use widget-related functions too.\nSee: `BlzGetUnitZ`, `GetUnitX`, `GetUnitY`, `GetWidgetX`, `GetWidgetY`.\n\n@async \n@patch 1.29\n\n",
     BlzDecPlayerTechResearched:
