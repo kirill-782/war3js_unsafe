@@ -1,3 +1,5 @@
+import { HandleHolder } from "../natives/HandleHolder.js";
+
 type ToHandleHolderFunction = (arg: unknown) => unknown;
 type OnNewHandleFunction = (handle: HandleHolder<string>, creatorNativeName: string) => unknown;
 

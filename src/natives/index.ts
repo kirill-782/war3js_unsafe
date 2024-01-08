@@ -26,7 +26,7 @@ const isDestructor = (nativeName: string) => {
 };
 
 const isValueType = (value: unknown, type: string) => {
-    if (type === "S") return true;
+    if (type === "S" || type === "B") return true;
 
     if (type === "I") return Number.isInteger(Number(value));
 
@@ -34,7 +34,7 @@ const isValueType = (value: unknown, type: string) => {
 
     if (type === "C") return typeof value === "function";
 
-    return value instanceof HandleHolder;
+    return value === null || value instanceof HandleHolder;
 };
 
 export function getNativeByName<R extends any, A extends Array<any>>(
