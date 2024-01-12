@@ -6101,8 +6101,50 @@ export default {
             { name: "value", type: "boolean" },
         ],
     },
+    GetJassLocalInteger: { returnType: "integer", args: [{ name: "variableName", type: "string" }] },
+    GetJassLocalReal: { returnType: "real", args: [{ name: "variableName", type: "string" }] },
+    GetJassLocalString: { returnType: "string", args: [{ name: "variableName", type: "string" }] },
+    GetJassLocalHandle: { returnType: "handle", args: [{ name: "variableName", type: "string" }] },
+    GetJassLocalBoolean: { returnType: "boolean", args: [{ name: "variableName", type: "string" }] },
+    SetJassLocalInteger: {
+        returnType: "boolean",
+        args: [
+            { name: "variableName", type: "string" },
+            { name: "value", type: "integer" },
+        ],
+    },
+    SetJassLocalReal: {
+        returnType: "boolean",
+        args: [
+            { name: "variableName", type: "string" },
+            { name: "value", type: "real" },
+        ],
+    },
+    SetJassLocalString: {
+        returnType: "boolean",
+        args: [
+            { name: "variableName", type: "string" },
+            { name: "value", type: "string" },
+        ],
+    },
+    SetJassLocalHandle: {
+        returnType: "boolean",
+        args: [
+            { name: "variableName", type: "string" },
+            { name: "value", type: "handle" },
+        ],
+    },
+    SetJassLocalBoolean: {
+        returnType: "boolean",
+        args: [
+            { name: "variableName", type: "string" },
+            { name: "value", type: "boolean" },
+        ],
+    },
     IsOperationLimitEnabled: { returnType: "boolean", args: [] },
     EnableOperationLimit: { returnType: "nothing", args: [{ name: "enable", type: "boolean" }] },
+    GetOperationLimit: { returnType: "integer", args: [] },
+    SetOperationLimit: { returnType: "nothing", args: [{ name: "opLimit", type: "integer" }] },
     GetCodeByName: { returnType: "code", args: [{ name: "funcName", type: "string" }] },
     ExecuteCode: { returnType: "nothing", args: [{ name: "c", type: "code" }] },
     ExecuteFuncEx: { returnType: "nothing", args: [{ name: "funcName", type: "string" }] },
@@ -8664,6 +8706,7 @@ export default {
             { name: "whichUnit", type: "unit" },
         ],
     },
+    GetAbilityOwningAbility: { returnType: "ability", args: [{ name: "whichAbility", type: "ability" }] },
     GetAbilityOwningItem: { returnType: "item", args: [{ name: "whichAbility", type: "ability" }] },
     GetAbilityOrderId: { returnType: "integer", args: [{ name: "whichAbility", type: "ability" }] },
     SetAbilityOrderId: {
