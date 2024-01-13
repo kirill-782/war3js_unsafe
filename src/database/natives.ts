@@ -5897,6 +5897,7 @@ export default {
     String2Id: { returnType: "integer", args: [{ name: "idString", type: "string" }] },
     IntToHex: { returnType: "string", args: [{ name: "i", type: "integer" }] },
     IntToChar: { returnType: "string", args: [{ name: "i", type: "integer" }] },
+    IntToRoman: { returnType: "string", args: [{ name: "i", type: "integer" }] },
     ConvertColour: {
         returnType: "integer",
         args: [

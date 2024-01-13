@@ -1710,6 +1710,8 @@ export default {
     UNIT_IF_ORIENTATION_INTERPOLATION: "unitintegerfield",
     UNIT_IF_ELEVATION_SAMPLE_POINTS: "unitintegerfield",
     UNIT_IF_PROPER_NAMES_COUNT: "unitintegerfield",
+    UNIT_IF_PROPER_NAME_INDEX: "unitintegerfield",
+    UNIT_IF_PROPER_NAME_GENERATION: "unitintegerfield",
     UNIT_IF_HOTKEY: "unitintegerfield",
     UNIT_IF_TINTING_COLOR: "unitintegerfield",
     UNIT_IF_TINTING_COLOR_RED: "unitintegerfield",
