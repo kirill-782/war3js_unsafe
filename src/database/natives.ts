@@ -6984,6 +6984,7 @@ export default {
     HandleListGetEffectCount: { returnType: "integer", args: [{ name: "whichHandleList", type: "handlelist" }] },
     HandleListGetProjectileCount: { returnType: "integer", args: [{ name: "whichHandleList", type: "handlelist" }] },
     HandleListGetFrameCount: { returnType: "integer", args: [{ name: "whichHandleList", type: "handlelist" }] },
+    HandleListGetOrderCount: { returnType: "integer", args: [{ name: "whichHandleList", type: "handlelist" }] },
     HandleListGetHandleByIndex: {
         returnType: "handle",
         args: [
@@ -7091,6 +7092,13 @@ export default {
             { name: "index", type: "integer" },
         ],
     },
+    HandleListGetOrderByIndex: {
+        returnType: "orderhandle",
+        args: [
+            { name: "whichHandleList", type: "handlelist" },
+            { name: "index", type: "integer" },
+        ],
+    },
     HandleListGetFilterHandle: { returnType: "handle", args: [] },
     HandleListGetFilterAgent: { returnType: "agent", args: [] },
     HandleListGetFilterWidget: { returnType: "widget", args: [] },
@@ -7104,6 +7112,7 @@ export default {
     HandleListGetFilterEffect: { returnType: "effect", args: [] },
     HandleListGetFilterProjectile: { returnType: "projectile", args: [] },
     HandleListGetFilterFrame: { returnType: "framehandle", args: [] },
+    HandleListGetFilterOrder: { returnType: "orderhandle", args: [] },
     HandleListGetEnumHandle: { returnType: "handle", args: [] },
     HandleListGetEnumAgent: { returnType: "agent", args: [] },
     HandleListGetEnumWidget: { returnType: "widget", args: [] },
@@ -7117,6 +7126,7 @@ export default {
     HandleListGetEnumEffect: { returnType: "effect", args: [] },
     HandleListGetEnumProjectile: { returnType: "projectile", args: [] },
     HandleListGetEnumFrame: { returnType: "framehandle", args: [] },
+    HandleListGetEnumOrder: { returnType: "orderhandle", args: [] },
     HandleListEnumInRange: {
         returnType: "nothing",
         args: [
@@ -7423,6 +7433,14 @@ export default {
             { name: "filter", type: "boolexpr" },
         ],
     },
+    HandleListEnumUnitOrders: {
+        returnType: "nothing",
+        args: [
+            { name: "whichHandleList", type: "handlelist" },
+            { name: "whichUnit", type: "unit" },
+            { name: "filter", type: "boolexpr" },
+        ],
+    },
     HandleListForEach: {
         returnType: "nothing",
         args: [
@@ -7628,6 +7646,14 @@ export default {
     },
     GetLightningLength: { returnType: "real", args: [{ name: "whichBolt", type: "lightning" }] },
     SetLightningLength: {
+        returnType: "nothing",
+        args: [
+            { name: "whichBolt", type: "lightning" },
+            { name: "value", type: "real" },
+        ],
+    },
+    GetLightningWidth: { returnType: "real", args: [{ name: "whichBolt", type: "lightning" }] },
+    SetLightningWidth: {
         returnType: "nothing",
         args: [
             { name: "whichBolt", type: "lightning" },
@@ -12371,6 +12397,21 @@ export default {
         ],
     },
     GetUnitOrderCount: { returnType: "integer", args: [{ name: "whichUnit", type: "unit" }] },
+    GetUnitOrderByIndex: {
+        returnType: "orderhandle",
+        args: [
+            { name: "whichUnit", type: "unit" },
+            { name: "index", type: "integer" },
+        ],
+    },
+    GetUnitOrderByOrderId: {
+        returnType: "orderhandle",
+        args: [
+            { name: "whichUnit", type: "unit" },
+            { name: "orderId", type: "integer" },
+            { name: "index", type: "integer" },
+        ],
+    },
     GetUnitOrderIdByIndex: {
         returnType: "integer",
         args: [
@@ -12378,6 +12419,22 @@ export default {
             { name: "index", type: "integer" },
         ],
     },
+    UnitRemoveOrderByIndex: {
+        returnType: "boolean",
+        args: [
+            { name: "whichUnit", type: "unit" },
+            { name: "index", type: "integer" },
+        ],
+    },
+    UnitRemoveOrderByOrderId: {
+        returnType: "boolean",
+        args: [
+            { name: "whichUnit", type: "unit" },
+            { name: "orderId", type: "integer" },
+            { name: "eraseAllSimilar", type: "boolean" },
+        ],
+    },
+    UnitReverseOrders: { returnType: "nothing", args: [{ name: "whichUnit", type: "unit" }] },
     UnitClearOrders: {
         returnType: "nothing",
         args: [
@@ -12392,6 +12449,19 @@ export default {
             { name: "clearQueue", type: "boolean" },
         ],
     },
+    GetTriggerOrder: { returnType: "orderhandle", args: [] },
+    OrderGetNext: { returnType: "orderhandle", args: [{ name: "whichOrder", type: "orderhandle" }] },
+    OrderGetId: { returnType: "integer", args: [{ name: "whichOrder", type: "orderhandle" }] },
+    OrderGetTargetX: { returnType: "real", args: [{ name: "whichOrder", type: "orderhandle" }] },
+    OrderGetTargetY: { returnType: "real", args: [{ name: "whichOrder", type: "orderhandle" }] },
+    OrderGetTargetLoc: { returnType: "location", args: [{ name: "whichOrder", type: "orderhandle" }] },
+    OrderGetSourceX: { returnType: "real", args: [{ name: "whichOrder", type: "orderhandle" }] },
+    OrderGetSourceY: { returnType: "real", args: [{ name: "whichOrder", type: "orderhandle" }] },
+    OrderGetSourceLoc: { returnType: "location", args: [{ name: "whichOrder", type: "orderhandle" }] },
+    OrderGetTarget: { returnType: "widget", args: [{ name: "whichOrder", type: "orderhandle" }] },
+    OrderGetTargetDestructable: { returnType: "destructable", args: [{ name: "whichOrder", type: "orderhandle" }] },
+    OrderGetTargetItem: { returnType: "item", args: [{ name: "whichOrder", type: "orderhandle" }] },
+    OrderGetTargetUnit: { returnType: "unit", args: [{ name: "whichOrder", type: "orderhandle" }] },
     CreateProjectile: { returnType: "projectile", args: [{ name: "projectileTypeId", type: "integer" }] },
     CreateProjectileEx: {
         returnType: "projectile",
