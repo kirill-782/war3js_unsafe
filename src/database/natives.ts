@@ -106,8 +106,11 @@ export default {
     ConvertTimeType: { returnType: "timetype", args: [{ name: "i", type: "integer" }] },
     ConvertVariableType: { returnType: "variabletype", args: [{ name: "i", type: "integer" }] },
     ConvertRenderStage: { returnType: "renderstage", args: [{ name: "i", type: "integer" }] },
+    ConvertLayoutStyleFlag: { returnType: "layoutstyleflag", args: [{ name: "i", type: "integer" }] },
+    ConvertGridStyleFlag: { returnType: "gridstyleflag", args: [{ name: "i", type: "integer" }] },
     ConvertLayerStyleFlag: { returnType: "layerstyleflag", args: [{ name: "i", type: "integer" }] },
     ConvertControlStyleFlag: { returnType: "controlstyleflag", args: [{ name: "i", type: "integer" }] },
+    ConvertAbilityType: { returnType: "abilitytype", args: [{ name: "i", type: "integer" }] },
     ConvertConnectionType: { returnType: "connectiontype", args: [{ name: "i", type: "integer" }] },
     OrderId: { returnType: "integer", args: [{ name: "orderIdString", type: "string" }] },
     OrderId2String: { returnType: "string", args: [{ name: "orderId", type: "integer" }] },
@@ -8725,6 +8728,13 @@ export default {
         ],
     },
     CreateAbility: { returnType: "ability", args: [{ name: "abilCode", type: "integer" }] },
+    IsAbilityType: {
+        returnType: "boolean",
+        args: [
+            { name: "whichAbility", type: "ability" },
+            { name: "whichAbilityType", type: "abilitytype" },
+        ],
+    },
     GetAbilityOwner: { returnType: "unit", args: [{ name: "whichAbility", type: "ability" }] },
     SetAbilityOwner: {
         returnType: "nothing",
@@ -8963,6 +8973,14 @@ export default {
             { name: "whichUnit", type: "unit" },
         ],
     },
+    IsBuffDispellable: { returnType: "boolean", args: [{ name: "whichBuff", type: "buff" }] },
+    SetBuffDispellable: {
+        returnType: "nothing",
+        args: [
+            { name: "whichBuff", type: "buff" },
+            { name: "isSet", type: "boolean" },
+        ],
+    },
     GetBuffLevel: { returnType: "integer", args: [{ name: "whichBuff", type: "buff" }] },
     SetBuffLevel: {
         returnType: "nothing",
@@ -8973,13 +8991,20 @@ export default {
     },
     GetBuffRemainingDuration: { returnType: "real", args: [{ name: "whichBuff", type: "buff" }] },
     SetBuffRemainingDuration: {
-        returnType: "boolean",
+        returnType: "nothing",
         args: [
             { name: "whichBuff", type: "buff" },
             { name: "duration", type: "real" },
         ],
     },
-    RefreshBuff: { returnType: "boolean", args: [{ name: "whichBuff", type: "buff" }] },
+    PauseBuff: {
+        returnType: "nothing",
+        args: [
+            { name: "whichBuff", type: "buff" },
+            { name: "pause", type: "boolean" },
+        ],
+    },
+    RefreshBuff: { returnType: "nothing", args: [{ name: "whichBuff", type: "buff" }] },
     GetFilterBuff: { returnType: "buff", args: [] },
     GetEnumBuff: { returnType: "buff", args: [] },
     EnumUnitBuffs: {
@@ -11366,6 +11391,14 @@ export default {
             { name: "aid", type: "integer" },
         ],
     },
+    GetUnitAbilityEx: {
+        returnType: "ability",
+        args: [
+            { name: "whichUnit", type: "unit" },
+            { name: "aid", type: "integer" },
+            { name: "id", type: "integer" },
+        ],
+    },
     GetUnitAbilityByIndex: {
         returnType: "ability",
         args: [
@@ -11486,6 +11519,14 @@ export default {
         args: [
             { name: "whichUnit", type: "unit" },
             { name: "buffId", type: "integer" },
+        ],
+    },
+    GetUnitBuffEx: {
+        returnType: "buff",
+        args: [
+            { name: "whichUnit", type: "unit" },
+            { name: "buffId", type: "integer" },
+            { name: "id", type: "integer" },
         ],
     },
     GetUnitBuffByIndex: {
@@ -13251,6 +13292,36 @@ export default {
             { name: "enabled", type: "boolean" },
         ],
     },
+    IsFrameLayoutFlag: {
+        returnType: "boolean",
+        args: [
+            { name: "whichFrame", type: "framehandle" },
+            { name: "whichLayoutStyle", type: "layoutstyleflag" },
+        ],
+    },
+    SetFrameLayoutFlag: {
+        returnType: "nothing",
+        args: [
+            { name: "whichFrame", type: "framehandle" },
+            { name: "whichLayoutStyle", type: "layoutstyleflag" },
+            { name: "isSet", type: "boolean" },
+        ],
+    },
+    IsFrameGridFlag: {
+        returnType: "boolean",
+        args: [
+            { name: "whichFrame", type: "framehandle" },
+            { name: "whichGridStyle", type: "gridstyleflag" },
+        ],
+    },
+    SetFrameGridFlag: {
+        returnType: "nothing",
+        args: [
+            { name: "whichFrame", type: "framehandle" },
+            { name: "whichGridStyle", type: "gridstyleflag" },
+            { name: "isSet", type: "boolean" },
+        ],
+    },
     IsFrameLayerFlag: {
         returnType: "boolean",
         args: [
@@ -13689,6 +13760,42 @@ export default {
             { name: "maxY", type: "real" },
         ],
     },
+    GetFrameGridRows: { returnType: "integer", args: [{ name: "grid", type: "framehandle" }] },
+    GetFrameGridColumns: { returnType: "integer", args: [{ name: "grid", type: "framehandle" }] },
+    SetFrameGridSize: {
+        returnType: "nothing",
+        args: [
+            { name: "grid", type: "framehandle" },
+            { name: "row", type: "integer" },
+            { name: "column", type: "integer" },
+        ],
+    },
+    GetFrameGridFrame: {
+        returnType: "framehandle",
+        args: [
+            { name: "grid", type: "framehandle" },
+            { name: "row", type: "integer" },
+            { name: "column", type: "integer" },
+        ],
+    },
+    GetFrameGridFrameById: {
+        returnType: "framehandle",
+        args: [
+            { name: "grid", type: "framehandle" },
+            { name: "id", type: "integer" },
+        ],
+    },
+    SetFrameGridFrame: {
+        returnType: "nothing",
+        args: [
+            { name: "grid", type: "framehandle" },
+            { name: "row", type: "integer" },
+            { name: "column", type: "integer" },
+            { name: "whichFrame", type: "framehandle" },
+        ],
+    },
+    IsBuffBarRenderDuplicates: { returnType: "boolean", args: [] },
+    SetBuffBarRenderDuplicates: { returnType: "nothing", args: [{ name: "allow", type: "boolean" }] },
     GetTriggerFrame: { returnType: "framehandle", args: [] },
     GetTriggerFrameEvent: { returnType: "frameeventtype", args: [] },
     GetTriggerFrameVariableType: { returnType: "variabletype", args: [] },
