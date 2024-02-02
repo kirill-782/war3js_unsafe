@@ -110,6 +110,7 @@ export default {
     ConvertGridStyleFlag: { returnType: "gridstyleflag", args: [{ name: "i", type: "integer" }] },
     ConvertLayerStyleFlag: { returnType: "layerstyleflag", args: [{ name: "i", type: "integer" }] },
     ConvertControlStyleFlag: { returnType: "controlstyleflag", args: [{ name: "i", type: "integer" }] },
+    ConvertFrameState: { returnType: "framestate", args: [{ name: "i", type: "integer" }] },
     ConvertAbilityType: { returnType: "abilitytype", args: [{ name: "i", type: "integer" }] },
     ConvertConnectionType: { returnType: "connectiontype", args: [{ name: "i", type: "integer" }] },
     OrderId: { returnType: "integer", args: [{ name: "orderIdString", type: "string" }] },
@@ -8886,17 +8887,194 @@ export default {
             { name: "whichCode", type: "code" },
         ],
     },
+    GetBuffBaseIntegerFieldById: {
+        returnType: "integer",
+        args: [
+            { name: "bid", type: "integer" },
+            { name: "whichField", type: "abilityintegerfield" },
+        ],
+    },
+    SetBuffBaseIntegerFieldById: {
+        returnType: "boolean",
+        args: [
+            { name: "bid", type: "integer" },
+            { name: "whichField", type: "abilityintegerfield" },
+            { name: "value", type: "integer" },
+        ],
+    },
+    GetBuffBaseBooleanFieldById: {
+        returnType: "boolean",
+        args: [
+            { name: "bid", type: "integer" },
+            { name: "whichField", type: "abilitybooleanfield" },
+        ],
+    },
+    SetBuffBaseBooleanFieldById: {
+        returnType: "boolean",
+        args: [
+            { name: "bid", type: "integer" },
+            { name: "whichField", type: "abilitybooleanfield" },
+            { name: "value", type: "boolean" },
+        ],
+    },
+    GetBuffBaseRealFieldById: {
+        returnType: "real",
+        args: [
+            { name: "bid", type: "integer" },
+            { name: "whichField", type: "abilityrealfield" },
+        ],
+    },
+    SetBuffBaseRealFieldById: {
+        returnType: "boolean",
+        args: [
+            { name: "bid", type: "integer" },
+            { name: "whichField", type: "abilityrealfield" },
+            { name: "value", type: "real" },
+        ],
+    },
     GetBuffBaseStringFieldById: {
         returnType: "string",
         args: [
-            { name: "buffId", type: "integer" },
+            { name: "bid", type: "integer" },
             { name: "whichField", type: "abilitystringfield" },
         ],
     },
     SetBuffBaseStringFieldById: {
         returnType: "boolean",
         args: [
-            { name: "buffId", type: "integer" },
+            { name: "bid", type: "integer" },
+            { name: "whichField", type: "abilitystringfield" },
+            { name: "value", type: "string" },
+        ],
+    },
+    GetBuffBaseIntegerArrayFieldById: {
+        returnType: "integer",
+        args: [
+            { name: "bid", type: "integer" },
+            { name: "whichField", type: "abilityintegerfield" },
+            { name: "index", type: "integer" },
+        ],
+    },
+    SetBuffBaseIntegerArrayFieldById: {
+        returnType: "boolean",
+        args: [
+            { name: "bid", type: "integer" },
+            { name: "whichField", type: "abilityintegerfield" },
+            { name: "index", type: "integer" },
+            { name: "value", type: "integer" },
+        ],
+    },
+    AddBuffBaseIntegerArrayFieldById: {
+        returnType: "boolean",
+        args: [
+            { name: "bid", type: "integer" },
+            { name: "whichField", type: "abilityintegerfield" },
+            { name: "value", type: "integer" },
+        ],
+    },
+    RemoveBuffBaseIntegerArrayFieldById: {
+        returnType: "boolean",
+        args: [
+            { name: "bid", type: "integer" },
+            { name: "whichField", type: "abilityintegerfield" },
+            { name: "value", type: "integer" },
+        ],
+    },
+    GetBuffBaseBooleanArrayFieldById: {
+        returnType: "boolean",
+        args: [
+            { name: "bid", type: "integer" },
+            { name: "whichField", type: "abilitybooleanfield" },
+            { name: "index", type: "integer" },
+        ],
+    },
+    SetBuffBaseBooleanArrayFieldById: {
+        returnType: "boolean",
+        args: [
+            { name: "bid", type: "integer" },
+            { name: "whichField", type: "abilitybooleanfield" },
+            { name: "index", type: "integer" },
+            { name: "value", type: "boolean" },
+        ],
+    },
+    AddBuffBaseBooleanArrayFieldById: {
+        returnType: "boolean",
+        args: [
+            { name: "bid", type: "integer" },
+            { name: "whichField", type: "abilitybooleanfield" },
+            { name: "value", type: "boolean" },
+        ],
+    },
+    RemoveBuffBaseBooleanArrayFieldById: {
+        returnType: "boolean",
+        args: [
+            { name: "bid", type: "integer" },
+            { name: "whichField", type: "abilitybooleanfield" },
+            { name: "value", type: "boolean" },
+        ],
+    },
+    GetBuffBaseRealArrayFieldById: {
+        returnType: "real",
+        args: [
+            { name: "bid", type: "integer" },
+            { name: "whichField", type: "abilityrealfield" },
+            { name: "index", type: "integer" },
+        ],
+    },
+    SetBuffBaseRealArrayFieldById: {
+        returnType: "boolean",
+        args: [
+            { name: "bid", type: "integer" },
+            { name: "whichField", type: "abilityrealfield" },
+            { name: "index", type: "integer" },
+            { name: "value", type: "real" },
+        ],
+    },
+    AddBuffBaseRealArrayFieldById: {
+        returnType: "boolean",
+        args: [
+            { name: "bid", type: "integer" },
+            { name: "whichField", type: "abilityrealfield" },
+            { name: "value", type: "real" },
+        ],
+    },
+    RemoveBuffBaseRealArrayFieldById: {
+        returnType: "boolean",
+        args: [
+            { name: "bid", type: "integer" },
+            { name: "whichField", type: "abilityrealfield" },
+            { name: "value", type: "real" },
+        ],
+    },
+    GetBuffBaseStringArrayFieldById: {
+        returnType: "string",
+        args: [
+            { name: "bid", type: "integer" },
+            { name: "whichField", type: "abilitystringfield" },
+            { name: "index", type: "integer" },
+        ],
+    },
+    SetBuffBaseStringArrayFieldById: {
+        returnType: "boolean",
+        args: [
+            { name: "bid", type: "integer" },
+            { name: "whichField", type: "abilitystringfield" },
+            { name: "index", type: "integer" },
+            { name: "value", type: "string" },
+        ],
+    },
+    AddBuffBaseStringArrayFieldById: {
+        returnType: "boolean",
+        args: [
+            { name: "bid", type: "integer" },
+            { name: "whichField", type: "abilitystringfield" },
+            { name: "value", type: "string" },
+        ],
+    },
+    RemoveBuffBaseStringArrayFieldById: {
+        returnType: "boolean",
+        args: [
+            { name: "bid", type: "integer" },
             { name: "whichField", type: "abilitystringfield" },
             { name: "value", type: "string" },
         ],
@@ -8954,6 +9132,138 @@ export default {
         ],
     },
     SetBuffStringField: {
+        returnType: "boolean",
+        args: [
+            { name: "whichBuff", type: "buff" },
+            { name: "whichField", type: "abilitystringfield" },
+            { name: "value", type: "string" },
+        ],
+    },
+    GetBuffIntegerArrayField: {
+        returnType: "integer",
+        args: [
+            { name: "whichBuff", type: "buff" },
+            { name: "whichField", type: "abilityintegerfield" },
+            { name: "index", type: "integer" },
+        ],
+    },
+    SetBuffIntegerArrayField: {
+        returnType: "boolean",
+        args: [
+            { name: "whichBuff", type: "buff" },
+            { name: "whichField", type: "abilityintegerfield" },
+            { name: "index", type: "integer" },
+            { name: "value", type: "integer" },
+        ],
+    },
+    AddBuffIntegerArrayField: {
+        returnType: "boolean",
+        args: [
+            { name: "whichBuff", type: "buff" },
+            { name: "whichField", type: "abilityintegerfield" },
+            { name: "value", type: "integer" },
+        ],
+    },
+    RemoveBuffIntegerArrayField: {
+        returnType: "boolean",
+        args: [
+            { name: "whichBuff", type: "buff" },
+            { name: "whichField", type: "abilityintegerfield" },
+            { name: "value", type: "integer" },
+        ],
+    },
+    GetBuffBooleanArrayField: {
+        returnType: "boolean",
+        args: [
+            { name: "whichBuff", type: "buff" },
+            { name: "whichField", type: "abilitybooleanfield" },
+            { name: "index", type: "integer" },
+        ],
+    },
+    SetBuffBooleanArrayField: {
+        returnType: "boolean",
+        args: [
+            { name: "whichBuff", type: "buff" },
+            { name: "whichField", type: "abilitybooleanfield" },
+            { name: "index", type: "integer" },
+            { name: "value", type: "boolean" },
+        ],
+    },
+    AddBuffBooleanArrayField: {
+        returnType: "boolean",
+        args: [
+            { name: "whichBuff", type: "buff" },
+            { name: "whichField", type: "abilitybooleanfield" },
+            { name: "value", type: "boolean" },
+        ],
+    },
+    RemoveBuffBooleanArrayField: {
+        returnType: "boolean",
+        args: [
+            { name: "whichBuff", type: "buff" },
+            { name: "whichField", type: "abilitybooleanfield" },
+            { name: "value", type: "boolean" },
+        ],
+    },
+    GetBuffRealArrayField: {
+        returnType: "real",
+        args: [
+            { name: "whichBuff", type: "buff" },
+            { name: "whichField", type: "abilityrealfield" },
+            { name: "index", type: "integer" },
+        ],
+    },
+    SetBuffRealArrayField: {
+        returnType: "boolean",
+        args: [
+            { name: "whichBuff", type: "buff" },
+            { name: "whichField", type: "abilityrealfield" },
+            { name: "index", type: "integer" },
+            { name: "value", type: "real" },
+        ],
+    },
+    AddBuffRealArrayField: {
+        returnType: "boolean",
+        args: [
+            { name: "whichBuff", type: "buff" },
+            { name: "whichField", type: "abilityrealfield" },
+            { name: "value", type: "real" },
+        ],
+    },
+    RemoveBuffRealArrayField: {
+        returnType: "boolean",
+        args: [
+            { name: "whichBuff", type: "buff" },
+            { name: "whichField", type: "abilityrealfield" },
+            { name: "value", type: "real" },
+        ],
+    },
+    GetBuffStringArrayField: {
+        returnType: "string",
+        args: [
+            { name: "whichBuff", type: "buff" },
+            { name: "whichField", type: "abilitystringfield" },
+            { name: "index", type: "integer" },
+        ],
+    },
+    SetBuffStringArrayField: {
+        returnType: "boolean",
+        args: [
+            { name: "whichBuff", type: "buff" },
+            { name: "whichField", type: "abilitystringfield" },
+            { name: "index", type: "integer" },
+            { name: "value", type: "string" },
+        ],
+    },
+    AddBuffStringArrayField: {
+        returnType: "boolean",
+        args: [
+            { name: "whichBuff", type: "buff" },
+            { name: "whichField", type: "abilitystringfield" },
+            { name: "value", type: "string" },
+        ],
+    },
+    RemoveBuffStringArrayField: {
         returnType: "boolean",
         args: [
             { name: "whichBuff", type: "buff" },
@@ -13282,6 +13592,14 @@ export default {
             { name: "whichFrame", type: "framehandle" },
             { name: "model", type: "string" },
             { name: "cameraIndex", type: "integer" },
+        ],
+    },
+    GetFrameState: { returnType: "framestate", args: [{ name: "whichFrame", type: "framehandle" }] },
+    SetFrameState: {
+        returnType: "nothing",
+        args: [
+            { name: "whichFrame", type: "framehandle" },
+            { name: "whichFrameState", type: "framestate" },
         ],
     },
     IsFrameEnabled: { returnType: "boolean", args: [{ name: "whichFrame", type: "framehandle" }] },
