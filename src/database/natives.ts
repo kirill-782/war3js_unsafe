@@ -5902,6 +5902,7 @@ export default {
     IntToHex: { returnType: "string", args: [{ name: "i", type: "integer" }] },
     IntToChar: { returnType: "string", args: [{ name: "i", type: "integer" }] },
     IntToRoman: { returnType: "string", args: [{ name: "i", type: "integer" }] },
+    HexToInt: { returnType: "integer", args: [{ name: "hex", type: "string" }] },
     ConvertColour: {
         returnType: "integer",
         args: [
@@ -6739,6 +6740,15 @@ export default {
             { name: "whichWeaponType", type: "weapontype" },
         ],
     },
+    SaveBuffHandle: {
+        returnType: "boolean",
+        args: [
+            { name: "table", type: "hashtable" },
+            { name: "parentKey", type: "integer" },
+            { name: "childKey", type: "integer" },
+            { name: "whichBuff", type: "buff" },
+        ],
+    },
     SaveSpriteHandle: {
         returnType: "boolean",
         args: [
@@ -6746,6 +6756,15 @@ export default {
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichsprite", type: "sprite" },
+        ],
+    },
+    SaveWar3ImageHandle: {
+        returnType: "boolean",
+        args: [
+            { name: "table", type: "hashtable" },
+            { name: "parentKey", type: "integer" },
+            { name: "childKey", type: "integer" },
+            { name: "whichWar3Image", type: "war3image" },
         ],
     },
     SaveDoodadHandle: {
@@ -6833,8 +6852,24 @@ export default {
             { name: "childKey", type: "integer" },
         ],
     },
+    LoadBuffHandle: {
+        returnType: "buff",
+        args: [
+            { name: "table", type: "hashtable" },
+            { name: "parentKey", type: "integer" },
+            { name: "childKey", type: "integer" },
+        ],
+    },
     LoadSpriteHandle: {
         returnType: "sprite",
+        args: [
+            { name: "table", type: "hashtable" },
+            { name: "parentKey", type: "integer" },
+            { name: "childKey", type: "integer" },
+        ],
+    },
+    LoadWar3ImageHandle: {
+        returnType: "war3image",
         args: [
             { name: "table", type: "hashtable" },
             { name: "parentKey", type: "integer" },
@@ -8729,6 +8764,7 @@ export default {
         ],
     },
     CreateAbility: { returnType: "ability", args: [{ name: "abilCode", type: "integer" }] },
+    GetTriggerAbility: { returnType: "ability", args: [] },
     IsAbilityType: {
         returnType: "boolean",
         args: [
@@ -8748,12 +8784,13 @@ export default {
     GetAbilityOwningItem: { returnType: "item", args: [{ name: "whichAbility", type: "ability" }] },
     GetAbilityOrderId: { returnType: "integer", args: [{ name: "whichAbility", type: "ability" }] },
     SetAbilityOrderId: {
-        returnType: "boolean",
+        returnType: "nothing",
         args: [
             { name: "whichAbility", type: "ability" },
             { name: "orderId", type: "integer" },
         ],
     },
+    ResetAbilityOrder: { returnType: "nothing", args: [{ name: "whichAbility", type: "ability" }] },
     GetAbilityLevel: { returnType: "integer", args: [{ name: "whichAbility", type: "ability" }] },
     SetAbilityLevel: {
         returnType: "integer",
@@ -8832,14 +8869,14 @@ export default {
     },
     GetAbilityRemainingCooldown: { returnType: "real", args: [{ name: "whichAbility", type: "ability" }] },
     SetAbilityRemainingCooldown: {
-        returnType: "boolean",
+        returnType: "nothing",
         args: [
             { name: "whichAbility", type: "ability" },
             { name: "cooldown", type: "real" },
         ],
     },
     StartAbilityCooldown: {
-        returnType: "boolean",
+        returnType: "nothing",
         args: [
             { name: "whichAbility", type: "ability" },
             { name: "cooldown", type: "real" },
@@ -9411,6 +9448,14 @@ export default {
     GetSpriteZ: { returnType: "real", args: [{ name: "whichSprite", type: "sprite" }] },
     GetSpriteHeight: { returnType: "real", args: [{ name: "whichSprite", type: "sprite" }] },
     GetSpritePositionLoc: { returnType: "location", args: [{ name: "whichSprite", type: "sprite" }] },
+    SetSpritePosition: {
+        returnType: "nothing",
+        args: [
+            { name: "whichSprite", type: "sprite" },
+            { name: "x", type: "real" },
+            { name: "y", type: "real" },
+        ],
+    },
     SetSpritePositionWithZ: {
         returnType: "nothing",
         args: [
@@ -9418,14 +9463,6 @@ export default {
             { name: "x", type: "real" },
             { name: "y", type: "real" },
             { name: "z", type: "real" },
-        ],
-    },
-    SetSpritePosition: {
-        returnType: "nothing",
-        args: [
-            { name: "whichSprite", type: "sprite" },
-            { name: "x", type: "real" },
-            { name: "y", type: "real" },
         ],
     },
     SetSpritePositionLoc: {
@@ -9712,6 +9749,14 @@ export default {
     GetSpecialEffectZ: { returnType: "real", args: [{ name: "whichEffect", type: "effect" }] },
     GetSpecialEffectHeight: { returnType: "real", args: [{ name: "whichEffect", type: "effect" }] },
     GetSpecialEffectPositionLoc: { returnType: "location", args: [{ name: "whichEffect", type: "effect" }] },
+    SetSpecialEffectPosition: {
+        returnType: "nothing",
+        args: [
+            { name: "whichEffect", type: "effect" },
+            { name: "x", type: "real" },
+            { name: "y", type: "real" },
+        ],
+    },
     SetSpecialEffectPositionWithZ: {
         returnType: "nothing",
         args: [
@@ -9719,14 +9764,6 @@ export default {
             { name: "x", type: "real" },
             { name: "y", type: "real" },
             { name: "z", type: "real" },
-        ],
-    },
-    SetSpecialEffectPosition: {
-        returnType: "nothing",
-        args: [
-            { name: "whichEffect", type: "effect" },
-            { name: "x", type: "real" },
-            { name: "y", type: "real" },
         ],
     },
     SetSpecialEffectPositionLoc: {
@@ -10026,6 +10063,14 @@ export default {
     GetTrackableZ: { returnType: "real", args: [{ name: "whichTrackable", type: "trackable" }] },
     GetTrackableHeight: { returnType: "real", args: [{ name: "whichTrackable", type: "trackable" }] },
     GetTrackablePositionLoc: { returnType: "location", args: [{ name: "whichTrackable", type: "trackable" }] },
+    SetTrackablePosition: {
+        returnType: "nothing",
+        args: [
+            { name: "whichTrackable", type: "trackable" },
+            { name: "x", type: "real" },
+            { name: "y", type: "real" },
+        ],
+    },
     SetTrackablePositionWithZ: {
         returnType: "nothing",
         args: [
@@ -10033,14 +10078,6 @@ export default {
             { name: "x", type: "real" },
             { name: "y", type: "real" },
             { name: "z", type: "real" },
-        ],
-    },
-    SetTrackablePosition: {
-        returnType: "nothing",
-        args: [
-            { name: "whichTrackable", type: "trackable" },
-            { name: "x", type: "real" },
-            { name: "y", type: "real" },
         ],
     },
     SetTrackablePositionLoc: {
@@ -10356,6 +10393,7 @@ export default {
             { name: "whichFlags", type: "targetflag" },
         ],
     },
+    GetWidgetZ: { returnType: "real", args: [{ name: "whichWidget", type: "widget" }] },
     GetWidgetPositionLoc: { returnType: "location", args: [{ name: "whichWidget", type: "widget" }] },
     SetWidgetPositionLoc: {
         returnType: "nothing",
@@ -10372,6 +10410,15 @@ export default {
             { name: "y", type: "real" },
         ],
     },
+    SetWidgetPositionWithZ: {
+        returnType: "nothing",
+        args: [
+            { name: "whichWidget", type: "widget" },
+            { name: "x", type: "real" },
+            { name: "y", type: "real" },
+            { name: "z", type: "real" },
+        ],
+    },
     SetWidgetX: {
         returnType: "nothing",
         args: [
@@ -10384,6 +10431,22 @@ export default {
         args: [
             { name: "whichWidget", type: "widget" },
             { name: "y", type: "real" },
+        ],
+    },
+    SetWidgetZ: {
+        returnType: "nothing",
+        args: [
+            { name: "whichWidget", type: "widget" },
+            { name: "z", type: "real" },
+        ],
+    },
+    ResetWidgetZ: { returnType: "nothing", args: [{ name: "whichWidget", type: "widget" }] },
+    GetWidgetHeight: { returnType: "real", args: [{ name: "whichWidget", type: "widget" }] },
+    SetWidgetHeight: {
+        returnType: "nothing",
+        args: [
+            { name: "whichWidget", type: "widget" },
+            { name: "height", type: "real" },
         ],
     },
     GetWidgetScreenX: { returnType: "real", args: [{ name: "whichWidget", type: "widget" }] },
@@ -10657,6 +10720,16 @@ export default {
         ],
     },
     GetDestructableSprite: { returnType: "sprite", args: [{ name: "whichDestructable", type: "destructable" }] },
+    GetDestructableZ: { returnType: "real", args: [{ name: "whichDestructable", type: "destructable" }] },
+    ResetDestructableZ: { returnType: "nothing", args: [{ name: "whichDestructable", type: "destructable" }] },
+    GetDestructableHeight: { returnType: "real", args: [{ name: "whichDestructable", type: "destructable" }] },
+    SetDestructableHeight: {
+        returnType: "nothing",
+        args: [
+            { name: "whichDestructable", type: "destructable" },
+            { name: "height", type: "real" },
+        ],
+    },
     SetDestructablePositionWithZ: {
         returnType: "nothing",
         args: [
@@ -11053,9 +11126,51 @@ export default {
             { name: "value", type: "string" },
         ],
     },
+    GetTriggerItem: { returnType: "item", args: [] },
     GetItemUnderCursor: { returnType: "item", args: [] },
+    GetItemOwner: { returnType: "unit", args: [{ name: "whichItem", type: "item" }] },
     IsItemDroppable: { returnType: "boolean", args: [{ name: "whichItem", type: "item" }] },
     GetItemSprite: { returnType: "sprite", args: [{ name: "whichItem", type: "item" }] },
+    GetItemZ: { returnType: "real", args: [{ name: "whichItem", type: "item" }] },
+    SetItemPositionWithZ: {
+        returnType: "nothing",
+        args: [
+            { name: "whichItem", type: "item" },
+            { name: "x", type: "real" },
+            { name: "y", type: "real" },
+            { name: "z", type: "real" },
+        ],
+    },
+    SetItemX: {
+        returnType: "nothing",
+        args: [
+            { name: "whichItem", type: "item" },
+            { name: "x", type: "real" },
+        ],
+    },
+    SetItemY: {
+        returnType: "nothing",
+        args: [
+            { name: "whichItem", type: "item" },
+            { name: "y", type: "real" },
+        ],
+    },
+    SetItemZ: {
+        returnType: "nothing",
+        args: [
+            { name: "whichItem", type: "item" },
+            { name: "z", type: "real" },
+        ],
+    },
+    ResetItemZ: { returnType: "nothing", args: [{ name: "whichItem", type: "item" }] },
+    GetItemHeight: { returnType: "real", args: [{ name: "whichItem", type: "item" }] },
+    SetItemHeight: {
+        returnType: "nothing",
+        args: [
+            { name: "whichItem", type: "item" },
+            { name: "height", type: "real" },
+        ],
+    },
     GetItemScreenX: { returnType: "real", args: [{ name: "whichItem", type: "item" }] },
     GetItemScreenY: { returnType: "real", args: [{ name: "whichItem", type: "item" }] },
     GetItemLife: { returnType: "real", args: [{ name: "whichItem", type: "item" }] },
@@ -11628,6 +11743,42 @@ export default {
     },
     GetUnitUnderCursor: { returnType: "unit", args: [] },
     GetUnitSprite: { returnType: "sprite", args: [{ name: "whichUnit", type: "unit" }] },
+    SetUnitPositionEx: {
+        returnType: "nothing",
+        args: [
+            { name: "whichUnit", type: "unit" },
+            { name: "breakOrder", type: "boolean" },
+            { name: "checkPathing", type: "boolean" },
+            { name: "x", type: "real" },
+            { name: "y", type: "real" },
+            { name: "z", type: "real" },
+        ],
+    },
+    SetUnitPositionWithZ: {
+        returnType: "nothing",
+        args: [
+            { name: "whichUnit", type: "unit" },
+            { name: "x", type: "real" },
+            { name: "y", type: "real" },
+            { name: "z", type: "real" },
+        ],
+    },
+    SetUnitZ: {
+        returnType: "nothing",
+        args: [
+            { name: "whichUnit", type: "unit" },
+            { name: "z", type: "real" },
+        ],
+    },
+    ResetUnitZ: { returnType: "nothing", args: [{ name: "whichUnit", type: "unit" }] },
+    GetUnitHeight: { returnType: "real", args: [{ name: "whichUnit", type: "unit" }] },
+    SetUnitHeight: {
+        returnType: "nothing",
+        args: [
+            { name: "whichUnit", type: "unit" },
+            { name: "height", type: "real" },
+        ],
+    },
     GetUnitScreenX: { returnType: "real", args: [{ name: "whichUnit", type: "unit" }] },
     GetUnitScreenY: { returnType: "real", args: [{ name: "whichUnit", type: "unit" }] },
     SetUnitTypeId: {
@@ -11924,7 +12075,52 @@ export default {
     GetUnitRunicMagicResist: { returnType: "real", args: [{ name: "whichUnit", type: "unit" }] },
     GetUnitTotalMagicResist: { returnType: "real", args: [{ name: "whichUnit", type: "unit" }] },
     IsUnitGatherer: { returnType: "boolean", args: [{ name: "whichUnit", type: "unit" }] },
-    GetUnitCurrentResources: { returnType: "integer", args: [{ name: "whichUnit", type: "unit" }] },
+    GetUnitResourceCurrent: { returnType: "integer", args: [{ name: "whichUnit", type: "unit" }] },
+    SetUnitResourceCurrent: {
+        returnType: "nothing",
+        args: [
+            { name: "whichUnit", type: "unit" },
+            { name: "amount", type: "integer" },
+        ],
+    },
+    GetUnitResourceCapacity: {
+        returnType: "integer",
+        args: [
+            { name: "whichUnit", type: "unit" },
+            { name: "resourceType", type: "integer" },
+        ],
+    },
+    SetUnitResourceCapacity: {
+        returnType: "nothing",
+        args: [
+            { name: "whichUnit", type: "unit" },
+            { name: "resourceType", type: "integer" },
+            { name: "amount", type: "integer" },
+        ],
+    },
+    GetUnitResourcePerGather: {
+        returnType: "integer",
+        args: [
+            { name: "whichUnit", type: "unit" },
+            { name: "resourceType", type: "integer" },
+        ],
+    },
+    SetUnitResourcePerGather: {
+        returnType: "nothing",
+        args: [
+            { name: "whichUnit", type: "unit" },
+            { name: "resourceType", type: "integer" },
+            { name: "amount", type: "integer" },
+        ],
+    },
+    GetUnitResourceGatherInterval: { returnType: "real", args: [{ name: "whichUnit", type: "unit" }] },
+    SetUnitResourceGatherInterval: {
+        returnType: "nothing",
+        args: [
+            { name: "whichUnit", type: "unit" },
+            { name: "interval", type: "real" },
+        ],
+    },
     GetUnitCurrentSight: { returnType: "real", args: [{ name: "whichUnit", type: "unit" }] },
     SetUnitCurrentSight: {
         returnType: "nothing",
@@ -12901,6 +13097,14 @@ export default {
         ],
     },
     GetProjectilePositionLoc: { returnType: "location", args: [{ name: "whichProjectile", type: "projectile" }] },
+    SetProjectilePosition: {
+        returnType: "nothing",
+        args: [
+            { name: "whichProjectile", type: "projectile" },
+            { name: "x", type: "real" },
+            { name: "y", type: "real" },
+        ],
+    },
     SetProjectilePositionWithZ: {
         returnType: "nothing",
         args: [
@@ -12908,14 +13112,6 @@ export default {
             { name: "x", type: "real" },
             { name: "y", type: "real" },
             { name: "z", type: "real" },
-        ],
-    },
-    SetProjectilePosition: {
-        returnType: "nothing",
-        args: [
-            { name: "whichProjectile", type: "projectile" },
-            { name: "x", type: "real" },
-            { name: "y", type: "real" },
         ],
     },
     SetProjectilePositionLoc: {
@@ -13693,6 +13889,27 @@ export default {
             { name: "colour", type: "integer" },
         ],
     },
+    SetFrameVertexColour: {
+        returnType: "nothing",
+        args: [
+            { name: "whichFrame", type: "framehandle" },
+            { name: "alpha", type: "integer" },
+            { name: "red", type: "integer" },
+            { name: "green", type: "integer" },
+            { name: "blue", type: "integer" },
+        ],
+    },
+    SetFrameVertexColourEx: {
+        returnType: "nothing",
+        args: [
+            { name: "whichFrame", type: "framehandle" },
+            { name: "textureId", type: "integer" },
+            { name: "alpha", type: "integer" },
+            { name: "red", type: "integer" },
+            { name: "green", type: "integer" },
+            { name: "blue", type: "integer" },
+        ],
+    },
     GetFrameAlphaEx: {
         returnType: "integer",
         args: [
@@ -13838,23 +14055,6 @@ export default {
         args: [
             { name: "whichFrame", type: "framehandle" },
             { name: "scale", type: "real" },
-        ],
-    },
-    SetFrameVertexColourEx: {
-        returnType: "nothing",
-        args: [
-            { name: "whichFrame", type: "framehandle" },
-            { name: "alpha", type: "integer" },
-            { name: "red", type: "integer" },
-            { name: "blue", type: "integer" },
-            { name: "green", type: "integer" },
-        ],
-    },
-    SetFrameVertexColour: {
-        returnType: "nothing",
-        args: [
-            { name: "whichFrame", type: "framehandle" },
-            { name: "colour", type: "integer" },
         ],
     },
     GetFramePriority: { returnType: "integer", args: [{ name: "whichFrame", type: "framehandle" }] },
@@ -14438,10 +14638,10 @@ export default {
     },
     IsKeyPressed: { returnType: "boolean", args: [{ name: "key", type: "oskeytype" }] },
     IsMouseKeyPressed: { returnType: "boolean", args: [{ name: "mouseKey", type: "mousebuttontype" }] },
+    GetTriggerPlayerIsKeyDown: { returnType: "boolean", args: [] },
     GetTriggerPlayerKey: { returnType: "oskeytype", args: [] },
     GetTriggerPlayerMouseButton: { returnType: "mousebuttontype", args: [] },
     GetTriggerPlayerMetaKey: { returnType: "integer", args: [] },
-    GetTriggerPlayerIsKeyDown: { returnType: "boolean", args: [] },
     TriggerRegisterPlayerKeyEvent: {
         returnType: "event",
         args: [
