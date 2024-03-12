@@ -6584,6 +6584,10 @@ export default {
         ],
     },
     GetTickCount: { returnType: "integer", args: [] },
+    BenchmarkStart: { returnType: "nothing", args: [] },
+    BenchmarkEnd: { returnType: "nothing", args: [] },
+    BenchmarkReset: { returnType: "nothing", args: [] },
+    BenchmarkGetElapsed: { returnType: "string", args: [{ name: "benchType", type: "integer" }] },
     SetScreenFieldOfView: { returnType: "nothing", args: [{ name: "fov", type: "real" }] },
     SetWidescreenState: { returnType: "nothing", args: [{ name: "flag", type: "boolean" }] },
     IsWindowActive: { returnType: "boolean", args: [] },
@@ -6636,6 +6640,16 @@ export default {
         args: [
             { name: "toPlayer", type: "player" },
             { name: "duration", type: "real" },
+            { name: "message", type: "string" },
+        ],
+    },
+    DisplayChatMessageEx: {
+        returnType: "nothing",
+        args: [
+            { name: "whichPlayer", type: "player" },
+            { name: "recipient", type: "integer" },
+            { name: "duration", type: "real" },
+            { name: "addToLog", type: "boolean" },
             { name: "message", type: "string" },
         ],
     },
@@ -12821,6 +12835,82 @@ export default {
             { name: "time", type: "real" },
         ],
     },
+    UnitGetTrainingProgress: { returnType: "real", args: [{ name: "whichUnit", type: "unit" }] },
+    UnitSetTrainingProgress: {
+        returnType: "nothing",
+        args: [
+            { name: "whichUnit", type: "unit" },
+            { name: "trainingPercentage", type: "integer" },
+        ],
+    },
+    UnitGetTrainingRemainingTime: { returnType: "real", args: [{ name: "whichUnit", type: "unit" }] },
+    UnitSetTrainingRemainingTime: {
+        returnType: "nothing",
+        args: [
+            { name: "whichUnit", type: "unit" },
+            { name: "time", type: "real" },
+        ],
+    },
+    UnitGetTrainingTypeIdAt: {
+        returnType: "integer",
+        args: [
+            { name: "whichUnit", type: "unit" },
+            { name: "index", type: "integer" },
+        ],
+    },
+    UnitCancelTrainingAt: {
+        returnType: "nothing",
+        args: [
+            { name: "whichUnit", type: "unit" },
+            { name: "index", type: "integer" },
+        ],
+    },
+    UnitSetTrainingTypeIdAt: {
+        returnType: "nothing",
+        args: [
+            { name: "whichUnit", type: "unit" },
+            { name: "index", type: "integer" },
+            { name: "typeId", type: "integer" },
+        ],
+    },
+    UnitGetResearchProgress: { returnType: "real", args: [{ name: "whichUnit", type: "unit" }] },
+    UnitSetResearchProgress: {
+        returnType: "nothing",
+        args: [
+            { name: "whichUnit", type: "unit" },
+            { name: "trainingPercentage", type: "integer" },
+        ],
+    },
+    UnitGetResearchRemainingTime: { returnType: "real", args: [{ name: "whichUnit", type: "unit" }] },
+    UnitSetResearchRemainingTime: {
+        returnType: "nothing",
+        args: [
+            { name: "whichUnit", type: "unit" },
+            { name: "time", type: "real" },
+        ],
+    },
+    UnitGetResearchTypeIdAt: {
+        returnType: "integer",
+        args: [
+            { name: "whichUnit", type: "unit" },
+            { name: "index", type: "integer" },
+        ],
+    },
+    UnitCancelResearchAt: {
+        returnType: "nothing",
+        args: [
+            { name: "whichUnit", type: "unit" },
+            { name: "index", type: "integer" },
+        ],
+    },
+    UnitSetResearchTypeIdAt: {
+        returnType: "nothing",
+        args: [
+            { name: "whichUnit", type: "unit" },
+            { name: "index", type: "integer" },
+            { name: "typeId", type: "integer" },
+        ],
+    },
     CreateIllusion: {
         returnType: "unit",
         args: [
@@ -13623,6 +13713,36 @@ export default {
     IsFrameSimple: { returnType: "boolean", args: [{ name: "whichFrame", type: "framehandle" }] },
     IsFrameComplex: { returnType: "boolean", args: [{ name: "whichFrame", type: "framehandle" }] },
     DestroyFrame: { returnType: "nothing", args: [{ name: "whichFrame", type: "framehandle" }] },
+    GetFrameScreenX: { returnType: "real", args: [{ name: "whichFrame", type: "framehandle" }] },
+    GetFrameScreenY: { returnType: "real", args: [{ name: "whichFrame", type: "framehandle" }] },
+    GetFrameRelativePointParent: {
+        returnType: "framehandle",
+        args: [
+            { name: "whichFrame", type: "framehandle" },
+            { name: "point", type: "framepointtype" },
+        ],
+    },
+    GetFrameRelativePointType: {
+        returnType: "framepointtype",
+        args: [
+            { name: "whichFrame", type: "framehandle" },
+            { name: "point", type: "framepointtype" },
+        ],
+    },
+    GetFrameRelativePointX: {
+        returnType: "real",
+        args: [
+            { name: "whichFrame", type: "framehandle" },
+            { name: "point", type: "framepointtype" },
+        ],
+    },
+    GetFrameRelativePointY: {
+        returnType: "real",
+        args: [
+            { name: "whichFrame", type: "framehandle" },
+            { name: "point", type: "framepointtype" },
+        ],
+    },
     SetFrameRelativePoint: {
         returnType: "nothing",
         args: [
@@ -13632,6 +13752,20 @@ export default {
             { name: "relativePoint", type: "framepointtype" },
             { name: "x", type: "real" },
             { name: "y", type: "real" },
+        ],
+    },
+    GetFrameAbsolutePointX: {
+        returnType: "real",
+        args: [
+            { name: "whichFrame", type: "framehandle" },
+            { name: "point", type: "framepointtype" },
+        ],
+    },
+    GetFrameAbsolutePointY: {
+        returnType: "real",
+        args: [
+            { name: "whichFrame", type: "framehandle" },
+            { name: "point", type: "framepointtype" },
         ],
     },
     SetFrameAbsolutePoint: {
@@ -14121,6 +14255,8 @@ export default {
         ],
     },
     SetMiniMapTexture: { returnType: "boolean", args: [{ name: "texturePath", type: "string" }] },
+    GetFrameSlider: { returnType: "framehandle", args: [{ name: "whichFrame", type: "framehandle" }] },
+    AddFrameSlider: { returnType: "framehandle", args: [{ name: "whichFrame", type: "framehandle" }] },
     GetFrameItemsBorder: { returnType: "real", args: [{ name: "listBox", type: "framehandle" }] },
     SetFrameItemsBorder: {
         returnType: "nothing",
@@ -14203,6 +14339,28 @@ export default {
         args: [
             { name: "listBoxItem", type: "framehandle" },
             { name: "whichFrame", type: "framehandle" },
+        ],
+    },
+    GetFrameBackdrop: {
+        returnType: "framehandle",
+        args: [
+            { name: "whichFrame", type: "framehandle" },
+            { name: "backdropId", type: "integer" },
+        ],
+    },
+    IsFrameBorderEnabled: {
+        returnType: "boolean",
+        args: [
+            { name: "whichFrame", type: "framehandle" },
+            { name: "backdropId", type: "integer" },
+        ],
+    },
+    SetFrameBorderEnabled: {
+        returnType: "nothing",
+        args: [
+            { name: "whichFrame", type: "framehandle" },
+            { name: "backdropId", type: "integer" },
+            { name: "isEnable", type: "boolean" },
         ],
     },
     GetFrameBorderFlags: {

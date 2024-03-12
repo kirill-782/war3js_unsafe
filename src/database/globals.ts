@@ -911,6 +911,7 @@ export default {
     CHAT_RECIPIENT_REFEREES: "integer",
     CHAT_RECIPIENT_OBSERVERS: "integer",
     CHAT_RECIPIENT_PRIVATE: "integer",
+    CHAT_RECIPIENT_UNKNOWN: "integer",
     ABILITY_IF_BUTTON_POSITION_NORMAL_X: "abilityintegerfield",
     ABILITY_IF_BUTTON_POSITION_NORMAL_Y: "abilityintegerfield",
     ABILITY_IF_BUTTON_HOTKEY_NORMAL: "abilityintegerfield",
