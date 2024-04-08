@@ -922,6 +922,8 @@ export default {
     ABILITY_IF_BUTTON_POSITION_RESEARCH_X: "abilityintegerfield",
     ABILITY_IF_BUTTON_POSITION_RESEARCH_Y: "abilityintegerfield",
     ABILITY_IF_BUTTON_HOTKEY_ALL: "abilityintegerfield",
+    ABILITY_IF_BUTTON_POSITION_SPELLBOOK_X: "abilityintegerfield",
+    ABILITY_IF_BUTTON_POSITION_SPELLBOOK_Y: "abilityintegerfield",
     ABILITY_IF_MISSILE_SPEED: "abilityintegerfield",
     ABILITY_IF_TARGET_ATTACHMENTS: "abilityintegerfield",
     ABILITY_IF_CASTER_ATTACHMENTS: "abilityintegerfield",

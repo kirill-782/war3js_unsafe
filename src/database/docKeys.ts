@@ -654,7 +654,8 @@ export default {
     EVENT_PLAYER_HERO_REVIVE_START: "\n@patch 1.00\n",
     EVENT_PLAYER_HERO_REVIVE_CANCEL: "\n@patch 1.00\n",
     EVENT_PLAYER_HERO_REVIVE_FINISH: "\n@patch 1.00\n",
-    EVENT_PLAYER_UNIT_SUMMON: "\n@patch 1.00\n",
+    EVENT_PLAYER_UNIT_SUMMON:
+        "\nRuns when something summons a new unit under specified player's control.\n\nUse `GetSummonedUnit` for the new unit and `GetSummoningUnit` for the spell caster.\n\n@note See: `EVENT_UNIT_SUMMON`\n\n@note `GetTriggerUnit` is equivalent to `GetSummonedUnit`.\n\n@patch 1.00\n",
     EVENT_PLAYER_UNIT_DROP_ITEM: "\n@patch 1.00\n",
     EVENT_PLAYER_UNIT_PICKUP_ITEM: "\n@patch 1.00\n",
     EVENT_PLAYER_UNIT_USE_ITEM: "\n@patch 1.00\n",
@@ -694,7 +695,8 @@ export default {
     EVENT_UNIT_HERO_REVIVE_START: "\n@patch 1.00\n",
     EVENT_UNIT_HERO_REVIVE_CANCEL: "\n@patch 1.00\n",
     EVENT_UNIT_HERO_REVIVE_FINISH: "\n@patch 1.00\n",
-    EVENT_UNIT_SUMMON: "\n@patch 1.00\n",
+    EVENT_UNIT_SUMMON:
+        "\nRuns when a unit summons another unit.\n\nUse `GetSummoningUnit` to get the spell caster.\n\n@note `GetSummonedUnit` returns null, probably because the event happens before\nthe new unit is spawned.\n\n@note `GetTriggerUnit` is equivalent to `GetSummoningUnit`.\n\n@note See: `EVENT_PLAYER_UNIT_SUMMON`\n\n@patch 1.00\n",
     EVENT_UNIT_DROP_ITEM: "\n@patch 1.00\n",
     EVENT_UNIT_PICKUP_ITEM: "\n@patch 1.00\n",
     EVENT_UNIT_USE_ITEM: "\n@patch 1.00\n",
@@ -2202,14 +2204,20 @@ export default {
         "\nReturns rectangle's top-right X coordinate. \n\nReturns zero if `whichRect` is null or invalid.\n\n\n@patch 1.00\n",
     GetRectMaxY:
         "\nReturns rectangle's top-right Y coordinate. \n\nReturns zero if `whichRect` is null or invalid.\n\n\n@patch 1.00\n",
-    CreateRegion: "\n@patch 1.00\n",
-    RemoveRegion: "\n@patch 1.00\n",
-    RegionAddRect: "\n@patch 1.00\n",
-    RegionClearRect: "\n@patch 1.00\n",
-    RegionAddCell: "\n@patch 1.00\n",
-    RegionAddCellAtLoc: "\n@patch 1.00\n",
-    RegionClearCell: "\n@patch 1.00\n",
-    RegionClearCellAtLoc: "\n@patch 1.00\n",
+    CreateRegion: "\nCreates an empty region with initially no cells.\n\n@patch 1.00\n",
+    RemoveRegion: "\nDestroys a region.\n\n@param whichRegion The region to be destroyed.\n\n@patch 1.00\n",
+    RegionAddRect:
+        "\nAdds the cells of a rect to a region.\n\n@param whichRegion The region to be modified.\n@param r The rect whose cells to add.\n\n@note Cells are 32x32 world units and aligned with multiples of 32 in each direction (smallest grid in World Editor).\n\n@note The current cells of the rect are transferred. Changing the rect afterwards has no effect on the region.\n\n@note Even if the rect is moved out of map bounds, only cells within the map bounds will be added to the region.\n\n@bug An extra row and column of cells in positive x and y direction is added. E.g., if the rect is\n[minX=0, minY=0, maxX=96, maxY=96], the region will gain cells spanning the area [minX=0, minY=0, maxX=128, maxY=128].\nThis is reflected in `IsPointInRegion`, `IsUnitInRegion`, `TriggerRegisterEnterRegion` and\n`TriggerRegisterLeaveRegion`. It still respects the map bounds.\n\n@patch 1.00\n",
+    RegionClearRect:
+        "\nRemoves the cells of a rect from a region.\n\n@param whichRegion The region to be modified.\n@param r The rect whose cells to remove.\n\n@note Cells are 32x32 world units and aligned with multiples of 32 in each direction (smallest grid in World Editor).\n\n@note The current cells of the rect are removed. Changing the rect afterwards has no effect on the region.\n\n@bug An extra row and column of cells in positive x and y direction is removed. E.g., if the rect is\n[minX=0, minY=0, maxX=96, maxY=96], the region will lose cells spanning the area [minX=0, minY=0, maxX=128, maxY=128].\nThis is reflected in `IsPointInRegion`, `IsUnitInRegion`, `TriggerRegisterEnterRegion` and\n`TriggerRegisterLeaveRegion`.\n\n@patch 1.00\n",
+    RegionAddCell:
+        "\nAdds a single cell to a region.\n\n@param whichRegion The region to be modified.\n@param x The x-coordinate of the cell to be added.\n@param y The y-coordinate of the cell to be added.\n\n@note Cells are 32x32 world units and aligned with multiples of 32 in each direction (smallest grid in World Editor).\n\n@note The passed coordinates rounded down to a multiple of 32 are the minimum coordinates of the cell. E.g., (32, 32),\n(40, 40) and (63, 63) all yield the cell [minX=32, minY=32, maxX=64, maxY=64], (-64, -64), (-40, -40) and (-32, -32)\nall yield the cell [minX=-64, minY=-64, maxX=-32, maxY=-32].\n\n@patch 1.00\n",
+    RegionAddCellAtLoc:
+        "\nAdds a single cell to a region.\n\n@param whichRegion The region to be modified.\n@param whichLocation The location with the coordinates of the cell to be added.\n\n@note See: `RegionAddCell`\n\n@patch 1.00\n",
+    RegionClearCell:
+        "\nRemoves a single cell from a region.\n\n@param whichRegion The region to be modified.\n@param x The x-coordinate of the cell to be removed.\n@param y The y-coordinate of the cell to be removed.\n\n@note Cells are 32x32 world units and aligned with multiples of 32 in each direction (smallest grid in World Editor).\n\n@note The passed coordinates rounded down to a multiple of 32 are the minimum coordinates of the cell. E.g., (32, 32),\n(40, 40) and (63, 63) all yield the cell [minX=32, minY=32, maxX=64, maxY=64], (-64, -64), (-40, -40) and (-32, -32)\nall yield the cell [minX=-64, minY=-64, maxX=-32, maxY=-32].\n\n@patch 1.00\n",
+    RegionClearCellAtLoc:
+        "\nRemoves a single cell from a region.\n\n@param whichRegion The region to be modified.\n@param whichLocation The location with the coordinates of the cell to be removed.\n\n@note See: `RegionClearCell`\n\n@patch 1.00\n",
     Location: "\n@patch 1.00\n",
     RemoveLocation: "\n@patch 1.00\n",
     MoveLocation: "\n@patch 1.00\n",
@@ -2217,9 +2225,12 @@ export default {
     GetLocationY: "\n@patch 1.00\n",
     GetLocationZ:
         "\n\n\n@note Reasons for returning different values might be terrain-deformations\ncaused by spells/abilities and different graphic settings.\nOther reasons could be the rendering state of destructables and visibility differences.\n\n@async \n\n@patch 1.18a\n",
-    IsUnitInRegion: "\n@patch 1.00\n",
-    IsPointInRegion: "\n@patch 1.00\n",
-    IsLocationInRegion: "\n@patch 1.00\n",
+    IsUnitInRegion:
+        "\nChecks whether a unit is contained within a region.\n\n@param whichRegion The region to check.\n@param whichUnit The unit to check for.\n\n@note Only checks the origin of the unit. Its collision size is not considered.\n\n@patch 1.00\n",
+    IsPointInRegion:
+        "\nChecks whether a point is contained within a region.\n\n@param whichRegion The region to check.\n@param x The x-coordinate of the cell to check.\n@param y The y-coordinate of the cell to check.\n\n@note The passed coordinates rounded down to a multiple of 32 are the minimum coordinates of the cell. E.g., (32, 32),\n(40, 40) and (63, 63) all yield the cell [minX=32, minY=32, maxX=64, maxY=64], (-64, -64), (-40, -40) and (-32, -32)\nall yield the cell [minX=-64, minY=-64, maxX=-32, maxY=-32].\n\n@patch 1.00\n",
+    IsLocationInRegion:
+        "\nChecks whether a point is contained within a region.\n\n@param whichLocation The location with the coordinates of the cell to be checked.\n\n@note See: `IsPointInRegion`\n\n@patch 1.00\n",
     GetWorldBounds:
         "\nReturns a new instance of rectangle that spans the entire map, including\nunplayable borders, in world coordinates.\n\nSince this creates a new rectangle on each call, the rectangle object must be\ndestroyed manually by calling `RemoveRect`.\n\n\n@note See: `Rect`, `RemoveRect`.\n\n\n@patch 1.00\n",
     CreateTrigger: "\nCreates a new blank trigger object without any events, conditions or actions.\n\n\n@patch 1.00\n",
@@ -2278,10 +2289,12 @@ export default {
     TriggerRegisterGameEvent:
         "\nRegisters to execute whichTrigger when a game event occurs.\nReturns a handle to event that represents the registration, you can't do anything with those currently.\n\n**Example (Lua):**\n\n    trg_gameev = CreateTrigger()\n    -- this will print a message when someone opens a build menu\n    TriggerAddAction(trg_gameev, function() print(GetTriggerEventId()) end)\n    TriggerRegisterGameEvent(trg_gameev, EVENT_GAME_BUILD_SUBMENU)\n    --> new event on build menu open\n\n\n@bug Registered events cannot be destroyed as an object.\n\n@patch 1.00\n",
     GetWinningPlayer: "\n\n\n@event EVENT_GAME_VICTORY\n\n@patch 1.00\n",
-    TriggerRegisterEnterRegion: "\n@patch 1.00\n",
+    TriggerRegisterEnterRegion:
+        "\nRegisters when a unit enters a region.\n\n@param whichTrigger The trigger to add the event to.\n@param whichRegion The region of the event.\n@param filter An additional filter to determine what units will fire the trigger.\n\n@note Only reacts to the origin of units. Their collision sizes are not considered.\n\n@note The filter can be `null` to allow any unit to fire the trigger. If there is a filter, the filter will\nbe fired when a unit enters the region. In this case, the trigger will only be fired if the filter returns `true`\n(a truthy value in Lua) and `GetFilterUnit` can be used to refer to the unit in this scope.\n\n@note When moving a unit by trigger and causing the unit to enter the region, the filter will be fired instantly\nbut the trigger will be fired in a deferred fashion.\n\n@note Adding cells to the region so that units that were previously outside are now inside does not fire the trigger\nnor the filter. But those units will then be considered inside and can fire leave events\n(see `TriggerRegisterEnterRegion`) again when they cross the boundaries of the region.\n\n@note When the region is destroyed, the filter and trigger will not be fired anymore.\n\n@patch 1.00\n",
     GetTriggeringRegion: "\n\n\n@event EVENT_GAME_ENTER_REGION\n\n@patch 1.00\n",
     GetEnteringUnit: "\n\n\n@event EVENT_GAME_ENTER_REGION\n\n@patch 1.00\n",
-    TriggerRegisterLeaveRegion: "\n@patch 1.00\n",
+    TriggerRegisterLeaveRegion:
+        "\nRegisters when a unit leaves a region.\n\n@param whichTrigger The trigger to add the event to.\n@param whichRegion The region of the event.\n@param filter An additional filter to determine what units will fire the trigger.\n\n@note Only reacts to the origin of units. Their collision sizes are not considered.\n\n@note The filter can be `null` to allow any unit to fire the trigger. If there is a filter, the filter will\nbe fired when a unit leaves the region. In this case, the trigger will only be fired if the filter returns `true`\n(a truthy value in Lua) and `GetFilterUnit` can be used to refer to the unit in this scope.\n\n@note When moving a unit by trigger and causing the unit to leave the region, the filter will be fired instantly\nbut the trigger will be fired in a deferred fashion.\n\n@note Removing cells from the region so that units that were previously inside are now outside does not fire the trigger\nnor the filter. But those units will then be considered outside and can fire leave events\n(see `TriggerRegisterEnterRegion`) again when they cross the boundaries of the region.\n\n@note When the region is destroyed, the filter and trigger will not be fired anymore.\n\n@patch 1.00\n",
     GetLeavingUnit: "\n\n\n@event EVENT_GAME_LEAVE_REGION\n\n@patch 1.00\n",
     TriggerRegisterTrackableHitEvent: "\nRegisters when a player clicks on the given `trackable`.\n\n\n@patch 1.00\n",
     TriggerRegisterTrackableTrackEvent:
@@ -2325,8 +2338,10 @@ export default {
         "\n\n\n@event EVENT_PLAYER_UNIT_TRAIN_START\n@event EVENT_PLAYER_UNIT_TRAIN_CANCEL\n\n@event EVENT_UNIT_TRAIN_START\n@event EVENT_UNIT_TRAIN_CANCELLED\n@event EVENT_UNIT_TRAIN_FINISH\n\n@patch 1.00\n",
     GetTrainedUnit: "\n\n\n@event EVENT_PLAYER_UNIT_TRAIN_FINISH\n@event EVENT_UNIT_TRAIN_FINISH\n\n@patch 1.00\n",
     GetDetectedUnit: "\n\n\n@event EVENT_PLAYER_UNIT_DETECTED\n\n@patch 1.00\n",
-    GetSummoningUnit: "\n\n\n@event EVENT_PLAYER_UNIT_SUMMONED\n\n@patch 1.00\n",
-    GetSummonedUnit: "\n\n\n@event EVENT_PLAYER_UNIT_SUMMONED\n\n@patch 1.00\n",
+    GetSummoningUnit:
+        "\nReturns the unit who casted the summoning spell.\n\n@event EVENT_PLAYER_UNIT_SUMMON\n@event EVENT_UNIT_SUMMON\n\n@note See: `GetSummonedUnit`.\n\n@patch 1.00\n",
+    GetSummonedUnit:
+        "\nReturns the newly spawned unit.\n\n@event EVENT_PLAYER_UNIT_SUMMON\n\n@note See: `GetSummoningUnit`.\n\n@patch 1.00\n",
     GetTransportUnit: "\n\n\n@event EVENT_PLAYER_UNIT_LOADED\n\n@patch 1.00\n",
     GetLoadedUnit: "\n\n\n@event EVENT_PLAYER_UNIT_LOADED\n\n@patch 1.00\n",
     GetSellingUnit: "\n\n\n@event EVENT_PLAYER_UNIT_SELL\n@event EVENT_UNIT_SELL\n\n@patch 1.07\n",

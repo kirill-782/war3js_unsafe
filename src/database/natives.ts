@@ -6685,6 +6685,7 @@ export default {
             { name: "message", type: "string" },
         ],
     },
+    IsHandleDestroyed: { returnType: "boolean", args: [{ name: "whichHandle", type: "handle" }] },
     GetHandleReferenceCount: { returnType: "integer", args: [{ name: "whichHandle", type: "handle" }] },
     GetHandleBaseTypeId: { returnType: "integer", args: [{ name: "whichHandle", type: "handle" }] },
     GetHandleBaseTypeName: { returnType: "string", args: [{ name: "whichHandle", type: "handle" }] },
@@ -8795,7 +8796,21 @@ export default {
         ],
     },
     GetAbilityOwningAbility: { returnType: "ability", args: [{ name: "whichAbility", type: "ability" }] },
+    SetAbilityOwningAbility: {
+        returnType: "nothing",
+        args: [
+            { name: "whichAbility", type: "ability" },
+            { name: "whichSpellbook", type: "ability" },
+        ],
+    },
     GetAbilityOwningItem: { returnType: "item", args: [{ name: "whichAbility", type: "ability" }] },
+    SetAbilityOwningItem: {
+        returnType: "nothing",
+        args: [
+            { name: "whichAbility", type: "ability" },
+            { name: "whichItem", type: "item" },
+        ],
+    },
     GetAbilityOrderId: { returnType: "integer", args: [{ name: "whichAbility", type: "ability" }] },
     SetAbilityOrderId: {
         returnType: "nothing",
@@ -9380,12 +9395,194 @@ export default {
     GetTriggerBuffSourceAbility: { returnType: "ability", args: [] },
     GetTriggerBuffSourceUnit: { returnType: "unit", args: [] },
     GetTriggerBuffTarget: { returnType: "unit", args: [] },
+    GetWar3ImageSprite: { returnType: "sprite", args: [{ name: "whichWar3Image", type: "war3image" }] },
+    IsWar3ImageVisible: { returnType: "boolean", args: [{ name: "whichWar3Image", type: "war3image" }] },
+    SetWar3ImageVisible: {
+        returnType: "nothing",
+        args: [
+            { name: "whichWar3Image", type: "war3image" },
+            { name: "visible", type: "boolean" },
+        ],
+    },
+    IsWar3ImageInvulnerable: { returnType: "boolean", args: [{ name: "whichWar3Image", type: "war3image" }] },
+    SetWar3ImageInvulnerable: {
+        returnType: "nothing",
+        args: [
+            { name: "whichWar3Image", type: "war3image" },
+            { name: "invulnerable", type: "boolean" },
+        ],
+    },
+    GetWar3ImageX: { returnType: "real", args: [{ name: "whichWar3Image", type: "war3image" }] },
+    GetWar3ImageY: { returnType: "real", args: [{ name: "whichWar3Image", type: "war3image" }] },
+    GetWar3ImageZ: { returnType: "real", args: [{ name: "whichWar3Image", type: "war3image" }] },
+    GetWar3ImagePositionLoc: { returnType: "location", args: [{ name: "whichWar3Image", type: "war3image" }] },
+    SetWar3ImagePositionLoc: {
+        returnType: "nothing",
+        args: [
+            { name: "whichWar3Image", type: "war3image" },
+            { name: "whichLocation", type: "location" },
+        ],
+    },
+    SetWar3ImagePosition: {
+        returnType: "nothing",
+        args: [
+            { name: "whichWar3Image", type: "war3image" },
+            { name: "x", type: "real" },
+            { name: "y", type: "real" },
+        ],
+    },
+    SetWar3ImagePositionWithZ: {
+        returnType: "nothing",
+        args: [
+            { name: "whichWar3Image", type: "war3image" },
+            { name: "x", type: "real" },
+            { name: "y", type: "real" },
+            { name: "z", type: "real" },
+        ],
+    },
+    SetWar3ImageX: {
+        returnType: "nothing",
+        args: [
+            { name: "whichWar3Image", type: "war3image" },
+            { name: "x", type: "real" },
+        ],
+    },
+    SetWar3ImageY: {
+        returnType: "nothing",
+        args: [
+            { name: "whichWar3Image", type: "war3image" },
+            { name: "y", type: "real" },
+        ],
+    },
+    SetWar3ImageZ: {
+        returnType: "nothing",
+        args: [
+            { name: "whichWar3Image", type: "war3image" },
+            { name: "z", type: "real" },
+        ],
+    },
+    ResetWar3ImageZ: { returnType: "nothing", args: [{ name: "whichWar3Image", type: "war3image" }] },
+    GetWar3ImageHeight: { returnType: "real", args: [{ name: "whichWar3Image", type: "war3image" }] },
+    SetWar3ImageHeight: {
+        returnType: "nothing",
+        args: [
+            { name: "whichWar3Image", type: "war3image" },
+            { name: "height", type: "real" },
+        ],
+    },
+    GetWar3ImageScreenX: { returnType: "real", args: [{ name: "whichWar3Image", type: "war3image" }] },
+    GetWar3ImageScreenY: { returnType: "real", args: [{ name: "whichWar3Image", type: "war3image" }] },
     GetWar3ImagePlayerColour: { returnType: "playercolor", args: [{ name: "whichWar3Image", type: "war3image" }] },
     SetWar3ImagePlayerColour: {
         returnType: "nothing",
         args: [
             { name: "whichWar3Image", type: "war3image" },
             { name: "color", type: "playercolor" },
+        ],
+    },
+    GetWar3ImageVertexColour: { returnType: "integer", args: [{ name: "whichWar3Image", type: "war3image" }] },
+    SetWar3ImageVertexColour: {
+        returnType: "nothing",
+        args: [
+            { name: "whichWar3Image", type: "war3image" },
+            { name: "red", type: "integer" },
+            { name: "green", type: "integer" },
+            { name: "blue", type: "integer" },
+            { name: "alpha", type: "integer" },
+        ],
+    },
+    GetWar3ImageTimeScale: { returnType: "real", args: [{ name: "whichWar3Image", type: "war3image" }] },
+    SetWar3ImageTimeScale: {
+        returnType: "nothing",
+        args: [
+            { name: "whichWar3Image", type: "war3image" },
+            { name: "timeScale", type: "real" },
+        ],
+    },
+    GetWar3ImageScale: { returnType: "real", args: [{ name: "whichWar3Image", type: "war3image" }] },
+    SetWar3ImageScale: {
+        returnType: "nothing",
+        args: [
+            { name: "whichWar3Image", type: "war3image" },
+            { name: "scale", type: "real" },
+        ],
+    },
+    GetWar3ImageFacing: { returnType: "real", args: [{ name: "whichWar3Image", type: "war3image" }] },
+    SetWar3ImageFacing: {
+        returnType: "nothing",
+        args: [
+            { name: "whichWar3Image", type: "war3image" },
+            { name: "facing", type: "real" },
+            { name: "isInstant", type: "boolean" },
+        ],
+    },
+    SetWar3ImageMatrixScale: {
+        returnType: "nothing",
+        args: [
+            { name: "whichWar3Image", type: "war3image" },
+            { name: "x", type: "real" },
+            { name: "y", type: "real" },
+            { name: "z", type: "real" },
+        ],
+    },
+    ResetWar3ImageMatrix: { returnType: "nothing", args: [{ name: "whichWar3Image", type: "war3image" }] },
+    SetWar3ImageOrientationEx: {
+        returnType: "nothing",
+        args: [
+            { name: "whichWar3Image", type: "war3image" },
+            { name: "yaw", type: "real" },
+            { name: "pitch", type: "real" },
+            { name: "roll", type: "real" },
+            { name: "eulerOrder", type: "integer" },
+        ],
+    },
+    SetWar3ImageOrientation: {
+        returnType: "nothing",
+        args: [
+            { name: "whichWar3Image", type: "war3image" },
+            { name: "yaw", type: "real" },
+            { name: "pitch", type: "real" },
+            { name: "roll", type: "real" },
+        ],
+    },
+    GetWar3ImageYaw: { returnType: "real", args: [{ name: "whichWar3Image", type: "war3image" }] },
+    SetWar3ImageYaw: {
+        returnType: "nothing",
+        args: [
+            { name: "whichWar3Image", type: "war3image" },
+            { name: "yaw", type: "real" },
+        ],
+    },
+    GetWar3ImagePitch: { returnType: "real", args: [{ name: "whichWar3Image", type: "war3image" }] },
+    SetWar3ImagePitch: {
+        returnType: "nothing",
+        args: [
+            { name: "whichWar3Image", type: "war3image" },
+            { name: "pitch", type: "real" },
+        ],
+    },
+    GetWar3ImageRoll: { returnType: "real", args: [{ name: "whichWar3Image", type: "war3image" }] },
+    SetWar3ImageRoll: {
+        returnType: "nothing",
+        args: [
+            { name: "whichWar3Image", type: "war3image" },
+            { name: "roll", type: "real" },
+        ],
+    },
+    GetWar3ImageModel: { returnType: "string", args: [{ name: "whichWar3Image", type: "war3image" }] },
+    SetWar3ImageModel: {
+        returnType: "nothing",
+        args: [
+            { name: "whichWar3Image", type: "war3image" },
+            { name: "modelFile", type: "string" },
+        ],
+    },
+    SetWar3ImageModelEx: {
+        returnType: "nothing",
+        args: [
+            { name: "whichWar3Image", type: "war3image" },
+            { name: "modelFile", type: "string" },
+            { name: "playerId", type: "integer" },
         ],
     },
     SetWar3ImageMaterialTexture: {
@@ -9413,20 +9610,86 @@ export default {
             { name: "textureIndex", type: "integer" },
         ],
     },
-    GetWar3ImageModel: { returnType: "string", args: [{ name: "whichWar3Image", type: "war3image" }] },
-    SetWar3ImageModel: {
-        returnType: "nothing",
+    GetWar3ImageModelObjectX: {
+        returnType: "real",
         args: [
             { name: "whichWar3Image", type: "war3image" },
-            { name: "modelName", type: "string" },
+            { name: "whichObject", type: "string" },
         ],
     },
-    SetWar3ImageModelEx: {
+    GetWar3ImageModelObjectY: {
+        returnType: "real",
+        args: [
+            { name: "whichWar3Image", type: "war3image" },
+            { name: "whichObject", type: "string" },
+        ],
+    },
+    GetWar3ImageModelObjectZ: {
+        returnType: "real",
+        args: [
+            { name: "whichWar3Image", type: "war3image" },
+            { name: "whichObject", type: "string" },
+        ],
+    },
+    GetWar3ImageModelObjectPositionLoc: {
+        returnType: "location",
+        args: [
+            { name: "whichWar3Image", type: "war3image" },
+            { name: "whichObject", type: "string" },
+        ],
+    },
+    GetWar3ImageCurrentAnimationId: { returnType: "integer", args: [{ name: "whichWar3Image", type: "war3image" }] },
+    GetWar3ImageCurrentAnimationName: { returnType: "string", args: [{ name: "whichWar3Image", type: "war3image" }] },
+    SetWar3ImageAnimationWithRarityByIndex: {
         returnType: "nothing",
         args: [
             { name: "whichWar3Image", type: "war3image" },
-            { name: "modelName", type: "string" },
-            { name: "playerColour", type: "integer" },
+            { name: "animIndex", type: "integer" },
+            { name: "rarity", type: "raritycontrol" },
+        ],
+    },
+    SetWar3ImageAnimationWithRarity: {
+        returnType: "nothing",
+        args: [
+            { name: "whichWar3Image", type: "war3image" },
+            { name: "animationName", type: "string" },
+            { name: "rarity", type: "raritycontrol" },
+        ],
+    },
+    SetWar3ImageAnimationByIndex: {
+        returnType: "nothing",
+        args: [
+            { name: "whichWar3Image", type: "war3image" },
+            { name: "animIndex", type: "integer" },
+        ],
+    },
+    SetWar3ImageAnimation: {
+        returnType: "nothing",
+        args: [
+            { name: "whichWar3Image", type: "war3image" },
+            { name: "animationName", type: "string" },
+        ],
+    },
+    QueueWar3ImageAnimationByIndex: {
+        returnType: "nothing",
+        args: [
+            { name: "whichWar3Image", type: "war3image" },
+            { name: "animIndex", type: "integer" },
+        ],
+    },
+    QueueWar3ImageAnimation: {
+        returnType: "nothing",
+        args: [
+            { name: "whichWar3Image", type: "war3image" },
+            { name: "animationName", type: "string" },
+        ],
+    },
+    GetWar3ImageAnimationOffsetPercent: { returnType: "real", args: [{ name: "whichWar3Image", type: "war3image" }] },
+    SetWar3ImageAnimationOffsetPercent: {
+        returnType: "nothing",
+        args: [
+            { name: "whichWar3Image", type: "war3image" },
+            { name: "percent", type: "real" },
         ],
     },
     CreateSprite: { returnType: "sprite", args: [{ name: "isUber", type: "boolean" }] },
@@ -14107,6 +14370,21 @@ export default {
             { name: "blend", type: "boolean" },
         ],
     },
+    GetFrameBlendMode: {
+        returnType: "blendmode",
+        args: [
+            { name: "whichFrame", type: "framehandle" },
+            { name: "textureId", type: "integer" },
+        ],
+    },
+    SetFrameBlendMode: {
+        returnType: "nothing",
+        args: [
+            { name: "whichFrame", type: "framehandle" },
+            { name: "textureId", type: "integer" },
+            { name: "whichMode", type: "blendmode" },
+        ],
+    },
     SetFrameTooltip: {
         returnType: "nothing",
         args: [
@@ -14339,6 +14617,29 @@ export default {
         args: [
             { name: "listBoxItem", type: "framehandle" },
             { name: "whichFrame", type: "framehandle" },
+        ],
+    },
+    GetFrameHighlight: {
+        returnType: "framehandle",
+        args: [
+            { name: "whichFrame", type: "framehandle" },
+            { name: "highlightId", type: "integer" },
+        ],
+    },
+    GetFrameHighlightTexture: {
+        returnType: "string",
+        args: [
+            { name: "whichFrame", type: "framehandle" },
+            { name: "highlightId", type: "integer" },
+        ],
+    },
+    SetFrameHighlightTexture: {
+        returnType: "nothing",
+        args: [
+            { name: "whichFrame", type: "framehandle" },
+            { name: "highlightId", type: "integer" },
+            { name: "texturePath", type: "string" },
+            { name: "blendMode", type: "blendmode" },
         ],
     },
     GetFrameBackdrop: {
@@ -14810,6 +15111,12 @@ export default {
             { name: "isKeyDown", type: "boolean" },
         ],
     },
+    GetMouseMoveEventScreenAxisEnabled: { returnType: "boolean", args: [] },
+    SetMouseMoveEventScreenAxisEnabled: { returnType: "nothing", args: [{ name: "enable", type: "boolean" }] },
+    GetMouseMoveEventWorldAxisEnabled: { returnType: "boolean", args: [] },
+    SetMouseMoveEventWorldAxisEnabled: { returnType: "nothing", args: [{ name: "enable", type: "boolean" }] },
+    GetMouseMoveEventDelay: { returnType: "integer", args: [] },
+    SetMouseMoveEventDelay: { returnType: "nothing", args: [{ name: "delay", type: "integer" }] },
     GetTriggerPlayerMouseWorldX: { returnType: "real", args: [] },
     GetTriggerPlayerMouseWorldY: { returnType: "real", args: [] },
     GetTriggerPlayerMouseWorldZ: { returnType: "real", args: [] },
