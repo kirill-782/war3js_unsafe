@@ -5881,7 +5881,21 @@ export default {
             { name: "bitsToShift", type: "integer" },
         ],
     },
+    BitwiseShiftLeftLogical: {
+        returnType: "integer",
+        args: [
+            { name: "i", type: "integer" },
+            { name: "bitsToShift", type: "integer" },
+        ],
+    },
     BitwiseShiftRight: {
+        returnType: "integer",
+        args: [
+            { name: "i", type: "integer" },
+            { name: "bitsToShift", type: "integer" },
+        ],
+    },
+    BitwiseShiftRightLogical: {
         returnType: "integer",
         args: [
             { name: "i", type: "integer" },
@@ -9349,6 +9363,14 @@ export default {
             { name: "whichUnit", type: "unit" },
         ],
     },
+    GetBuffOwningAbility: { returnType: "ability", args: [{ name: "whichbuff", type: "buff" }] },
+    SetBuffOwningAbility: {
+        returnType: "nothing",
+        args: [
+            { name: "whichBuff", type: "buff" },
+            { name: "whichAbility", type: "ability" },
+        ],
+    },
     IsBuffDispellable: { returnType: "boolean", args: [{ name: "whichBuff", type: "buff" }] },
     SetBuffDispellable: {
         returnType: "nothing",
@@ -12122,6 +12144,29 @@ export default {
     UpdateUnitInfoBar: { returnType: "nothing", args: [{ name: "whichUnit", type: "unit" }] },
     UnitUnapplyUpgrades: { returnType: "nothing", args: [{ name: "whichUnit", type: "unit" }] },
     UnitApplyUpgrades: { returnType: "nothing", args: [{ name: "whichUnit", type: "unit" }] },
+    UnitAddAbilityEx: {
+        returnType: "boolean",
+        args: [
+            { name: "whichUnit", type: "unit" },
+            { name: "abilCode", type: "integer" },
+            { name: "checkForDuplicates", type: "boolean" },
+        ],
+    },
+    UnitRemoveAbilityEx: {
+        returnType: "boolean",
+        args: [
+            { name: "whichUnit", type: "unit" },
+            { name: "abilCode", type: "integer" },
+            { name: "removeDuplicates", type: "boolean" },
+        ],
+    },
+    CountUnitAbilities: {
+        returnType: "integer",
+        args: [
+            { name: "whichUnit", type: "unit" },
+            { name: "alsoCountBuffs", type: "boolean" },
+        ],
+    },
     GetUnitAbility: {
         returnType: "ability",
         args: [
@@ -12142,22 +12187,6 @@ export default {
         args: [
             { name: "whichUnit", type: "unit" },
             { name: "index", type: "integer" },
-        ],
-    },
-    UnitAddAbilityEx: {
-        returnType: "boolean",
-        args: [
-            { name: "whichUnit", type: "unit" },
-            { name: "abilCode", type: "integer" },
-            { name: "checkForDuplicates", type: "boolean" },
-        ],
-    },
-    UnitRemoveAbilityEx: {
-        returnType: "boolean",
-        args: [
-            { name: "whichUnit", type: "unit" },
-            { name: "abilCode", type: "integer" },
-            { name: "removeDuplicates", type: "boolean" },
         ],
     },
     IsUnitAbilityVisible: {
@@ -12252,6 +12281,7 @@ export default {
             { name: "checkForDuplicates", type: "boolean" },
         ],
     },
+    CountUnitBuffs: { returnType: "integer", args: [{ name: "whichUnit", type: "unit" }] },
     GetUnitBuff: {
         returnType: "buff",
         args: [
@@ -13722,6 +13752,13 @@ export default {
         ],
     },
     GetProjectileSourceAbility: { returnType: "ability", args: [{ name: "whichProjectile", type: "projectile" }] },
+    SetProjectileSourceAbility: {
+        returnType: "nothing",
+        args: [
+            { name: "whichProjectile", type: "projectile" },
+            { name: "whichAbility", type: "ability" },
+        ],
+    },
     GetProjectileTargetX: { returnType: "real", args: [{ name: "whichProjectile", type: "projectile" }] },
     SetProjectileTargetX: {
         returnType: "nothing",
@@ -14092,6 +14129,29 @@ export default {
         ],
     },
     GetFrameUnderCursor: { returnType: "framehandle", args: [] },
+    GetFrameChildrenCountEx: {
+        returnType: "integer",
+        args: [
+            { name: "whichFrame", type: "framehandle" },
+            { name: "listId", type: "integer" },
+        ],
+    },
+    GetFrameChildrenCount: { returnType: "integer", args: [{ name: "whichFrame", type: "framehandle" }] },
+    GetFrameChildEx: {
+        returnType: "framehandle",
+        args: [
+            { name: "whichFrame", type: "framehandle" },
+            { name: "listId", type: "integer" },
+            { name: "index", type: "integer" },
+        ],
+    },
+    GetFrameChild: {
+        returnType: "framehandle",
+        args: [
+            { name: "whichFrame", type: "framehandle" },
+            { name: "index", type: "integer" },
+        ],
+    },
     GetFrameTypeName: { returnType: "string", args: [{ name: "whichFrame", type: "framehandle" }] },
     GetFrameName: { returnType: "string", args: [{ name: "whichFrame", type: "framehandle" }] },
     SetFrameName: {
@@ -14494,6 +14554,21 @@ export default {
             { name: "flags", type: "integer" },
         ],
     },
+    GetFrameTextAlignmentValue: {
+        returnType: "real",
+        args: [
+            { name: "whichFrame", type: "framehandle" },
+            { name: "id", type: "integer" },
+        ],
+    },
+    SetFrameTextAlignmentValue: {
+        returnType: "nothing",
+        args: [
+            { name: "whichFrame", type: "framehandle" },
+            { name: "id", type: "integer" },
+            { name: "offset", type: "real" },
+        ],
+    },
     SetFrameTextAlignment: {
         returnType: "nothing",
         args: [
@@ -14516,14 +14591,6 @@ export default {
             { name: "horizontalAlign", type: "textaligntype" },
         ],
     },
-    GetFrameChildrenCount: { returnType: "integer", args: [{ name: "whichFrame", type: "framehandle" }] },
-    GetFrameChild: {
-        returnType: "framehandle",
-        args: [
-            { name: "whichFrame", type: "framehandle" },
-            { name: "index", type: "integer" },
-        ],
-    },
     GetFrameCheckState: { returnType: "boolean", args: [{ name: "whichFrame", type: "framehandle" }] },
     SetFrameCheckState: {
         returnType: "nothing",
@@ -14535,80 +14602,80 @@ export default {
     SetMiniMapTexture: { returnType: "boolean", args: [{ name: "texturePath", type: "string" }] },
     GetFrameSlider: { returnType: "framehandle", args: [{ name: "whichFrame", type: "framehandle" }] },
     AddFrameSlider: { returnType: "framehandle", args: [{ name: "whichFrame", type: "framehandle" }] },
-    GetFrameItemsBorder: { returnType: "real", args: [{ name: "listBox", type: "framehandle" }] },
+    GetFrameItemsBorder: { returnType: "real", args: [{ name: "whichFrame", type: "framehandle" }] },
     SetFrameItemsBorder: {
         returnType: "nothing",
         args: [
-            { name: "listBox", type: "framehandle" },
+            { name: "whichFrame", type: "framehandle" },
             { name: "value", type: "real" },
         ],
     },
-    GetFrameItemsHeight: { returnType: "real", args: [{ name: "listBox", type: "framehandle" }] },
+    GetFrameItemsHeight: { returnType: "real", args: [{ name: "whichFrame", type: "framehandle" }] },
     SetFrameItemsHeight: {
         returnType: "nothing",
         args: [
-            { name: "listBox", type: "framehandle" },
+            { name: "whichFrame", type: "framehandle" },
             { name: "value", type: "real" },
         ],
     },
     AddFrameListItem: {
         returnType: "framehandle",
         args: [
-            { name: "listBox", type: "framehandle" },
-            { name: "text", type: "string" },
             { name: "whichFrame", type: "framehandle" },
+            { name: "text", type: "string" },
+            { name: "frameToAdd", type: "framehandle" },
         ],
     },
-    GetFrameListItemCount: { returnType: "integer", args: [{ name: "listBox", type: "framehandle" }] },
+    GetFrameListItemCount: { returnType: "integer", args: [{ name: "whichFrame", type: "framehandle" }] },
     GetFrameListItemById: {
         returnType: "framehandle",
         args: [
-            { name: "listBox", type: "framehandle" },
+            { name: "whichFrame", type: "framehandle" },
             { name: "id", type: "integer" },
         ],
     },
     SetFrameListItemById: {
         returnType: "nothing",
         args: [
-            { name: "listBox", type: "framehandle" },
-            { name: "id", type: "integer" },
             { name: "whichFrame", type: "framehandle" },
+            { name: "id", type: "integer" },
+            { name: "listBoxItem", type: "framehandle" },
         ],
     },
     GetFrameListItemByFrame: {
         returnType: "framehandle",
         args: [
-            { name: "listBox", type: "framehandle" },
+            { name: "whichFrame", type: "framehandle" },
             { name: "frameToFind", type: "framehandle" },
         ],
     },
     SetFrameListItemByFrame: {
         returnType: "nothing",
         args: [
-            { name: "listBox", type: "framehandle" },
-            { name: "frameToFind", type: "framehandle" },
             { name: "whichFrame", type: "framehandle" },
+            { name: "frameToFind", type: "framehandle" },
+            { name: "listBoxItem", type: "framehandle" },
         ],
     },
     RemoveFrameListItem: {
         returnType: "nothing",
         args: [
-            { name: "listBox", type: "framehandle" },
             { name: "whichFrame", type: "framehandle" },
+            { name: "listBoxItem", type: "framehandle" },
         ],
     },
     RemoveFrameListItemById: {
         returnType: "nothing",
         args: [
-            { name: "listBox", type: "framehandle" },
+            { name: "whichFrame", type: "framehandle" },
             { name: "id", type: "integer" },
         ],
     },
     RemoveFrameListItemByFrame: {
         returnType: "nothing",
         args: [
-            { name: "listBox", type: "framehandle" },
             { name: "whichFrame", type: "framehandle" },
+            { name: "listBoxItem", type: "framehandle" },
         ],
     },
     GetFrameItemOwner: { returnType: "framehandle", args: [{ name: "listBoxItem", type: "framehandle" }] },
@@ -14676,7 +14743,7 @@ export default {
         args: [
             { name: "whichFrame", type: "framehandle" },
             { name: "backdropId", type: "integer" },
-            { name: "cornerFlag", type: "integer" },
+            { name: "borderFlag", type: "integer" },
         ],
     },
     GetFrameBorderSize: {
@@ -14781,6 +14848,7 @@ export default {
     GetTriggerFrameBoolean: { returnType: "boolean", args: [] },
     GetTriggerFrameString: { returnType: "string", args: [] },
     GetTriggerFrameMouseButton: { returnType: "mousebuttontype", args: [] },
+    GetTriggerFrameTargetFrame: { returnType: "framehandle", args: [] },
     TriggerRegisterFrameEvent: {
         returnType: "event",
         args: [
