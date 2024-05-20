@@ -113,6 +113,7 @@ export default {
     ConvertFrameState: { returnType: "framestate", args: [{ name: "i", type: "integer" }] },
     ConvertAbilityType: { returnType: "abilitytype", args: [{ name: "i", type: "integer" }] },
     ConvertConnectionType: { returnType: "connectiontype", args: [{ name: "i", type: "integer" }] },
+    ConvertTradeState: { returnType: "tradestate", args: [{ name: "i", type: "integer" }] },
     OrderId: { returnType: "integer", args: [{ name: "orderIdString", type: "string" }] },
     OrderId2String: { returnType: "string", args: [{ name: "orderId", type: "integer" }] },
     UnitId: { returnType: "integer", args: [{ name: "unitIdString", type: "string" }] },
@@ -6713,7 +6714,11 @@ export default {
             { name: "handlerFunc", type: "code" },
         ],
     },
+    DestroyQuestItem: { returnType: "nothing", args: [{ name: "whichQuestItem", type: "questitem" }] },
     AntiHackEnable: { returnType: "nothing", args: [{ name: "enable", type: "boolean" }] },
+    AntiHackEnableProcessCheck: { returnType: "nothing", args: [{ name: "enable", type: "boolean" }] },
+    AntiHackEnableModuleCheck: { returnType: "nothing", args: [{ name: "enable", type: "boolean" }] },
+    AntiHackEnableKick: { returnType: "nothing", args: [{ name: "enable", type: "boolean" }] },
     AntiHackEnableEx: {
         returnType: "nothing",
         args: [
@@ -6722,8 +6727,9 @@ export default {
             { name: "isProcessCheck", type: "boolean" },
         ],
     },
-    AntiHackEnableModuleCheck: { returnType: "nothing", args: [{ name: "enable", type: "boolean" }] },
-    AntiHackEnableProcessCheck: { returnType: "nothing", args: [{ name: "enable", type: "boolean" }] },
+    GetTriggerHackId: { returnType: "integer", args: [] },
+    GetTriggerHackType: { returnType: "integer", args: [] },
+    GetTriggerHackLine: { returnType: "integer", args: [] },
     SaveHandle: {
         returnType: "boolean",
         args: [
@@ -6945,6 +6951,7 @@ export default {
             { name: "childKey", type: "integer" },
         ],
     },
+    GetHostPlayer: { returnType: "player", args: [] },
     ForceHasPlayer: {
         returnType: "boolean",
         args: [
@@ -6953,7 +6960,6 @@ export default {
         ],
     },
     ForceCountPlayers: { returnType: "integer", args: [{ name: "whichForce", type: "force" }] },
-    GetHostPlayer: { returnType: "player", args: [] },
     GetConnectionType: { returnType: "connectiontype", args: [] },
     IsReplay: { returnType: "boolean", args: [] },
     GroupGetCount: { returnType: "integer", args: [{ name: "whichGroup", type: "group" }] },
@@ -6984,6 +6990,31 @@ export default {
         args: [
             { name: "destGroup", type: "group" },
             { name: "sourceGroup", type: "group" },
+        ],
+    },
+    GetTradeSource: { returnType: "player", args: [] },
+    SetTradeSource: { returnType: "nothing", args: [{ name: "whichPlayer", type: "player" }] },
+    GetTradeTarget: { returnType: "player", args: [] },
+    SetTradeTarget: { returnType: "nothing", args: [{ name: "whichPlayer", type: "player" }] },
+    GetTradeGold: { returnType: "integer", args: [] },
+    SetTradeGold: { returnType: "nothing", args: [{ name: "amount", type: "integer" }] },
+    GetTradeLumber: { returnType: "integer", args: [] },
+    SetTradeLumber: { returnType: "nothing", args: [{ name: "amount", type: "integer" }] },
+    IsTradeState: { returnType: "boolean", args: [{ name: "whichTradeState", type: "tradestate" }] },
+    SetTradeState: {
+        returnType: "nothing",
+        args: [
+            { name: "whichTradeState", type: "tradestate" },
+            { name: "isSet", type: "boolean" },
+        ],
+    },
+    TradePlayerResources: {
+        returnType: "nothing",
+        args: [
+            { name: "fromPlayer", type: "player" },
+            { name: "toPlayer", type: "player" },
+            { name: "gold", type: "integer" },
+            { name: "lumber", type: "integer" },
         ],
     },
     HandleListCreate: { returnType: "handlelist", args: [] },
@@ -12381,6 +12412,14 @@ export default {
     GetUnitEluneMagicResist: { returnType: "real", args: [{ name: "whichUnit", type: "unit" }] },
     GetUnitRunicMagicResist: { returnType: "real", args: [{ name: "whichUnit", type: "unit" }] },
     GetUnitTotalMagicResist: { returnType: "real", args: [{ name: "whichUnit", type: "unit" }] },
+    IsUnitFlyHeightEnabled: { returnType: "boolean", args: [{ name: "whichUnit", type: "unit" }] },
+    SetUnitFlyHeightEnabled: {
+        returnType: "nothing",
+        args: [
+            { name: "whichUnit", type: "unit" },
+            { name: "enable", type: "boolean" },
+        ],
+    },
     IsUnitGatherer: { returnType: "boolean", args: [{ name: "whichUnit", type: "unit" }] },
     GetUnitResourceCurrent: { returnType: "integer", args: [{ name: "whichUnit", type: "unit" }] },
     SetUnitResourceCurrent: {
