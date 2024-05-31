@@ -2047,10 +2047,18 @@ Stores the zero-based ID of neutral aggressive player.
 */
     constant alliancetype       ALLIANCE_SHARED_VISION          = ConvertAllianceType(5)
 /**
+Allows to command units of an other player.
+
+Commands that would spent the other players resources require  `ALLIANCE_SHARED_ADVANCED_CONTROL`.
 @patch 1.00
 */
     constant alliancetype       ALLIANCE_SHARED_CONTROL         = ConvertAllianceType(6)
 /**
+Shows the allied Hero Icons below your heroes up to (7 - `SetReservedLocalHeroButtons`). When you have `ALLIANCE_SHARED_ADVANCED_CONTROL` without `ALLIANCE_SHARED_CONTROL` then you will see hero icons on the left but can't command them.
+
+Shows the allied resources multiboard.
+
+Allows to spent the other player's resources.
 @patch 1.00
 */
     constant alliancetype       ALLIANCE_SHARED_ADVANCED_CONTROL= ConvertAllianceType(7)
@@ -10192,7 +10200,7 @@ Clears a group and then adds units of matching internal name to it.
 @param unitname The internal name of the unit definition to consider for adding units. For original unit definitions, this equals the `name` property in `units/unitui.slk`, for custom unit definitions, it equals "custom_" + fourcc (e.g., "custom_h000").
 @param filter A filter function that is run for each considered unit.
 
-@note In contrast to spatial GroupEnum-functions, this function enumarates units with locust.
+@note In contrast to spatial GroupEnum-functions, this function enumerates units with locust.
 
 @note Within the filter function, the considered unit can be accessed with `GetFilterUnit`.
 
@@ -10218,7 +10226,7 @@ Clears a group and then adds units of matching player to it.
 @param whichPlayer The player whose units to consider for adding units.
 @param filter A filter function that is run for each considered unit.
 
-@note In contrast to spatial GroupEnum-functions, this function enumarates units with locust.
+@note In contrast to spatial GroupEnum-functions, this function enumerates units with locust.
 
 @note Within the filter function, the considered unit can be accessed with `GetFilterUnit`.
 
@@ -10859,11 +10867,13 @@ native GetLocationY             takes location whichLocation returns real
 //  If you attempt to use it in a synchronous manner, it may cause a desync.
 
 /**
-
+Returns the current terrain height at a location.
 
 @note Reasons for returning different values might be terrain-deformations
 caused by spells/abilities and different graphic settings.
 Other reasons could be the rendering state of destructables and visibility differences.
+
+@note Returns 0 if `whichLocation` is null.
 
 @async 
 
@@ -10879,6 +10889,8 @@ Checks whether a unit is contained within a region.
 
 @note Only checks the origin of the unit. Its collision size is not considered.
 
+@note Returns false if `whichRegion` or `whichUnit` is null.
+
 @patch 1.00
 */
 native IsUnitInRegion               takes region whichRegion, unit whichUnit returns boolean
@@ -10893,6 +10905,8 @@ Checks whether a point is contained within a region.
 (40, 40) and (63, 63) all yield the cell [minX=32, minY=32, maxX=64, maxY=64], (-64, -64), (-40, -40) and (-32, -32)
 all yield the cell [minX=-64, minY=-64, maxX=-32, maxY=-32].
 
+@note Returns false if `whichRegion` is null.
+
 @patch 1.00
 */
 native IsPointInRegion              takes region whichRegion, real x, real y returns boolean
@@ -10900,6 +10914,8 @@ native IsPointInRegion              takes region whichRegion, real x, real y ret
 Checks whether a point is contained within a region.
 
 @param whichLocation The location with the coordinates of the cell to be checked.
+
+@note Returns false if `whichRegion` or `whichLocation` is null.
 
 @note See: `IsPointInRegion`
 
@@ -11381,16 +11397,21 @@ Registers when a unit enters a region.
 
 @note Only reacts to the origin of units. Their collision sizes are not considered.
 
+@note Units can enter a region by walking, being dispositioned by other game mechanisms, or programmatically
+(`SetUnitX`, `SetUnitY`, `SetUnitPosition`), or when they are created. Hidden, dead, and locust units can enter as well.
+
 @note The filter can be `null` to allow any unit to fire the trigger. If there is a filter, the filter will
 be fired when a unit enters the region. In this case, the trigger will only be fired if the filter returns `true`
 (a truthy value in Lua) and `GetFilterUnit` can be used to refer to the unit in this scope.
 
 @note When moving a unit by trigger and causing the unit to enter the region, the filter will be fired instantly
-but the trigger will be fired in a deferred fashion.
+but the trigger will be fired in a deferred fashion (using a 0-timer). The trigger will not fire if the trigger, region, or unit
+have been destroyed in the meantime. Due to the deferment, it may be good to use `IsUnitInRegion` when the trigger fires to check
+if the unit is actually still inside the region at this point in time, in case that is a wanted assumption.
 
 @note Adding cells to the region so that units that were previously outside are now inside does not fire the trigger
 nor the filter. But those units will then be considered inside and can fire leave events
-(see `TriggerRegisterEnterRegion`) again when they cross the boundaries of the region.
+(see `TriggerRegisterLeaveRegion`) again when they cross the boundaries of the region.
 
 @note When the region is destroyed, the filter and trigger will not be fired anymore.
 
@@ -11429,12 +11450,18 @@ Registers when a unit leaves a region.
 
 @note Only reacts to the origin of units. Their collision sizes are not considered.
 
+@note Units can leave a region by walking, being dispositioned by other game mechanisms, or programmatically
+(`SetUnitX`, `SetUnitY`, `SetUnitPosition`). Hidden, dead, and locust units can leave as well.
+Removing a unit will not fire the trigger nor the filter.
+
 @note The filter can be `null` to allow any unit to fire the trigger. If there is a filter, the filter will
 be fired when a unit leaves the region. In this case, the trigger will only be fired if the filter returns `true`
 (a truthy value in Lua) and `GetFilterUnit` can be used to refer to the unit in this scope.
 
 @note When moving a unit by trigger and causing the unit to leave the region, the filter will be fired instantly
-but the trigger will be fired in a deferred fashion.
+but the trigger will be fired in a deferred fashion (using a 0-timer). The trigger will not fire if the trigger, region, or unit
+have been destroyed in the meantime. Due to the deferment, it may be good to use `IsUnitInRegion` when the trigger fires to check
+if the unit is actually still outside the region at this point in time, in case that is a wanted assumption.
 
 @note Removing cells from the region so that units that were previously inside are now outside does not fire the trigger
 nor the filter. But those units will then be considered outside and can fire leave events
@@ -13663,6 +13690,39 @@ native          GetHeroAgi          takes unit whichHero, boolean includeBonuses
 native          GetHeroInt          takes unit whichHero, boolean includeBonuses returns integer
 
 /**
+Decreases the level of a hero.
+
+Returns false if `whichHero` is not a hero.
+Returns false if `howManyLevels` is negative or 0.
+Returns false if the hero is level 1.
+Otherwise returns true.
+I.e., returns true if any levels were actually subtracted.
+
+@param whichHero The hero to modify.
+@param howManyLevels The levels to subtract.
+
+@note The level can be reduced to 1 at most.
+
+@note If `howManyLevels` is negative, the level of the hero will be reduced to 1.
+
+@note The hero attributes agility, intelligence, and strength will be decreased according to the increments per level multiplied with the effective amount
+of levels stripped.
+
+@note Skillpoints will be taken away in the amount of effective amount of levels stripped up to a minimum of 0 skillpoints.
+
+@note Learned hero abilities whose requirements are no longer fulfilled due to the level reduction will be unlearned, respectively their level will be reduced.
+The invested skillpoints will be restored.
+
+@bug Concerning the restoring of skillpoints from unlearning, stripping levels away can only reduce skillpoints or be neutral (per reduced level),
+it won't add skillpoints even if multiple abilities/ability levels were unlearned.
+
+@bug In relation to the previous note, abilities will be unleaned/reduced in level even if the cheat `whoisjohngalt` is being used (which overrides learning requirements).
+
+@note Learned hero abilities will be unlearned if the level reduction leads to the hero having less total skillpoints (as determined by level and modification via `UnitModifySkillPoints`)
+then are invested in abilities. E.g., when a hero is level 2 and is given an additional skillpoint via `UnitModifySkillPoints`, there will be 3 skillpoints that can be used to learn the first level of
+3 abilities (that each require level 1). Now, when 1 level is stripped from the hero, the hero is supposed to only remain with 2 skillpoints and will unlearn 1 of the previously learned abilities to free
+the skillpoint that needs to be subtracted. Abilities that appear earlier in the hero ability list (heroAbilList) are prioritized in this unlearning mechanism.
+
 @patch 1.07
 */
 native          UnitStripHeroLevel  takes unit whichHero, integer howManyLevels returns boolean
@@ -13731,6 +13791,9 @@ if (skillPointDelta > 0) {
 }
 ```
 
+@bug If you increase the skillpoints beyond the amount that could theoretically still be spent in abilities, the next time the hero levels up,
+it will ignore the extra skillpoints beyond that limit and snap back.
+
 @patch 1.07
 */
 native          UnitModifySkillPoints   takes unit whichHero, integer skillPointDelta returns boolean
@@ -13776,6 +13839,8 @@ Further, the level will not exceed the hero's maximum level set in WorldEditor.
 @param showEyeCandy False to hide level-up effects, true to show.
 The level-up effects include: floating experience gain text, sound and a visual effect.
 
+@bug Making a hero level up using this function (or via other means) will reset the skillpoint modification caused by `UnitModifySkillPoints` if the amount of skillpoints
+is beyond the amount of ability levels that can still be learned. See `UnitModifySkillPoints`.
 
 @patch 1.00
 */
@@ -14630,18 +14695,124 @@ This native is used to keep abilities when morphing units.
 */
 native UnitMakeAbilityPermanent     takes unit whichUnit, boolean permanent, integer abilityId returns boolean
 /**
+Removes all buffs matching criteria from a given unit.
+
+@param whichUnit The unit to modify.
+@param removePositive Should be true if positive buffs should be included.
+@param removeNegative Should be true if negative buffs should be included.
+
+@note This is like calling `UnitRemoveBuffsEx(whichUnit, removePostive, removeNegative, false, false, true, true, false)`.
+
 @patch 1.00
 */
 native UnitRemoveBuffs              takes unit whichUnit, boolean removePositive, boolean removeNegative returns nothing
 /**
+Removes all buffs matching criteria from a given unit.
+
+@param whichUnit The unit to modify.
+@param removePositive Should be true if positive buffs should be included.
+@param removeNegative Should be true if negative buffs should be included.
+@param magic Should be true (or both magic and physical should be false) if buffs that are magical should included.
+@param physical Should be true (or both magic and physical should be false) if buffs that are physical should to be included.
+@param timedLife Should be true if timed life buffs should be included.
+@param aura Should be true if aura buffs should be included.
+@param autoDispel Should be true if exclusively buffs that are dispelable should be included.
+
+@note Buffs are either positive or negative. Buffs are either magical or physical or neither. Buffs are either timed life (see `UnitApplyTimedLife`) or not.
+Buffs either stem from an aura or not. Buffs are either dispelable (via dispelling abilities) or not.
+
+@note Specifying both `removePositive` and `removeNegative` as true will include both positive and negative buffs (given that other criteria are satisfied).
+These two criteria are additive.
+
+@note Specifying both `magic` and `physical` as true will not include any buff.
+Specifying `magic` as true and `physical` as false will include only magical buffs (given that other criteria are satisfied), no physical buffs nor buffs
+that are neither magical nor physical.
+Specifying `magic` as false and `physical` as true will include only physical buffs (given that other criteria are satisfied), no magical buffs nor buffs
+that are neither magical nor physical.
+Specifying both `magic` and `physical` as false will include magical buffs, physical buffs, and buffs that are neither magical nor physical
+(given that other criteria are satisfied).
+
+@note Specifying `timedLife` as true will include timed life buffs (given that other criteria are satisfied); non-timed life buffs will also be included.
+Specifying `timedLife` as false will exclude timed life buffs.
+
+@note Specifying `aura` as true will include aura buffs (given that other criteria are satisfied); non-aura buffs will also be included.
+Specifying `aura` as false will exclude aura buffs.
+
+@note Specifying `autoDispel` as true will exclusively include dispelable (via dispelling abilities) buffs (given that other criteria are satisfied); non-dispelable buffs
+will not be excluded. Specifying `autoDispel` as false will include both dispelable and non-dispelable buffs.
+
+@note Mental model:
+```
+DELETE FROM whichUnit.buffs
+WHERE
+	(POSITIVE = removePositive OR NEGATIVE = removeNegative) AND
+	((magic = FALSE AND physical = FALSE) OR (MAGIC = magic AND physical = FALSE) OR (PHYSICAL = physical AND magic = FALSE)) AND
+	(TIMED_LIFE = timedLife OR TIMED_LIFE = FALSE) AND
+	(AURA = aura OR AURA = FALSE) AND
+	(DISPELABLE = autoDispel OR DISPELABLE = TRUE)
+```
+
+@bug The criteria work differently than in `UnitHasBuffsEx`.
+
 @patch 1.07
 */
 native UnitRemoveBuffsEx            takes unit whichUnit, boolean removePositive, boolean removeNegative, boolean magic, boolean physical, boolean timedLife, boolean aura, boolean autoDispel returns nothing
 /**
+Checks if a given unit has any buff matching criteria.
+
+@note See `UnitCountBuffsEx` for parameters and criteria explanations.
+
 @patch 1.07
 */
 native UnitHasBuffsEx               takes unit whichUnit, boolean removePositive, boolean removeNegative, boolean magic, boolean physical, boolean timedLife, boolean aura, boolean autoDispel returns boolean
 /**
+Counts all buffs matching criteria on a given unit.
+
+@param whichUnit The unit to query.
+@param removePositive Should be true (or both removePositive and removeNegative should be false) if positive buffs should be included.
+@param removeNegative Should be true (or both removePositive and removeNegative should be false) if negative buffs should be included.
+@param magic Should be true and physical should be false (or both magic and physical should be false) if magical buffs should be included.
+@param physical Should be true and magic should be false (or both magic and physical should be false) if physical  buffs should be included.
+@param timedLife Should be true if timed life buffs should be included.
+@param aura Should be true if aura buffs should be included.
+@param autoDispel Should be true if exclusively buffs that are dispelable should be included.
+
+@note Buffs are either positive or negative. Buffs are either magical or physical or neither. Buffs are either timed life (see `UnitApplyTimedLife`) or not.
+Buffs either stem from an aura or not. Buffs are either dispelable (via dispelling abilities) or not.
+
+@note Specifying both `removePositive` and `removeNegative` as false will include both positive and negative buffs (given that other criteria are satisfied).
+These two criteria are additive; thus specifying both `removePositive` and `removeNegative` will include both positve and negative buffs as well
+(given that other criteria are satisfied).
+
+@note Specifying both `magic` and `physical` as false will include both magical and physical buffs (given that other criteria are satisfied).
+Specifying `magic` as true and `physical` as false will include only magical buffs (given that other criteria are satisfied), no physical buffs nor buffs
+that are neither magical nor physical.
+Specifying `magic` as false and `physical` as true will include only physical buffs (given that other criteria are satisfied), no magical buffs nor buffs
+that are neither magical nor physical.
+Specifying both `magic` and `physical` as true will not include any buff.
+
+@note Specifying `timedLife` as true will include timed life buffs (given that other criteria are satisfied); non-timed life buffs will also be included.
+Specifying `timedLife` as false will exclude timed life buffs.
+
+@note Specifying `aura` as true will include aura buffs (given that other criteria are satisfied); non-aura buffs will also be included.
+Specifying `aura` as false will exclude aura buffs.
+
+@note Specifying `autoDispel` as true will exclusively include dispelable (via dispelling abilities) buffs (given that other criteria are satisfied); non-dispelable buffs
+will not be excluded. Specifying `autoDispel` as false will include both dispelable and non-dispelable buffs.
+
+@note Mental model:
+```
+SELECT COUNT(*) FROM whichUnit.buffs
+WHERE
+	((removePositive = FALSE AND removeNegative = FALSE) OR POSITIVE = removePositive OR NEGATIVE = removeNegative) AND
+	((magic = FALSE AND physical = FALSE) OR (MAGIC = magic AND PHYSICAL = FALSE) OR (PHYSICAL = physical AND magic = FALSE)) AND (MAGIC = TRUE OR PHYSICAL = TRUE) AND
+	(TIMED_LIFE = timedLife OR TIMED_LIFE = FALSE) AND
+	(AURA = aura OR AURA = FALSE) AND
+	(DISPELABLE = autoDispel OR DISPELABLE = TRUE)
+```
+
+@bug The criteria work differently than in `UnitRemoveBuffsEx`.
+
 @patch 1.07
 */
 native UnitCountBuffsEx             takes unit whichUnit, boolean removePositive, boolean removeNegative, boolean magic, boolean physical, boolean timedLife, boolean aura, boolean autoDispel returns integer

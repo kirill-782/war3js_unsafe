@@ -2788,7 +2788,7 @@ export default {
         args: [
             { name: "forWhichPlayer", type: "player" },
             { name: "whichState", type: "fogstate" },
-            { name: "centerx", type: "real" },
+            { name: "centerX", type: "real" },
             { name: "centerY", type: "real" },
             { name: "radius", type: "real" },
             { name: "useSharedVision", type: "boolean" },
@@ -2823,7 +2823,7 @@ export default {
         args: [
             { name: "forWhichPlayer", type: "player" },
             { name: "whichState", type: "fogstate" },
-            { name: "centerx", type: "real" },
+            { name: "centerX", type: "real" },
             { name: "centerY", type: "real" },
             { name: "radius", type: "real" },
             { name: "useSharedVision", type: "boolean" },
@@ -6962,6 +6962,112 @@ export default {
     ForceCountPlayers: { returnType: "integer", args: [{ name: "whichForce", type: "force" }] },
     GetConnectionType: { returnType: "connectiontype", args: [] },
     IsReplay: { returnType: "boolean", args: [] },
+    GetFogModifierForPlayer: { returnType: "player", args: [{ name: "whichFogModifier", type: "fogmodifier" }] },
+    SetFogModifierForPlayer: {
+        returnType: "nothing",
+        args: [
+            { name: "whichFogModifier", type: "fogmodifier" },
+            { name: "forWhichPlayer", type: "player" },
+        ],
+    },
+    IsFogModifierFogState: {
+        returnType: "boolean",
+        args: [
+            { name: "whichFogModifier", type: "fogmodifier" },
+            { name: "whichState", type: "fogstate" },
+        ],
+    },
+    SetFogModifierFogState: {
+        returnType: "nothing",
+        args: [
+            { name: "whichFogModifier", type: "fogmodifier" },
+            { name: "whichState", type: "fogstate" },
+            { name: "isSet", type: "boolean" },
+        ],
+    },
+    GetFogModifierX: { returnType: "real", args: [{ name: "whichFogModifier", type: "fogmodifier" }] },
+    SetFogModifierX: {
+        returnType: "nothing",
+        args: [
+            { name: "whichFogModifier", type: "fogmodifier" },
+            { name: "x", type: "real" },
+        ],
+    },
+    GetFogModifierY: { returnType: "real", args: [{ name: "whichFogModifier", type: "fogmodifier" }] },
+    SetFogModifierY: {
+        returnType: "nothing",
+        args: [
+            { name: "whichFogModifier", type: "fogmodifier" },
+            { name: "y", type: "real" },
+        ],
+    },
+    GetFogModifierZ: { returnType: "real", args: [{ name: "whichFogModifier", type: "fogmodifier" }] },
+    SetFogModifierZ: {
+        returnType: "nothing",
+        args: [
+            { name: "whichFogModifier", type: "fogmodifier" },
+            { name: "z", type: "real" },
+        ],
+    },
+    GetFogModifierRadius: { returnType: "real", args: [{ name: "whichFogModifier", type: "fogmodifier" }] },
+    SetFogModifierRadius: {
+        returnType: "nothing",
+        args: [
+            { name: "whichFogModifier", type: "fogmodifier" },
+            { name: "radius", type: "real" },
+        ],
+    },
+    SetFogModifierRadiusEx: {
+        returnType: "nothing",
+        args: [
+            { name: "whichFogModifier", type: "fogmodifier" },
+            { name: "x", type: "real" },
+            { name: "y", type: "real" },
+            { name: "radius", type: "real" },
+        ],
+    },
+    SetFogModifierPosition: {
+        returnType: "nothing",
+        args: [
+            { name: "whichFogModifier", type: "fogmodifier" },
+            { name: "x", type: "real" },
+            { name: "y", type: "real" },
+        ],
+    },
+    SetFogModifierPositionWithZ: {
+        returnType: "nothing",
+        args: [
+            { name: "whichFogModifier", type: "fogmodifier" },
+            { name: "x", type: "real" },
+            { name: "y", type: "real" },
+            { name: "z", type: "real" },
+        ],
+    },
+    SetFogModifierPositionLoc: {
+        returnType: "nothing",
+        args: [
+            { name: "whichFogModifier", type: "fogmodifier" },
+            { name: "whichLocation", type: "location" },
+        ],
+    },
+    GetFogModifierRect: { returnType: "rect", args: [{ name: "whichFogModifier", type: "fogmodifier" }] },
+    SetFogModifierRect: {
+        returnType: "nothing",
+        args: [
+            { name: "whichFogModifier", type: "fogmodifier" },
+            { name: "where", type: "rect" },
+        ],
+    },
+    SetFogModifierRectEx: {
+        returnType: "nothing",
+        args: [
+            { name: "whichFogModifier", type: "fogmodifier" },
+            { name: "minX", type: "real" },
+            { name: "minY", type: "real" },
+            { name: "maxX", type: "real" },
+            { name: "maxY", type: "real" },
+        ],
+    },
     GroupGetCount: { returnType: "integer", args: [{ name: "whichGroup", type: "group" }] },
     GroupContainsUnit: {
         returnType: "boolean",
