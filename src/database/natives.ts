@@ -8102,7 +8102,15 @@ export default {
         returnType: "nothing",
         args: [
             { name: "whichDoodad", type: "doodad" },
-            { name: "facing", type: "real" },
+            { name: "scale", type: "real" },
+        ],
+    },
+    GetDoodadTimeScale: { returnType: "real", args: [{ name: "whichDoodad", type: "doodad" }] },
+    SetDoodadTimeScale: {
+        returnType: "nothing",
+        args: [
+            { name: "whichDoodad", type: "doodad" },
+            { name: "timeScale", type: "real" },
         ],
     },
     GetDoodadX: { returnType: "real", args: [{ name: "whichDoodad", type: "doodad" }] },
@@ -14376,6 +14384,7 @@ export default {
             { name: "colour", type: "integer" },
         ],
     },
+    IsFrameFocused: { returnType: "boolean", args: [{ name: "whichFrame", type: "framehandle" }] },
     SetFrameFocus: {
         returnType: "boolean",
         args: [
@@ -15336,7 +15345,23 @@ export default {
     GetTriggerPlayerMouseScreenX: { returnType: "real", args: [] },
     GetTriggerPlayerMouseScreenY: { returnType: "real", args: [] },
     GetEventDamageFlags: { returnType: "integer", args: [] },
-    SetEventDamageFlags: { returnType: "boolean", args: [{ name: "flags", type: "integer" }] },
+    GetEventDamageIsFlag: { returnType: "boolean", args: [{ name: "flag", type: "integer" }] },
+    SetEventDamageFlag: {
+        returnType: "boolean",
+        args: [
+            { name: "flag", type: "integer" },
+            { name: "isSet", type: "boolean" },
+        ],
+    },
+    GetEventDamageExtraFlags: { returnType: "integer", args: [] },
+    GetEventDamageIsExtraFlag: { returnType: "boolean", args: [{ name: "flag", type: "integer" }] },
+    SetEventDamageExtraFlag: {
+        returnType: "boolean",
+        args: [
+            { name: "flag", type: "integer" },
+            { name: "isSet", type: "boolean" },
+        ],
+    },
     GetEventDamageTarget: { returnType: "unit", args: [] },
     GetEventAttackType: { returnType: "attacktype", args: [] },
     SetEventAttackType: { returnType: "boolean", args: [{ name: "attackType", type: "attacktype" }] },
@@ -15348,6 +15373,7 @@ export default {
     SetEventWeaponType: { returnType: "boolean", args: [{ name: "weaponType", type: "weapontype" }] },
     GetEventIsAttack: { returnType: "boolean", args: [] },
     GetEventIsRanged: { returnType: "boolean", args: [] },
+    GetEventIsCritical: { returnType: "boolean", args: [] },
     GetEventPreDamage: { returnType: "real", args: [] },
     SetEventDamage: { returnType: "nothing", args: [{ name: "damage", type: "real" }] },
     SetEnemyStartLocPrioCount: {
