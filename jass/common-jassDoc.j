@@ -776,7 +776,9 @@ type itemstringfield                extends handle
 type movetype                       extends handle
 
 /**
+Constants of this type were defined (and their list is incomplete), but this type remains completely unused.
 
+@note See `UNIT_WEAPON_IF_ATTACK_TARGETS_ALLOWED` to access a unit's attack properties.
 @patch 1.31.0.11889
 
 */
@@ -1715,7 +1717,9 @@ constant native UnitId2String               takes integer unitId            retu
 /**
 
 
-@bug Not working correctly.
+@bug Not working correctly, always returns zero.
+Apparently ability names were never implemented.
+@note See: `AbilityId2String`, `AddSpellEffect`
 @pure 
 
 @patch 1.00
@@ -1725,7 +1729,9 @@ constant native AbilityId                   takes string  abilityIdString   retu
 /**
 
 
-@bug Not working correctly.
+@bug Not working correctly, always returns an empty string.
+Apparently ability names were never implemented.
+@note See: `AbilityId`, `AddSpellEffect`
 @pure 
 
 @patch 1.00
@@ -8654,7 +8660,66 @@ See `fogstate` for an explanation.
 
 
 /**
+Used to access WorldEditor's unit data field "Combat - Attack 1/2 - Targets Allowed" (ua1g/ua2g aka targs1/targs2) which is a bitfield for allowed types.
+
+Indexing starts from zero, hence access "Attack 1" with index 0 and "Attack 2" with index 1. Units can only have 2 attacks max.
+
+**Example (Lua):**
+
+```{.lua}
+function printUnitAttacks(unitType)
+	local u = CreateUnit(Player(0), FourCC(unitType), -30, 0, 90)
+	local wpn0 = BlzGetUnitWeaponIntegerField(u, UNIT_WEAPON_IF_ATTACK_TARGETS_ALLOWED, 0)
+	local wpn1 = BlzGetUnitWeaponIntegerField(u, UNIT_WEAPON_IF_ATTACK_TARGETS_ALLOWED, 1)
+	local wpn2 = BlzGetUnitWeaponIntegerField(u, UNIT_WEAPON_IF_ATTACK_TARGETS_ALLOWED, 2)
+	print(string.format("%4s: %14d %14d %6d", unitType, wpn0, wpn1, wpn2))
+	RemoveUnit(u)
+end
+print("unitType | idx0, idx1, idx2 (if buggy)")
+printUnitAttacks("hgry")
+```
 @note Works as intended
+@note Each type has a corresponding bit if targetting is enabled
+
+```{.lua}
+TARGETS_ALLOWED = {
+	Terrain = 0, -- bug or not implemented? Appears to use default
+	None = 1, -- disables weapon, weird behavior, beware <https://github.com/lep/jassdoc/issues/129>
+	Ground = 1 << 1,
+	Air = 1 << 2,
+	Structure = 1 << 3,
+	Ward = 1 << 4,
+	Item = 1 << 5,
+	Tree = 1 << 6,
+	Wall = 1 << 7,
+	Debris = 1 << 8,
+	Decoration = 1 << 9,
+	Bridge = 1 << 10,
+
+	Self = 1 << 12,
+	PlayerUnits = 1 << 13,
+	Allies = 1 << 14,
+	Neutral = 1 << 15,
+	Enemy = 1 << 16,
+
+	Vulnerable = 1 << 20,
+	Invulnerable = 1 << 21,
+	Hero = 1 << 22,
+	NonHero = 1 << 23,
+	Alive = 1 << 24,
+	Dead = 1 << 25,
+	Organic = 1 << 26,
+	Mechanical = 1 << 27,
+	NonSapper = 1 << 28,
+	Sapper = 1 << 29,
+	NonAncient = 1 << 30,
+	Ancient = 1 << 31,
+
+	NotSelf = PlayerUnits | Allies | Neutral | Enemy,
+	Friend = PlayerUnits | Allies,
+	DefaultWE = Ground | Air | Structure | Self | PlayerUnits | Allied | Neutral | Enemy | Vulnerable | Hero | NonHero | Alive | Organic | Mech | NonSapper | Sapper | NonAncient | Ancient -- -36573170; when nothing was selected
+}
+```
 @patch 1.31.0.11889
 */
     constant unitweaponintegerfield UNIT_WEAPON_IF_ATTACK_TARGETS_ALLOWED           = ConvertUnitWeaponIntegerField('ua1g')
@@ -8821,46 +8886,57 @@ See `fogstate` for an explanation.
     
     // Target Flag
 /**
+Unused.
 @patch 1.31.0.11889
 */
     constant targetflag     TARGET_FLAG_NONE                = ConvertTargetFlag(1)
 /**
+Unused.
 @patch 1.31.0.11889
 */
     constant targetflag     TARGET_FLAG_GROUND              = ConvertTargetFlag(2)
 /**
+Unused.
 @patch 1.31.0.11889
 */
     constant targetflag     TARGET_FLAG_AIR                 = ConvertTargetFlag(4)
 /**
+Unused.
 @patch 1.31.0.11889
 */
     constant targetflag     TARGET_FLAG_STRUCTURE           = ConvertTargetFlag(8)
 /**
+Unused.
 @patch 1.31.0.11889
 */
     constant targetflag     TARGET_FLAG_WARD                = ConvertTargetFlag(16)
 /**
+Unused.
 @patch 1.31.0.11889
 */
     constant targetflag     TARGET_FLAG_ITEM                = ConvertTargetFlag(32)
 /**
+Unused.
 @patch 1.31.0.11889
 */
     constant targetflag     TARGET_FLAG_TREE                = ConvertTargetFlag(64)
 /**
+Unused.
 @patch 1.31.0.11889
 */
     constant targetflag     TARGET_FLAG_WALL                = ConvertTargetFlag(128)
 /**
+Unused.
 @patch 1.31.0.11889
 */
     constant targetflag     TARGET_FLAG_DEBRIS              = ConvertTargetFlag(256)
 /**
+Unused.
 @patch 1.31.0.11889
 */
     constant targetflag     TARGET_FLAG_DECORATION          = ConvertTargetFlag(512)
 /**
+Unused.
 @patch 1.31.0.11889
 */
     constant targetflag     TARGET_FLAG_BRIDGE              = ConvertTargetFlag(1024)
@@ -13512,23 +13588,25 @@ Changes ownership of a unit.
 
 @param whichUnit Unit to modify.
 @param whichPlayer The unit's new owner.
-@param changeColor True to change unit's accent color to new owner's color, false to leave old color.
+@param changeColor True to update unit's tinting color to new owner's color, false to leave old color.
 
+@note New color is only applied if the unit really changed ownership from one player to another.
 
 @note Reforged: The HP bar will always have the color of its owner player, regardless of `changeColor`.
 
-@note See: `GetOwningPlayer`, `Player`.
+@note See: `GetOwningPlayer`, `Player`, `SetUnitColor`, `BlzSetSpecialEffectColorByPlayer`.
 
 @patch 1.00
 */
 native          SetUnitOwner        takes unit whichUnit, player whichPlayer, boolean changeColor returns nothing
 
 /**
-Sets a unit's player color accent.
+Sets a unit's player color accent (tinting).
 
 @param whichUnit Unit to modify.
 @param whichColor Set to this player's color.
 
+@note If the unit has a special effect attached, the new tinting is applied to the effect's model too.
 
 @bug Visual bug (tested v1.32.10): if you create two units of the same type (Normal and Colored)
 and set Colored's color to a different color, then clicking between the two units
@@ -13562,7 +13640,7 @@ native          SetUnitTimeScale    takes unit whichUnit, real timeScale returns
 native          SetUnitBlendTime    takes unit whichUnit, real blendTime returns nothing
 
 /**
-Sets the unit's entire model color to the color defined by (red, green, blue, alpha).
+Sets the unit's entire main model color to the color defined by (red, green, blue, alpha).
 
 The vertex color changes how the model is rendered. For example, setting all r,g,b=0 will make the model entirely black; no colors will be visible (like Illidan's demon form).
 
@@ -13574,8 +13652,17 @@ To imagine the final result of changing vertex colors, it is helpful to think of
 @param blue visibility of blue channel (clamped to 0-255).
 @param alpha opacity (clamped to 0-255). A value of 255 is total opacity (fully visible). A value of 0 is total transparency; the model will be invisible, but you'll still see the shadow, HP bar etc.
 
+@note Also changes the colors of attached custom special effects.
+@bug Tested 1.36.2 SD: If the unit has some secondary models/animations, these are not affected.
+E.g. the skulls surrounding Blood Mage are fully visible despite low alpha setting:
 
-@note Not to be confused with `SetUnitColor` which changes a unit's player accent color.
+```{.lua}
+bloodmage = CreateUnit(Player(0), FourCC("Hblm"), 0,0, 0)
+SetUnitVertexColor(bloodmage, 255, 255, 255, 32)
+```
+
+@note See: Similar to how `BlzSetSpecialEffectColor` works.
+@note Not to be confused with `SetUnitColor` which changes a unit's player accent (tinting) color.
 
 @patch 1.00
 */
@@ -13901,6 +13988,9 @@ Returns the level of the ability for the unit.
 @param whichUnit Target unit.
 @param abilcode Abilities' raw code identifier.
 
+@note Building abilities {'ANbu','AHbu','AEbu','AObu','AUbu','AGbu'} are considered equivalent by the game (identical ability instance).
+If the unit has one of them, it has all of them (and vice-versa). Therefore a wisp with 'ANbu'==1 also has 'AHbu'==1.
+See: <https://github.com/lep/jassdoc/issues/152>
 
 @patch 1.13
 */
@@ -13913,6 +14003,7 @@ Returns the new ability level.
 @param whichUnit The unit with the ability.
 @param abilcode The four digit rawcode representation of the ability.
 
+@note It's not possible to reduce the level of a building ability like 'AHbu'. See `GetUnitAbilityLevel`.
 
 @patch 1.17a
 */
@@ -13954,6 +14045,9 @@ to set the level of an ability for an item on the unit, too. Since it's an attri
 when the item is dropped and picked up again. Via item abilities, a unit can have more than one instance of ability with the same ability id.
 This function will only set the level of the most recently obtained ability instance, then, which corresponds to the first ability instance found
 when using `BlzGetUnitAbilityByIndex` counting upwards.
+
+@bug It's possible to set a unit's building ability (like 'AHbu') to level 0 without an effect. See `GetUnitAbilityLevel`.
+
 @patch 1.17a
 */
 native          SetUnitAbilityLevel takes unit whichUnit, integer abilcode, integer level returns integer
@@ -14687,6 +14781,9 @@ Returns:
 cast (at the EVENT_PLAYER_UNIT_SPELL_EFFECT point), and while the caster is
 moving, will cause the caster to become unresponsive to new commands until
 they reach their ordered move point. 
+
+@note All different building ability codes like 'AHbu', 'ANbu' are considered equivalent. For example, removing 'AHbu' on a unit with only 'ANbu' would remove 'ANbu' instead. 
+See `GetUnitAbilityLevel`.
 
 @patch 1.00
 */
@@ -17190,12 +17287,12 @@ Returns a random integer in the range [lowBound, highBound] (inclusive).
 Bounds may be negative, but should be lowBound <= highBound.
 When lowBound==highBound, always returns that number.
 
+The behaviour is a bit surprising if lowBound > highBound. See `GetRandomReal`
+for a full description.
+
 @param lowBound The inclusive lower bound of the random number returned.
 
 @param highBound The inclusive higher bound of the random number returned.
-
-
-@note If lowBound > highBound then it just swaps the values.
 
 @bug If you call `GetRandomInt(INT_MIN, INT_MAX)` or `GetRandomInt(INT_MAX, INT_MIN)`
 it will always return the same value, namely `INT_MIN` or `INT_MAX`.
@@ -17212,27 +17309,45 @@ Do not change its state in local blocks asynchronously.
 native GetRandomInt takes integer lowBound, integer highBound returns integer
 
 /**
-Returns a real in range [lowBound, highBound) that is: inclusive, exclusive.
-Bounds may be negative, but must be lowBound <= highBound. When lowBound==highBound, always returns that number.
+When `lowBound<highBound` returns a real in range \[lowBound, highBound) that is: inclusive, exclusive.
+When `lowBound==highBound`, always returns that number.
+
+When bounds are reversed `lowBound>highBound` then the behavior might surprise you.
+For example, the min/mid/max limits for (1,-8\] are 1/5.5/10.
+See the formula below or table at <https://github.com/lep/jassdoc/issues/151#issuecomment-2177178728>.
 
 **Example (Lua):**
 
 ````{.lua}
-SetRandomSeed(1229611)
-string.format("%.16f", GetRandomReal(0, 0.002)) == "0.00"
-SetRandomSeed(1229611)
-string.format("%.16f", GetRandomReal(-0.002, 0)) == "-0.002"
+local lowSeed = 1229611
+local midSeed = 7685839
+local highSeed = 23999343
+
+SetRandomSeed(lowSeed)
+string.format("%.16f", GetRandomReal(0, 0.002)) --> "0.00"
+SetRandomSeed(lowSeed)
+string.format("%.16f", GetRandomReal(-0.002, 0)) --> "-0.002"
+
+SetRandomSeed(midSeed)
+string.format("%.16f", GetRandomReal(0, 50)) --> "25.000"
+
+SetRandomSeed(highSeed)
+string.format("%.16f", GetRandomReal(0, 50)) --> "49.9999580383300781"
 ````
 
 @note **Desyncs!** The random number generator is a global, shared resource. Do not change its state in local blocks asynchronously.
 
-@note Undefined behavior when lowBound > highBound. Test code:
+@note The bounds for generated values can be calculated with these formulas:
 
 ````{.lua}
--- Set seed to zero and then generate and print a random real
-function testRReal(low, high) SetRandomSeed(0); return string.format("%.16f", GetRandomReal(low,high)) end
-testRReal(-42, 42) == "-4.0800933837890625"
-testRReal(42, -42) == "79.9199066162109375"
+function bounds(low, high)
+    local min = low
+    local delta = (low > high) and (low - high) or (high - low)
+    local mid = low + delta / 2
+    local max = low + delta
+		
+    return min, mid, max
+end
 ````
 
 @note See: `GetRandomInt`, `SetRandomSeed`.
@@ -19728,7 +19843,8 @@ native CameraSetSmoothingFactor         takes real factor returns nothing
 
 /**
 
-
+@note Works only in Reforged HD graphics mode.
+@note See tutorial <https://www.hiveworkshop.com/threads/how-to-camera-focal-distance-and-depth-of-field.331038/>
 @patch 1.32.0.13369
 
 */
@@ -19736,7 +19852,8 @@ native CameraSetFocalDistance			takes real distance returns nothing
 
 /**
 
-
+@note Works only in Reforged HD graphics mode.
+@note See tutorial <https://www.hiveworkshop.com/threads/how-to-camera-focal-distance-and-depth-of-field.331038/>
 @patch 1.32.0.13369
 
 */
@@ -20615,10 +20732,11 @@ The altitude (Z) of the newly spawned effect is at the ground level, be it terra
 In other words, the effect's Z coordinate does not have to be 0.
 
 
-@note To create an effect with an offset in relation to the ground before 1.30 patch, see <http://www.hiveworkshop.com/forums/1561722-post10.html>
-@note In case of 1.30 patch or higher, use `BlzSetSpecialEffectZ` native.
+@note In older patches to create an effect with a Z-position other than zero see <https://www.hiveworkshop.com/threads/function-to-create-effect-at-z.165250/#post-1561722>.
+In 1.29.2.9231 and newer use `BlzSetSpecialEffectPosition` or `BlzSetSpecialEffectZ`.
 
 @note To create an effect only visible to one player see <https://www.hiveworkshop.com/threads/gs.300430/#post-3209073>
+@note An effect is only visible if its center is within draw distance and is not hidden by fog of war.
 
 @patch 1.00
 */
@@ -20629,8 +20747,8 @@ Creates the special effect in the stated location using the model file with a pa
 The altitude (Z) of the newly spawned effect is at the ground level, be it terrain, some pathable destructable or on top of water.
 In other words, the effect's Z coordinate does not have to be 0.
 
-
-@note To create an effect with a z-position not zero see <http://www.hiveworkshop.com/forums/1561722-post10.html>.
+@note In older patches to create an effect with a Z-position other than zero see <https://www.hiveworkshop.com/threads/function-to-create-effect-at-z.165250/#post-1561722>.
+In 1.29.2.9231 and newer use `BlzSetSpecialEffectPosition` or `BlzSetSpecialEffectZ`.
 
 @note To create an effect only visible to one player see <https://www.hiveworkshop.com/threads/gs.300430/#post-3209073>.
 
@@ -20669,26 +20787,35 @@ you are attaching effects to.
 */
 native AddSpecialEffectTarget       takes string modelName, widget targetWidget, string attachPointName returns effect
 /**
+Destroys the effect.
+If the model has a death animation, plays it including the sound (temporarily leaving a blood pool), otherwise finishes current animation.
+
+Example (Lua):
+
+```{.lua}
+DestroyEffect(AddSpecialEffect([[units\human\sorceress\sorceress.mdx]], 0,0))
+DestroyEffect(AddSpecialEffect([[doodads\lordaeronsummer\props\cage\cage.mdx]], 128,0))
+```
+
+@note v1.36.2: Tree models are unusable. Found under "doodads/terrain/" in game resources, if spawned, they'll appear
+without a texture (apparently the texture path isn't set inside the model).
+
 @patch 1.00
 */
 native DestroyEffect                takes effect whichEffect returns nothing
 
 
 /**
-
-
-@note No one knows what abilityString is supposed to be.
-@bug Does nothing.
+@bug Does nothing because no one knows what "abilityString" is supposed to be.
+It's probably not implemented like `AbilityId2String` doesn't work too.
 
 @patch 1.00
 */
 native AddSpellEffect               takes string abilityString, effecttype t, real x, real y returns effect
 
 /**
-
-
-@note No one knows what abilityString is supposed to be.
-@bug Does nothing.
+@bug Does nothing because no one knows what "abilityString" is supposed to be.
+It's probably not implemented like `AbilityId2String` doesn't work too.
 
 @patch 1.00
 */
@@ -20702,8 +20829,16 @@ function) with raw code abilityId. If this field has more than one effect
 inside, it will only create the first effect stated in the field, ignoring
 all others.
 
+**Example (Lua):**
 
-@note To create an effect with a z-position not zero see <http://www.hiveworkshop.com/forums/1561722-post10.html>.
+Create an effect based on unit's attack missile model ('hsor' is human Sorceress):
+
+```{.lua}
+atkEffect = AddSpellEffectById(FourCC("hsor"), EFFECT_TYPE_MISSILE, 0, 0)
+```
+
+@note In older patches to create an effect with a Z-position other than zero see <https://www.hiveworkshop.com/threads/function-to-create-effect-at-z.165250/#post-1561722>.
+In 1.29.2.9231 and newer use `BlzSetSpecialEffectPosition` or `BlzSetSpecialEffectZ`.
 
 @patch 1.00
 */
@@ -20717,7 +20852,8 @@ raw code abilityId. If this field has more than one effect inside, it will only
 create the first effect stated in the field, ignoring all others.
 
 
-@note To create an effect with a z-position not zero see <http://www.hiveworkshop.com/forums/1561722-post10.html>.
+@note In older patches to create an effect with a Z-position other than zero see <https://www.hiveworkshop.com/threads/function-to-create-effect-at-z.165250/#post-1561722>.
+In 1.29.2.9231 and newer use `BlzSetSpecialEffectPosition` or `BlzSetSpecialEffectZ`.
 
 @patch 1.00
 */
@@ -20735,6 +20871,16 @@ it's ability-only function) with raw code abilityId. If this field has more than
 one effect inside, it will only create the first effect stated in the field,
 ignoring all others.
 
+**Example (Lua):**
+
+Attach an effect based on unit's attack missile model ('hsor' is human Sorceress)
+to the head of the Blood Mage hero. A fire bird (SD) will follow him around:
+
+```{.lua}
+bloodmage = CreateUnit(Player(0), FourCC("Hblm"), 0,0, 0)
+birdEffect = AddSpellEffectTargetById(FourCC("hsor"), EFFECT_TYPE_MISSILE, bloodmage, "head")
+BlzSetSpecialEffectScale(birdEffect, 3)
+```
 
 @patch 1.00
 */
@@ -20881,8 +21027,8 @@ native SetLightningColor            takes lightning whichBolt, real r, real g, r
 /**
 
 
-@note No one knows what abilityString is supposed to be.
-@bug Does nothing.
+@bug Does nothing because no one knows what "abilityString" is supposed to be.
+It's probably not implemented like `AbilityId2String` doesn't work too.
 @pure 
 
 @patch 1.17a
@@ -20901,8 +21047,8 @@ native GetAbilityEffectById         takes integer abilityId, effecttype t, integ
 /**
 
 
-@note No one knows what abilityString is supposed to be.
-@bug Does nothing.
+@bug Does nothing because no one knows what "abilityString" is supposed to be.
+It's probably not implemented like `AbilityId2String` doesn't work too.
 @pure 
 
 @patch 1.17a
@@ -22103,8 +22249,26 @@ Set a unit’s base Attack Cooldown, weapon index can be either 0 and 1 (a unit 
 native BlzSetUnitAttackCooldown                    takes unit whichUnit, real cooldown, integer weaponIndex returns nothing
 
 /**
-Changes(Set) the color of a special effect (tinting), using the specific player’s color, it will tint the effect on every part that it can be tinted.
+Sets the tinting color to match the specific player’s color.
 
+@note Not all models have a surface that can be colored by tinting.
+E.g. a campaign building (prop) cannot show an owner's color, but regular playable units and buildings can.
+
+@note If the effect is attached to a unit, then whenever the unit is recolored,
+that new color will be applied to attached effects too: `SetUnitColor`, `SetUnitOwner` (when changeColor is true).
+
+**Example (Lua):** 
+
+```{.lua}
+-- hero created for Player Red
+bloodmageSorc = CreateUnit(Player(0), FourCC("Hblm"), 0,0, 0)
+-- Sorceress has red color by default, it's the standard color for tinted models
+sorceressBm = AddSpecialEffectTarget([[units\human\sorceress\sorceress.mdx]], bloodmageSorc, "head")
+-- both hero and sorceress turn green
+SetUnitColor(bloodmageSorc, PLAYER_COLOR_GREEN)
+-- change only sorceress to purple
+BlzSetSpecialEffectColorByPlayer(sorceressBm, Player(3))
+```
 
 @patch 1.29.2.9231
 
@@ -22112,8 +22276,27 @@ Changes(Set) the color of a special effect (tinting), using the specific player�
 native BlzSetSpecialEffectColorByPlayer            takes effect whichEffect, player whichPlayer returns nothing
 
 /**
-Changes(Set) the color of a special effect (tinting), using R (RED) G (GREEN) B (BLUE) values, it will tint the effect on every part that it can be tinted.
+Sets the vertex colors of the special effect.
 
+**Example (Lua):**
+
+The question mark (SD) model is excellent for experimentation, because it is completely white.
+
+If we remove the green channel, it will appear pink/magenta (red+blue).
+Setting all channels to 0 will produce a black model.
+
+```{.lua}
+questionMark = AddSpecialEffect([[objects\randomobject\randomobject.mdx]], -128, 0)
+BlzSetSpecialEffectColor(questionMark, 255,0,255)
+```
+
+@param r only accepts values 0-255 (no light - fully lit)
+@param g only accepts values 0-255 (no light - fully lit)
+@param b only accepts values 0-255 (no light - fully lit)
+@note Does nothing if any single parameter is invalid or out of range.
+
+@note See: Similar to how `SetUnitVertexColor` works.
+Not to be confused with `BlzSetSpecialEffectColorByPlayer` (tinting color)
 
 @patch 1.29.2.9231
 
@@ -22121,9 +22304,23 @@ Changes(Set) the color of a special effect (tinting), using R (RED) G (GREEN) B 
 native BlzSetSpecialEffectColor                    takes effect whichEffect, integer r, integer g, integer b returns nothing
 
 /**
-Changes(Set) the alpha (transparency) of a special effect, the entire model will be made transparent based on the integer value.
-*Integer Alpha goes from 0 to 100 (it equals percentage).*
+Sets the transparency of the effect's main model.
 
+If current effect is attached to something (another effect or unit) then this doesn't apply alpha.
+Instead you must change the transparency of the "owning" effect/unit that current effect was attached to.
+
+@param whichEffect target effect
+@param alpha 0 - fully transparent, 255 - fully opaque. Values outside this range do nothing.
+
+@bug v1.36.2 in SD (HD?):
+Only changes the visibility of the main model. For example, Sorceress 'hsor' missile is a
+firebird with trailing fire. With alpha set to 0, you cannot see the bird but can see the fire trail (unaffected).
+
+```{.lua}
+firebird = AddSpecialEffect([[Abilities\Weapons\SorceressMissile\SorceressMissile.mdl]], 128, 0)
+firebirdTransparent = AddSpecialEffect([[Abilities\Weapons\SorceressMissile\SorceressMissile.mdl]], 256, 0)
+BlzSetSpecialEffectAlpha(firebirdTransparent, 0)
+```
 
 @patch 1.29.2.9231
 
@@ -22131,21 +22328,35 @@ Changes(Set) the alpha (transparency) of a special effect, the entire model will
 native BlzSetSpecialEffectAlpha                    takes effect whichEffect, integer alpha returns nothing
 
 /**
-Changes(Set) the scale of a special effect, the entire model will be scaled based on the scale value.
+Sets the new scale. The entire model will be scaled based on this value.
+If the effect has a matrix scale set, the final scale will be a result of multiplication.
 
-*Even though scale is a real (allows negative and positive numbers with decimals), it should be logically deduced that it shouldn’t be a negative value, object editor forces the minimum to be 0.10 (10% of the original size), it is not yet tested if it supports up to 0.01(1% of the original size).*
+Negative values cause models to be mirrored along every axis (including rendering under terrain due to negative Z).
 
+**Example (Lua):**
 
+Have you ever thought to peek under the skirt of a sorceress? I know **you** did. Pervert...
+
+```{.lua}
+-- Creates model facing east
+sorceress = AddSpecialEffect([[units\human\sorceress\sorceress.mdx]], 0,0)
+BlzSetSpecialEffectScale(sorceress, -2) -- the model is now underground facing west, upside down
+BlzSetSpecialEffectHeight(sorceress, 256) -- raise above the ground
+BlzSetSpecialEffectYaw(sorceress, 3.14/2) -- rotate to face south
+```
+
+@note See: `BlzSetSpecialEffectMatrixScale`
+@param whichEffect effect to scale
+@param scale scaling ratio (default: 1)
 @patch 1.29.2.9231
 
 */
 native BlzSetSpecialEffectScale                    takes effect whichEffect, real scale returns nothing
 
 /**
-Changes(set) the X, Y and Z (altitude) coordinate (Cartesian System) of the current location of the special effect.
+Sets the effect's absolute X, Y and Z map coordinates position.
 
-
-@note Z is not relative to terrain, it is absolute.
+@note Does not apply if the effect is attached to some model's attachment point (remains 0.0).
 
 @patch 1.29.2.9231
 
@@ -22153,9 +22364,17 @@ Changes(set) the X, Y and Z (altitude) coordinate (Cartesian System) of the curr
 native BlzSetSpecialEffectPosition                 takes effect whichEffect, real x, real y, real z returns nothing
 
 /**
-Sets the effect's absolute Z position (height). This native is functionally identical to `BlzSetSpecialEffectZ`.
+Sets the effect's absolute Z position (height). This native *appears* to be *mostly* identical to `BlzSetSpecialEffectZ`.
 
+@bug Crashes the game if used on an attached effect (tested 1.36.2 SD):
+```{.lua}
+bloodmage = CreateUnit(Player(0), FourCC("Hblm"), 0,0, 0)
+birdEffect = AddSpellEffectTargetById(FourCC("hsor"), EFFECT_TYPE_MISSILE, bloodmage, "head")
+BlzSetSpecialEffectScale(birdEffect, 3)
+BlzSetSpecialEffectZ(birdEffect, 128) -- no effect
 
+BlzSetSpecialEffectHeight(birdEffect, 128) -- crash
+```
 @patch 1.29.2.9231
 
 */
@@ -22184,10 +22403,15 @@ Changes(set) the time (how long the special effect lasts) of the passed special 
 native BlzSetSpecialEffectTime                     takes effect whichEffect, real time returns nothing
 
 /**
-Changes(set) the yaw, pitch and roll of the passed special effect.
+Sets the 3-dimensional rotation of the special effect.
 
-*Yaw, pitch and roll are reals, which means that they can be both negative and positive numbers with decimals.*
+@note Does not apply if the effect is attached to some model's attachment point (remains 0.0).
 
+@param yaw In radian (1*π is a 180° rotation) - rotation around Z-axis, like a unit
+@param pitch In radian (1*π is a 180° rotation) - rotation around Y-axis
+@param roll In radian (1*π is a 180° rotation) - rotation around X-axis
+
+@note See: `BlzSetSpecialEffectYaw`, `BlzSetSpecialEffectPitch`, `BlzSetSpecialEffectRoll`
 
 @patch 1.29.2.9231
 
@@ -22195,7 +22419,13 @@ Changes(set) the yaw, pitch and roll of the passed special effect.
 native BlzSetSpecialEffectOrientation              takes effect whichEffect, real yaw, real pitch, real roll returns nothing
 
 /**
+Rotates the model around the Z-axis (like rotating a unit).
 
+@note Does not apply if the effect is attached to some model's attachment point (remains 0.0).
+
+@param yaw In radian (1*π is a 180° rotation) - rotation around Z-axis, like a unit
+
+@note See: `BlzSetSpecialEffectOrientation`, `BlzSetSpecialEffectPitch`, `BlzSetSpecialEffectRoll`
 
 @patch 1.29.2.9231
 
@@ -22204,6 +22434,11 @@ native BlzSetSpecialEffectYaw                      takes effect whichEffect, rea
 
 /**
 
+@note Does not apply if the effect is attached to some model's attachment point (remains 0.0).
+
+@param pitch In radian (1*π is a 180° rotation) - rotation around Y-axis
+
+@note See: `BlzSetSpecialEffectOrientation`, `BlzSetSpecialEffectYaw`, `BlzSetSpecialEffectRoll`
 
 @patch 1.29.2.9231
 
@@ -22211,7 +22446,11 @@ native BlzSetSpecialEffectYaw                      takes effect whichEffect, rea
 native BlzSetSpecialEffectPitch                    takes effect whichEffect, real pitch returns nothing
 
 /**
+@note Does not apply if the effect is attached to some model's attachment point (remains 0.0).
 
+@param roll In radian (1*π is a 180° rotation) - rotation around X-axis
+
+@note See: `BlzSetSpecialEffectOrientation`, `BlzSetSpecialEffectYaw`, `BlzSetSpecialEffectPitch`
 
 @patch 1.29.2.9231
 
@@ -22219,9 +22458,13 @@ native BlzSetSpecialEffectPitch                    takes effect whichEffect, rea
 native BlzSetSpecialEffectRoll                     takes effect whichEffect, real roll returns nothing
 
 /**
+Sets the effect's absolute X map position (east-west). 
 
+@note Does not apply if the effect is attached to some model's attachment point (remains 0.0).
 
-@bug In 1.29 this native is bugged, it will set the X coordinate, but reset the Y and Z to where it was spawned in.
+@bug In 1.29-?? it will set the X coordinate, but reset the Y and Z to where it was spawned in.
+@bug In 1.36.2 it will set the X coordinate, but reset only Z to zero.
+@note See: `BlzSetSpecialEffectPosition`
 
 @patch 1.29.2.9231
 
@@ -22229,9 +22472,13 @@ native BlzSetSpecialEffectRoll                     takes effect whichEffect, rea
 native BlzSetSpecialEffectX                        takes effect whichEffect, real x returns nothing
 
 /**
+Sets the effect's absolute Y map position (north/south). 
 
+@note Does not apply if the effect is attached to some model's attachment point (remains 0.0).
 
-@bug In 1.29 this native is bugged, it will set the Y coordinate, but reset the X and Z to where it was spawned in.
+@bug In 1.29-?? it will set the Y coordinate, but reset the X and Z to where it was spawned in.
+@bug In 1.36.2 it will set the Y coordinate, but reset only Z to zero.
+@note See: `BlzSetSpecialEffectPosition`
 
 @patch 1.29.2.9231
 
@@ -22239,8 +22486,9 @@ native BlzSetSpecialEffectX                        takes effect whichEffect, rea
 native BlzSetSpecialEffectY                        takes effect whichEffect, real y returns nothing
 
 /**
-Sets the effect's absolute Z position (height). 
+Sets the effect's absolute Z map position (altitude aka height).
 
+@note Does not apply if the effect is attached to some model's attachment point (remains 0.0).
 
 @note Before 1.29 there was no direct way to set a special effect's height. The following trick was used as a workaround:
 
@@ -22251,7 +22499,9 @@ Sets the effect's absolute Z position (height).
     // Remove platform immediately, only the effect will remain visible for its life duration
     call RemoveDestructable(tempDestr)
 
-@bug In 1.29 this native is bugged, it will set the Z coordinate, but reset the X and Y to where it was spawned in.
+@bug In versions 1.29-?? it will set the Z coordinate, but reset the X and Y to where it was spawned in.
+v1.36.2: Works as expected.
+@note See: `BlzSetSpecialEffectPosition`, `BlzSetSpecialEffectHeight`
 
 @patch 1.29.2.9231
 
@@ -22259,17 +22509,21 @@ Sets the effect's absolute Z position (height).
 native BlzSetSpecialEffectZ                        takes effect whichEffect, real z returns nothing
 
 /**
-Changes(set) the current location of the special effect into the passed location.
+Sets the effect's absolute X and Y map position based on given location.
 
+@note Does not apply if the effect is attached to some model's attachment point (remains 0.0).
 
+@bug In 1.36.2 (and earlier?) it will set the X and Y coordinates, but reset Z to zero.
+@note See: `BlzSetSpecialEffectPosition`
 @patch 1.29.2.9231
 
 */
 native BlzSetSpecialEffectPositionLoc              takes effect whichEffect, location loc returns nothing
 
 /**
-Get the X coordinate (Cartesian System) of the current location of the special effect.
+Get the X map coordinate (Cartesian System; east-west) of the special effect.
 
+If the effect is attached to something, returns 0.0.
 
 @async 
 @patch 1.29.2.9231
@@ -22278,8 +22532,9 @@ Get the X coordinate (Cartesian System) of the current location of the special e
 native BlzGetLocalSpecialEffectX                   takes effect whichEffect returns real
 
 /**
-Get the Y coordinate (Cartesian System) of the current location of the special effect.
+Get the Y map coordinate (Cartesian System; north-south) of the special effect.
 
+If the effect is attached to something, returns 0.0.
 
 @async 
 @patch 1.29.2.9231
@@ -22288,8 +22543,9 @@ Get the Y coordinate (Cartesian System) of the current location of the special e
 native BlzGetLocalSpecialEffectY                   takes effect whichEffect returns real
 
 /**
-Get the absolute Z coordinate (altitude)(Cartesian System) of the current location of the special effect.
+Get the Z map coordinate (Cartesian System; height aka altitude) of the special effect.
 
+If the effect is attached to something, returns 0.0.
 
 @async 
 @patch 1.29.2.9231
@@ -22328,7 +22584,7 @@ native BlzSpecialEffectClearSubAnimations          takes effect whichEffect retu
 /**
 Clears a specific subanimation (tag) of a specified special effect. (It does not affect normal animations).
 
-
+@note See `BlzSpecialEffectClearSubAnimations` for subanimation tag examples.
 @patch 1.30.0.9655
 
 */
@@ -22346,7 +22602,7 @@ native BlzSpecialEffectAddSubAnimation             takes effect whichEffect, sub
 /**
 Plays a specific subanimation (tag) on a specified special effect.
 
-
+@note See `BlzSpecialEffectClearSubAnimations` for subanimation tag examples.
 @patch 1.30.0.9655
 
 */
@@ -22358,7 +22614,7 @@ Plays a specific subanimation (tag) on a specified special effect at a specific 
 1. *Overrides the currently playing animation/subanimation.*
 2. *TimeScale is a real, meaning that it can be both negative and positive numbers with decimals, there are examples in which you can use negative numbers mid animation to make it go backwards, however in this case it starts at 0 meaning that it can’t be negative.*
 
-
+@note See `BlzSpecialEffectClearSubAnimations` for subanimation tag examples.
 @patch 1.30.0.9655
 
 */
@@ -22374,9 +22630,9 @@ Returns the string representation of the name of the animation. `animtype` is a 
 native BlzGetAnimName                              takes animtype whichAnim returns string
 
 /**
-Get the current unit armor of a specific unit (real value).
+Get the current unit armor of a specific unit.
 
-*Returns TOTAL amount of armor a unit has, including bonus (green) armor from  auras, buffs, agility and items. If you need just base or bonus armor, you need to calculate base armor yourself (for heroes: -2 + agility (excluding bonuses) * 0.3). Agility bonus also counts as bonus armor, e.g. +1 agility will be displayed as + 0.3 armor with default gameplay constants.*
+*Returns TOTAL amount of armor a unit has, including bonus (green) armor from auras, buffs, agility and items. If you need just base or bonus armor, you need to calculate base armor yourself (for heroes: -2 + agility (excluding bonuses) * 0.3). Agility bonus also counts as bonus armor, e.g. +1 agility will be displayed as + 0.3 armor with default gameplay constants.*
 
 
 @patch 1.29.2.9231
@@ -22434,6 +22690,9 @@ BlzUnitDisableAbility(u, FourCC"AHbu", false, true)
 
 @bug (1.32.10 confirmed) The game counts isDisabled and hideUI internally as integers(?) If you called 5 times "hideUI = true" to hide an icon then you'll need to multiple times "hideUI = false" to show it again. I do not exactly understand how it's counted.
 https://www.hiveworkshop.com/threads/blzunithideability-and-blzunitdisableability-dont-work.312477/
+
+@note All different building ability codes like 'AHbu', 'ANbu' are considered equivalent. For example, disabling 'AHbu' on a unit with only 'ANbu' would disable 'ANbu' instead. 
+See `GetUnitAbilityLevel`.
 
 @patch 1.29.2.9231
 
@@ -23717,7 +23976,7 @@ Uses a new Texture for the minimap.
 native BlzChangeMinimapTerrainTex                  takes string texFile returns boolean
 
 /**
-Returns the used warcraft 3 Lcid.
+Returns player's active locale ID (LCID).
 
     //  English (US)            = 'enUS' 
     //  English (UK)            = 'enGB' 
@@ -23738,7 +23997,16 @@ Returns the used warcraft 3 Lcid.
     //  Thai                    = 'thTH'
 	
 
-@note Warcraft 3 Lcids can be found in `config.ini` inside the CASC.
+@note The "English" setting is represented as "enUS". "enGB" probably never existed.
+
+The classic's Hungarian fan translation had not changed the LCID. It runs as "enUS".
+
+@note Warcraft 3 LCIDs can be found in `config.ini` inside the CASC/MPQ.
+@note Although the Battle.net App lets you select Text and Spoken Languages separately,
+only the Text Language matters for Warcraft 3. Maybe "Spoken Language" wasn't implemented at all.
+@note After changing the game's language settings in the Battle.net App, you must start the game once
+through the app for the locale setting to apply. Manually starting the "Warcraft III.exe" will not
+pick up the setting.
 
 @async 
 @patch 1.31.0.11889
@@ -23747,31 +24015,67 @@ Returns the used warcraft 3 Lcid.
 native BlzGetLocale                                takes nothing returns string
 
 /**
-
+Returns the whole model's scaling ratio (default: 1).
 
 @patch 1.31.0.11889
+@note See: `BlzSetSpecialEffectScale`, `BlzSetSpecialEffectMatrixScale`
 
 */
 native BlzGetSpecialEffectScale                    takes effect whichEffect returns real
 
 /**
+Sets the effect's 3-dimensional scaling matrix.
 
+If the effect has a general scale set with `BlzSetSpecialEffectScale`,
+the final scale will be a result of multiplication.
 
+**Example (Lua):**
+
+```{.lua}
+sePath = [[UI\Feedback\selectioncircle\selectioncircle.mdx]]
+seXY = AddSpecialEffect(sePath, 0,0)
+seX = AddSpecialEffect(sePath, -512,0)
+seY = AddSpecialEffect(sePath, 0,512)
+seZ = AddSpecialEffect(sePath, 0,0)
+se0 = AddSpecialEffect(sePath, 0,0)
+seLine = AddSpecialEffect(sePath, 256,0)
+
+BlzSetSpecialEffectMatrixScale(seXY, 10, 10, 1) -- big circle
+BlzSetSpecialEffectMatrixScale(seX, 5, 1, 1) -- wide oval
+BlzSetSpecialEffectMatrixScale(seY, 1, 5, 1) -- oval stretched north-south
+BlzSetSpecialEffectMatrixScale(seZ, 1, 1, 10) -- because SelectionCircle model is flat, you only see it higher above the ground
+BlzSetSpecialEffectMatrixScale(seLine, 0.05, 25, 0) -- looks like a thin vertical line
+--[[ This special effect will remain for approx. 5s even if removed immediately ]]
+DestroyEffect(seXY);DestroyEffect(seX);DestroyEffect(seY);DestroyEffect(seZ);DestroyEffect(se0);DestroyEffect(seLine);
+```
+
+@note See: `BlzResetSpecialEffectMatrix`, `BlzSetSpecialEffectScale`
+@note The matrix scaling is independent of the regular effect scale.
+When both are used, they are applied multiplicatively.
+
+@param x scaling ratio (default: 1)
+@param y scaling ratio (default: 1)
+@param z scaling ratio (default: 1)
 @patch 1.31.0.11889
 
 */
 native BlzSetSpecialEffectMatrixScale              takes effect whichEffect, real x, real y, real z returns nothing
 
 /**
+Resets the effect's 3-dimensional scaling matrix. Default is {1,1,1}.
 
+@note Does not reset the general scale `BlzSetSpecialEffectScale`.
 
+@bug (Tested 1.36.2) Resets yaw, roll, pitch too.
+@note See: `BlzSetSpecialEffectMatrixScale`, `BlzSetSpecialEffectOrientation`,
+`BlzSetSpecialEffectYaw`, `BlzSetSpecialEffectRoll`, `BlzSetSpecialEffectPitch`
 @patch 1.31.0.11889
 
 */
 native BlzResetSpecialEffectMatrix                 takes effect whichEffect returns nothing
 
 /**
-
+@note Returns the same ability instance for different building ability codes like 'AHbu', 'ANbu' etc. See `GetUnitAbilityLevel`.
 
 @patch 1.31.0.11889
 

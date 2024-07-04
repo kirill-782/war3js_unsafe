@@ -166,7 +166,7 @@ export default {
     },
     S2I: { returnType: "integer", args: [{ name: "s", type: "string" }] },
     S2R: { returnType: "real", args: [{ name: "s", type: "string" }] },
-    GetHandleId: { returnType: "integer", args: [{ name: "h", type: "handle" }] },
+    GetHandleId: { returnType: "integer", args: [{ name: "whichHandle", type: "handle" }] },
     SubString: {
         returnType: "string",
         args: [
@@ -433,7 +433,7 @@ export default {
         returnType: "nothing",
         args: [
             { name: "whichGroup", type: "group" },
-            { name: "r", type: "rect" },
+            { name: "whichRect", type: "rect" },
             { name: "filter", type: "boolexpr" },
         ],
     },
@@ -441,7 +441,7 @@ export default {
         returnType: "nothing",
         args: [
             { name: "whichGroup", type: "group" },
-            { name: "r", type: "rect" },
+            { name: "whichRect", type: "rect" },
             { name: "filter", type: "boolexpr" },
             { name: "countLimit", type: "integer" },
         ],
@@ -683,14 +683,14 @@ export default {
         returnType: "nothing",
         args: [
             { name: "whichRegion", type: "region" },
-            { name: "r", type: "rect" },
+            { name: "whichRect", type: "rect" },
         ],
     },
     RegionClearRect: {
         returnType: "nothing",
         args: [
             { name: "whichRegion", type: "region" },
-            { name: "r", type: "rect" },
+            { name: "whichRect", type: "rect" },
         ],
     },
     RegionAddCell: {
@@ -833,7 +833,7 @@ export default {
         returnType: "event",
         args: [
             { name: "whichTrigger", type: "trigger" },
-            { name: "t", type: "timer" },
+            { name: "whichTimer", type: "timer" },
         ],
     },
     TriggerRegisterGameStateEvent: {
@@ -891,14 +891,14 @@ export default {
         returnType: "event",
         args: [
             { name: "whichTrigger", type: "trigger" },
-            { name: "t", type: "trackable" },
+            { name: "whichTrackable", type: "trackable" },
         ],
     },
     TriggerRegisterTrackableTrackEvent: {
         returnType: "event",
         args: [
             { name: "whichTrigger", type: "trigger" },
-            { name: "t", type: "trackable" },
+            { name: "whichTrackable", type: "trackable" },
         ],
     },
     GetTriggeringTrackable: { returnType: "trackable", args: [] },
@@ -1115,7 +1115,7 @@ export default {
             { name: "objectid", type: "integer" },
             { name: "x", type: "real" },
             { name: "y", type: "real" },
-            { name: "face", type: "real" },
+            { name: "facing", type: "real" },
             { name: "scale", type: "real" },
             { name: "variation", type: "integer" },
         ],
@@ -1127,7 +1127,7 @@ export default {
             { name: "x", type: "real" },
             { name: "y", type: "real" },
             { name: "z", type: "real" },
-            { name: "face", type: "real" },
+            { name: "facing", type: "real" },
             { name: "scale", type: "real" },
             { name: "variation", type: "integer" },
         ],
@@ -1138,7 +1138,7 @@ export default {
             { name: "objectid", type: "integer" },
             { name: "x", type: "real" },
             { name: "y", type: "real" },
-            { name: "face", type: "real" },
+            { name: "facing", type: "real" },
             { name: "scale", type: "real" },
             { name: "variation", type: "integer" },
         ],
@@ -1150,52 +1150,52 @@ export default {
             { name: "x", type: "real" },
             { name: "y", type: "real" },
             { name: "z", type: "real" },
-            { name: "face", type: "real" },
+            { name: "facing", type: "real" },
             { name: "scale", type: "real" },
             { name: "variation", type: "integer" },
         ],
     },
-    RemoveDestructable: { returnType: "nothing", args: [{ name: "d", type: "destructable" }] },
-    KillDestructable: { returnType: "nothing", args: [{ name: "d", type: "destructable" }] },
+    RemoveDestructable: { returnType: "nothing", args: [{ name: "whichDestructable", type: "destructable" }] },
+    KillDestructable: { returnType: "nothing", args: [{ name: "whichDestructable", type: "destructable" }] },
     SetDestructableInvulnerable: {
         returnType: "nothing",
         args: [
-            { name: "d", type: "destructable" },
+            { name: "whichDestructable", type: "destructable" },
             { name: "flag", type: "boolean" },
         ],
     },
-    IsDestructableInvulnerable: { returnType: "boolean", args: [{ name: "d", type: "destructable" }] },
+    IsDestructableInvulnerable: { returnType: "boolean", args: [{ name: "whichDestructable", type: "destructable" }] },
     EnumDestructablesInRect: {
         returnType: "nothing",
         args: [
-            { name: "r", type: "rect" },
+            { name: "whichRect", type: "rect" },
             { name: "filter", type: "boolexpr" },
             { name: "actionFunc", type: "code" },
         ],
     },
-    GetDestructableTypeId: { returnType: "integer", args: [{ name: "d", type: "destructable" }] },
-    GetDestructableX: { returnType: "real", args: [{ name: "d", type: "destructable" }] },
-    GetDestructableY: { returnType: "real", args: [{ name: "d", type: "destructable" }] },
+    GetDestructableTypeId: { returnType: "integer", args: [{ name: "whichDestructable", type: "destructable" }] },
+    GetDestructableX: { returnType: "real", args: [{ name: "whichDestructable", type: "destructable" }] },
+    GetDestructableY: { returnType: "real", args: [{ name: "whichDestructable", type: "destructable" }] },
     SetDestructableLife: {
         returnType: "nothing",
         args: [
-            { name: "d", type: "destructable" },
+            { name: "whichDestructable", type: "destructable" },
             { name: "life", type: "real" },
         ],
     },
-    GetDestructableLife: { returnType: "real", args: [{ name: "d", type: "destructable" }] },
+    GetDestructableLife: { returnType: "real", args: [{ name: "whichDestructable", type: "destructable" }] },
     SetDestructableMaxLife: {
         returnType: "nothing",
         args: [
-            { name: "d", type: "destructable" },
+            { name: "whichDestructable", type: "destructable" },
             { name: "max", type: "real" },
         ],
     },
-    GetDestructableMaxLife: { returnType: "real", args: [{ name: "d", type: "destructable" }] },
+    GetDestructableMaxLife: { returnType: "real", args: [{ name: "whichDestructable", type: "destructable" }] },
     DestructableRestoreLife: {
         returnType: "nothing",
         args: [
-            { name: "d", type: "destructable" },
+            { name: "whichDestructable", type: "destructable" },
             { name: "life", type: "real" },
             { name: "birth", type: "boolean" },
         ],
@@ -1203,40 +1203,40 @@ export default {
     QueueDestructableAnimation: {
         returnType: "nothing",
         args: [
-            { name: "d", type: "destructable" },
+            { name: "whichDestructable", type: "destructable" },
             { name: "whichAnimation", type: "string" },
         ],
     },
     SetDestructableAnimation: {
         returnType: "nothing",
         args: [
-            { name: "d", type: "destructable" },
+            { name: "whichDestructable", type: "destructable" },
             { name: "whichAnimation", type: "string" },
         ],
     },
     SetDestructableAnimationSpeed: {
         returnType: "nothing",
         args: [
-            { name: "d", type: "destructable" },
+            { name: "whichDestructable", type: "destructable" },
             { name: "speedFactor", type: "real" },
         ],
     },
     ShowDestructable: {
         returnType: "nothing",
         args: [
-            { name: "d", type: "destructable" },
+            { name: "whichDestructable", type: "destructable" },
             { name: "flag", type: "boolean" },
         ],
     },
-    GetDestructableOccluderHeight: { returnType: "real", args: [{ name: "d", type: "destructable" }] },
+    GetDestructableOccluderHeight: { returnType: "real", args: [{ name: "whichDestructable", type: "destructable" }] },
     SetDestructableOccluderHeight: {
         returnType: "nothing",
         args: [
-            { name: "d", type: "destructable" },
+            { name: "whichDestructable", type: "destructable" },
             { name: "height", type: "real" },
         ],
     },
-    GetDestructableName: { returnType: "string", args: [{ name: "d", type: "destructable" }] },
+    GetDestructableName: { returnType: "string", args: [{ name: "whichDestructable", type: "destructable" }] },
     GetTriggerDestructable: { returnType: "destructable", args: [] },
     CreateItem: {
         returnType: "item",
@@ -1248,13 +1248,13 @@ export default {
     },
     RemoveItem: { returnType: "nothing", args: [{ name: "whichItem", type: "item" }] },
     GetItemPlayer: { returnType: "player", args: [{ name: "whichItem", type: "item" }] },
-    GetItemTypeId: { returnType: "integer", args: [{ name: "i", type: "item" }] },
-    GetItemX: { returnType: "real", args: [{ name: "i", type: "item" }] },
-    GetItemY: { returnType: "real", args: [{ name: "i", type: "item" }] },
+    GetItemTypeId: { returnType: "integer", args: [{ name: "whichItem", type: "item" }] },
+    GetItemX: { returnType: "real", args: [{ name: "whichItem", type: "item" }] },
+    GetItemY: { returnType: "real", args: [{ name: "whichItem", type: "item" }] },
     SetItemPosition: {
         returnType: "nothing",
         args: [
-            { name: "i", type: "item" },
+            { name: "whichItem", type: "item" },
             { name: "x", type: "real" },
             { name: "y", type: "real" },
         ],
@@ -1269,14 +1269,14 @@ export default {
     SetItemDroppable: {
         returnType: "nothing",
         args: [
-            { name: "i", type: "item" },
+            { name: "whichItem", type: "item" },
             { name: "flag", type: "boolean" },
         ],
     },
     SetItemPawnable: {
         returnType: "nothing",
         args: [
-            { name: "i", type: "item" },
+            { name: "whichItem", type: "item" },
             { name: "flag", type: "boolean" },
         ],
     },
@@ -1314,7 +1314,7 @@ export default {
     EnumItemsInRect: {
         returnType: "nothing",
         args: [
-            { name: "r", type: "rect" },
+            { name: "whichRect", type: "rect" },
             { name: "filter", type: "boolexpr" },
             { name: "actionFunc", type: "code" },
         ],
@@ -1348,11 +1348,11 @@ export default {
     CreateUnit: {
         returnType: "unit",
         args: [
-            { name: "id", type: "player" },
+            { name: "whichPlayer", type: "player" },
             { name: "unitid", type: "integer" },
             { name: "x", type: "real" },
             { name: "y", type: "real" },
-            { name: "face", type: "real" },
+            { name: "facing", type: "real" },
         ],
     },
     CreateUnitByName: {
@@ -1362,25 +1362,25 @@ export default {
             { name: "unitname", type: "string" },
             { name: "x", type: "real" },
             { name: "y", type: "real" },
-            { name: "face", type: "real" },
+            { name: "facing", type: "real" },
         ],
     },
     CreateUnitAtLoc: {
         returnType: "unit",
         args: [
-            { name: "id", type: "player" },
+            { name: "whichPlayer", type: "player" },
             { name: "unitid", type: "integer" },
             { name: "whichLocation", type: "location" },
-            { name: "face", type: "real" },
+            { name: "facing", type: "real" },
         ],
     },
     CreateUnitAtLocByName: {
         returnType: "unit",
         args: [
-            { name: "id", type: "player" },
+            { name: "whichPlayer", type: "player" },
             { name: "unitname", type: "string" },
             { name: "whichLocation", type: "location" },
-            { name: "face", type: "real" },
+            { name: "facing", type: "real" },
         ],
     },
     CreateCorpse: {
@@ -1390,7 +1390,7 @@ export default {
             { name: "unitid", type: "integer" },
             { name: "x", type: "real" },
             { name: "y", type: "real" },
-            { name: "face", type: "real" },
+            { name: "facing", type: "real" },
         ],
     },
     KillUnit: { returnType: "nothing", args: [{ name: "whichUnit", type: "unit" }] },
@@ -2397,7 +2397,7 @@ export default {
     IssueNeutralImmediateOrder: {
         returnType: "boolean",
         args: [
-            { name: "forWhichPlayer", type: "player" },
+            { name: "whichPlayer", type: "player" },
             { name: "neutralStructure", type: "unit" },
             { name: "unitToBuild", type: "string" },
         ],
@@ -2405,7 +2405,7 @@ export default {
     IssueNeutralImmediateOrderById: {
         returnType: "boolean",
         args: [
-            { name: "forWhichPlayer", type: "player" },
+            { name: "whichPlayer", type: "player" },
             { name: "neutralStructure", type: "unit" },
             { name: "unitId", type: "integer" },
         ],
@@ -2413,7 +2413,7 @@ export default {
     IssueNeutralPointOrder: {
         returnType: "boolean",
         args: [
-            { name: "forWhichPlayer", type: "player" },
+            { name: "whichPlayer", type: "player" },
             { name: "neutralStructure", type: "unit" },
             { name: "unitToBuild", type: "string" },
             { name: "x", type: "real" },
@@ -2423,7 +2423,7 @@ export default {
     IssueNeutralPointOrderById: {
         returnType: "boolean",
         args: [
-            { name: "forWhichPlayer", type: "player" },
+            { name: "whichPlayer", type: "player" },
             { name: "neutralStructure", type: "unit" },
             { name: "unitId", type: "integer" },
             { name: "x", type: "real" },
@@ -2433,7 +2433,7 @@ export default {
     IssueNeutralTargetOrder: {
         returnType: "boolean",
         args: [
-            { name: "forWhichPlayer", type: "player" },
+            { name: "whichPlayer", type: "player" },
             { name: "neutralStructure", type: "unit" },
             { name: "unitToBuild", type: "string" },
             { name: "target", type: "widget" },
@@ -2442,7 +2442,7 @@ export default {
     IssueNeutralTargetOrderById: {
         returnType: "boolean",
         args: [
-            { name: "forWhichPlayer", type: "player" },
+            { name: "whichPlayer", type: "player" },
             { name: "neutralStructure", type: "unit" },
             { name: "unitId", type: "integer" },
             { name: "target", type: "widget" },
@@ -2777,16 +2777,16 @@ export default {
     SetFogStateRect: {
         returnType: "nothing",
         args: [
-            { name: "forWhichPlayer", type: "player" },
+            { name: "whichPlayer", type: "player" },
             { name: "whichState", type: "fogstate" },
-            { name: "where", type: "rect" },
+            { name: "whichRect", type: "rect" },
             { name: "useSharedVision", type: "boolean" },
         ],
     },
     SetFogStateRadius: {
         returnType: "nothing",
         args: [
-            { name: "forWhichPlayer", type: "player" },
+            { name: "whichPlayer", type: "player" },
             { name: "whichState", type: "fogstate" },
             { name: "centerX", type: "real" },
             { name: "centerY", type: "real" },
@@ -2797,7 +2797,7 @@ export default {
     SetFogStateRadiusLoc: {
         returnType: "nothing",
         args: [
-            { name: "forWhichPlayer", type: "player" },
+            { name: "whichPlayer", type: "player" },
             { name: "whichState", type: "fogstate" },
             { name: "center", type: "location" },
             { name: "radius", type: "real" },
@@ -2811,9 +2811,9 @@ export default {
     CreateFogModifierRect: {
         returnType: "fogmodifier",
         args: [
-            { name: "forWhichPlayer", type: "player" },
+            { name: "whichPlayer", type: "player" },
             { name: "whichState", type: "fogstate" },
-            { name: "where", type: "rect" },
+            { name: "whichRect", type: "rect" },
             { name: "useSharedVision", type: "boolean" },
             { name: "afterUnits", type: "boolean" },
         ],
@@ -2821,7 +2821,7 @@ export default {
     CreateFogModifierRadius: {
         returnType: "fogmodifier",
         args: [
-            { name: "forWhichPlayer", type: "player" },
+            { name: "whichPlayer", type: "player" },
             { name: "whichState", type: "fogstate" },
             { name: "centerX", type: "real" },
             { name: "centerY", type: "real" },
@@ -2833,7 +2833,7 @@ export default {
     CreateFogModifierRadiusLoc: {
         returnType: "fogmodifier",
         args: [
-            { name: "forWhichPlayer", type: "player" },
+            { name: "whichPlayer", type: "player" },
             { name: "whichState", type: "fogstate" },
             { name: "center", type: "location" },
             { name: "radius", type: "real" },
@@ -2857,7 +2857,7 @@ export default {
     },
     RestartGame: { returnType: "nothing", args: [{ name: "doScoreScreen", type: "boolean" }] },
     ReloadGame: { returnType: "nothing", args: [] },
-    SetCampaignMenuRace: { returnType: "nothing", args: [{ name: "r", type: "race" }] },
+    SetCampaignMenuRace: { returnType: "nothing", args: [{ name: "whichRace", type: "race" }] },
     SetCampaignMenuRaceEx: { returnType: "nothing", args: [{ name: "campaignIndex", type: "integer" }] },
     ForceCampaignSelectScreen: { returnType: "nothing", args: [] },
     LoadGame: {
@@ -2983,7 +2983,7 @@ export default {
     StoreInteger: {
         returnType: "nothing",
         args: [
-            { name: "cache", type: "gamecache" },
+            { name: "whichGamecache", type: "gamecache" },
             { name: "missionKey", type: "string" },
             { name: "key", type: "string" },
             { name: "value", type: "integer" },
@@ -2992,7 +2992,7 @@ export default {
     StoreReal: {
         returnType: "nothing",
         args: [
-            { name: "cache", type: "gamecache" },
+            { name: "whichGamecache", type: "gamecache" },
             { name: "missionKey", type: "string" },
             { name: "key", type: "string" },
             { name: "value", type: "real" },
@@ -3001,7 +3001,7 @@ export default {
     StoreBoolean: {
         returnType: "nothing",
         args: [
-            { name: "cache", type: "gamecache" },
+            { name: "whichGamecache", type: "gamecache" },
             { name: "missionKey", type: "string" },
             { name: "key", type: "string" },
             { name: "value", type: "boolean" },
@@ -3010,7 +3010,7 @@ export default {
     StoreUnit: {
         returnType: "boolean",
         args: [
-            { name: "cache", type: "gamecache" },
+            { name: "whichGamecache", type: "gamecache" },
             { name: "missionKey", type: "string" },
             { name: "key", type: "string" },
             { name: "whichUnit", type: "unit" },
@@ -3019,7 +3019,7 @@ export default {
     StoreString: {
         returnType: "boolean",
         args: [
-            { name: "cache", type: "gamecache" },
+            { name: "whichGamecache", type: "gamecache" },
             { name: "missionKey", type: "string" },
             { name: "key", type: "string" },
             { name: "value", type: "string" },
@@ -3028,7 +3028,7 @@ export default {
     SyncStoredInteger: {
         returnType: "nothing",
         args: [
-            { name: "cache", type: "gamecache" },
+            { name: "whichGamecache", type: "gamecache" },
             { name: "missionKey", type: "string" },
             { name: "key", type: "string" },
         ],
@@ -3036,7 +3036,7 @@ export default {
     SyncStoredReal: {
         returnType: "nothing",
         args: [
-            { name: "cache", type: "gamecache" },
+            { name: "whichGamecache", type: "gamecache" },
             { name: "missionKey", type: "string" },
             { name: "key", type: "string" },
         ],
@@ -3044,7 +3044,7 @@ export default {
     SyncStoredBoolean: {
         returnType: "nothing",
         args: [
-            { name: "cache", type: "gamecache" },
+            { name: "whichGamecache", type: "gamecache" },
             { name: "missionKey", type: "string" },
             { name: "key", type: "string" },
         ],
@@ -3052,7 +3052,7 @@ export default {
     SyncStoredUnit: {
         returnType: "nothing",
         args: [
-            { name: "cache", type: "gamecache" },
+            { name: "whichGamecache", type: "gamecache" },
             { name: "missionKey", type: "string" },
             { name: "key", type: "string" },
         ],
@@ -3060,7 +3060,7 @@ export default {
     SyncStoredString: {
         returnType: "nothing",
         args: [
-            { name: "cache", type: "gamecache" },
+            { name: "whichGamecache", type: "gamecache" },
             { name: "missionKey", type: "string" },
             { name: "key", type: "string" },
         ],
@@ -3068,7 +3068,7 @@ export default {
     HaveStoredInteger: {
         returnType: "boolean",
         args: [
-            { name: "cache", type: "gamecache" },
+            { name: "whichGamecache", type: "gamecache" },
             { name: "missionKey", type: "string" },
             { name: "key", type: "string" },
         ],
@@ -3076,7 +3076,7 @@ export default {
     HaveStoredReal: {
         returnType: "boolean",
         args: [
-            { name: "cache", type: "gamecache" },
+            { name: "whichGamecache", type: "gamecache" },
             { name: "missionKey", type: "string" },
             { name: "key", type: "string" },
         ],
@@ -3084,7 +3084,7 @@ export default {
     HaveStoredBoolean: {
         returnType: "boolean",
         args: [
-            { name: "cache", type: "gamecache" },
+            { name: "whichGamecache", type: "gamecache" },
             { name: "missionKey", type: "string" },
             { name: "key", type: "string" },
         ],
@@ -3092,7 +3092,7 @@ export default {
     HaveStoredUnit: {
         returnType: "boolean",
         args: [
-            { name: "cache", type: "gamecache" },
+            { name: "whichGamecache", type: "gamecache" },
             { name: "missionKey", type: "string" },
             { name: "key", type: "string" },
         ],
@@ -3100,23 +3100,23 @@ export default {
     HaveStoredString: {
         returnType: "boolean",
         args: [
-            { name: "cache", type: "gamecache" },
+            { name: "whichGamecache", type: "gamecache" },
             { name: "missionKey", type: "string" },
             { name: "key", type: "string" },
         ],
     },
-    FlushGameCache: { returnType: "nothing", args: [{ name: "cache", type: "gamecache" }] },
+    FlushGameCache: { returnType: "nothing", args: [{ name: "whichGamecache", type: "gamecache" }] },
     FlushStoredMission: {
         returnType: "nothing",
         args: [
-            { name: "cache", type: "gamecache" },
+            { name: "whichGamecache", type: "gamecache" },
             { name: "missionKey", type: "string" },
         ],
     },
     FlushStoredInteger: {
         returnType: "nothing",
         args: [
-            { name: "cache", type: "gamecache" },
+            { name: "whichGamecache", type: "gamecache" },
             { name: "missionKey", type: "string" },
             { name: "key", type: "string" },
         ],
@@ -3124,7 +3124,7 @@ export default {
     FlushStoredReal: {
         returnType: "nothing",
         args: [
-            { name: "cache", type: "gamecache" },
+            { name: "whichGamecache", type: "gamecache" },
             { name: "missionKey", type: "string" },
             { name: "key", type: "string" },
         ],
@@ -3132,7 +3132,7 @@ export default {
     FlushStoredBoolean: {
         returnType: "nothing",
         args: [
-            { name: "cache", type: "gamecache" },
+            { name: "whichGamecache", type: "gamecache" },
             { name: "missionKey", type: "string" },
             { name: "key", type: "string" },
         ],
@@ -3140,7 +3140,7 @@ export default {
     FlushStoredUnit: {
         returnType: "nothing",
         args: [
-            { name: "cache", type: "gamecache" },
+            { name: "whichGamecache", type: "gamecache" },
             { name: "missionKey", type: "string" },
             { name: "key", type: "string" },
         ],
@@ -3148,7 +3148,7 @@ export default {
     FlushStoredString: {
         returnType: "nothing",
         args: [
-            { name: "cache", type: "gamecache" },
+            { name: "whichGamecache", type: "gamecache" },
             { name: "missionKey", type: "string" },
             { name: "key", type: "string" },
         ],
@@ -3156,7 +3156,7 @@ export default {
     GetStoredInteger: {
         returnType: "integer",
         args: [
-            { name: "cache", type: "gamecache" },
+            { name: "whichGamecache", type: "gamecache" },
             { name: "missionKey", type: "string" },
             { name: "key", type: "string" },
         ],
@@ -3164,7 +3164,7 @@ export default {
     GetStoredReal: {
         returnType: "real",
         args: [
-            { name: "cache", type: "gamecache" },
+            { name: "whichGamecache", type: "gamecache" },
             { name: "missionKey", type: "string" },
             { name: "key", type: "string" },
         ],
@@ -3172,7 +3172,7 @@ export default {
     GetStoredBoolean: {
         returnType: "boolean",
         args: [
-            { name: "cache", type: "gamecache" },
+            { name: "whichGamecache", type: "gamecache" },
             { name: "missionKey", type: "string" },
             { name: "key", type: "string" },
         ],
@@ -3180,7 +3180,7 @@ export default {
     GetStoredString: {
         returnType: "string",
         args: [
-            { name: "cache", type: "gamecache" },
+            { name: "whichGamecache", type: "gamecache" },
             { name: "missionKey", type: "string" },
             { name: "key", type: "string" },
         ],
@@ -3188,10 +3188,10 @@ export default {
     RestoreUnit: {
         returnType: "unit",
         args: [
-            { name: "cache", type: "gamecache" },
+            { name: "whichGamecache", type: "gamecache" },
             { name: "missionKey", type: "string" },
             { name: "key", type: "string" },
-            { name: "forWhichPlayer", type: "player" },
+            { name: "whichPlayer", type: "player" },
             { name: "x", type: "real" },
             { name: "y", type: "real" },
             { name: "facing", type: "real" },
@@ -3201,7 +3201,7 @@ export default {
     SaveInteger: {
         returnType: "nothing",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "value", type: "integer" },
@@ -3210,7 +3210,7 @@ export default {
     SaveReal: {
         returnType: "nothing",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "value", type: "real" },
@@ -3219,7 +3219,7 @@ export default {
     SaveBoolean: {
         returnType: "nothing",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "value", type: "boolean" },
@@ -3228,7 +3228,7 @@ export default {
     SaveStr: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "value", type: "string" },
@@ -3237,7 +3237,7 @@ export default {
     SavePlayerHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichPlayer", type: "player" },
@@ -3246,7 +3246,7 @@ export default {
     SaveWidgetHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichWidget", type: "widget" },
@@ -3255,7 +3255,7 @@ export default {
     SaveDestructableHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichDestructable", type: "destructable" },
@@ -3264,7 +3264,7 @@ export default {
     SaveItemHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichItem", type: "item" },
@@ -3273,7 +3273,7 @@ export default {
     SaveUnitHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichUnit", type: "unit" },
@@ -3282,7 +3282,7 @@ export default {
     SaveAbilityHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichAbility", type: "ability" },
@@ -3291,7 +3291,7 @@ export default {
     SaveTimerHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichTimer", type: "timer" },
@@ -3300,7 +3300,7 @@ export default {
     SaveTriggerHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichTrigger", type: "trigger" },
@@ -3309,7 +3309,7 @@ export default {
     SaveTriggerConditionHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichTriggercondition", type: "triggercondition" },
@@ -3318,7 +3318,7 @@ export default {
     SaveTriggerActionHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichTriggeraction", type: "triggeraction" },
@@ -3327,7 +3327,7 @@ export default {
     SaveTriggerEventHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichEvent", type: "event" },
@@ -3336,7 +3336,7 @@ export default {
     SaveForceHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichForce", type: "force" },
@@ -3345,7 +3345,7 @@ export default {
     SaveGroupHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichGroup", type: "group" },
@@ -3354,7 +3354,7 @@ export default {
     SaveLocationHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichLocation", type: "location" },
@@ -3363,7 +3363,7 @@ export default {
     SaveRectHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichRect", type: "rect" },
@@ -3372,7 +3372,7 @@ export default {
     SaveBooleanExprHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichBoolexpr", type: "boolexpr" },
@@ -3381,7 +3381,7 @@ export default {
     SaveSoundHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichSound", type: "sound" },
@@ -3390,7 +3390,7 @@ export default {
     SaveEffectHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichEffect", type: "effect" },
@@ -3399,7 +3399,7 @@ export default {
     SaveUnitPoolHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichUnitpool", type: "unitpool" },
@@ -3408,7 +3408,7 @@ export default {
     SaveItemPoolHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichItempool", type: "itempool" },
@@ -3417,7 +3417,7 @@ export default {
     SaveQuestHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichQuest", type: "quest" },
@@ -3426,7 +3426,7 @@ export default {
     SaveQuestItemHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichQuestitem", type: "questitem" },
@@ -3435,7 +3435,7 @@ export default {
     SaveDefeatConditionHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichDefeatcondition", type: "defeatcondition" },
@@ -3444,7 +3444,7 @@ export default {
     SaveTimerDialogHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichTimerdialog", type: "timerdialog" },
@@ -3453,7 +3453,7 @@ export default {
     SaveLeaderboardHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichLeaderboard", type: "leaderboard" },
@@ -3462,7 +3462,7 @@ export default {
     SaveMultiboardHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichMultiboard", type: "multiboard" },
@@ -3471,7 +3471,7 @@ export default {
     SaveMultiboardItemHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichMultiboarditem", type: "multiboarditem" },
@@ -3480,7 +3480,7 @@ export default {
     SaveTrackableHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichTrackable", type: "trackable" },
@@ -3489,7 +3489,7 @@ export default {
     SaveDialogHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichDialog", type: "dialog" },
@@ -3498,7 +3498,7 @@ export default {
     SaveButtonHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichButton", type: "button" },
@@ -3507,7 +3507,7 @@ export default {
     SaveTextTagHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichTexttag", type: "texttag" },
@@ -3516,7 +3516,7 @@ export default {
     SaveLightningHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichLightning", type: "lightning" },
@@ -3525,7 +3525,7 @@ export default {
     SaveImageHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichImage", type: "image" },
@@ -3534,7 +3534,7 @@ export default {
     SaveUbersplatHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichUbersplat", type: "ubersplat" },
@@ -3543,7 +3543,7 @@ export default {
     SaveRegionHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichRegion", type: "region" },
@@ -3552,7 +3552,7 @@ export default {
     SaveFogStateHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichFogState", type: "fogstate" },
@@ -3561,7 +3561,7 @@ export default {
     SaveFogModifierHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichFogModifier", type: "fogmodifier" },
@@ -3570,7 +3570,7 @@ export default {
     SaveAgentHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichAgent", type: "agent" },
@@ -3579,7 +3579,7 @@ export default {
     SaveHashtableHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichHashtable", type: "hashtable" },
@@ -3588,7 +3588,7 @@ export default {
     LoadInteger: {
         returnType: "integer",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3596,7 +3596,7 @@ export default {
     LoadReal: {
         returnType: "real",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3604,7 +3604,7 @@ export default {
     LoadBoolean: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3612,7 +3612,7 @@ export default {
     LoadStr: {
         returnType: "string",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3620,7 +3620,7 @@ export default {
     LoadPlayerHandle: {
         returnType: "player",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3628,7 +3628,7 @@ export default {
     LoadWidgetHandle: {
         returnType: "widget",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3636,7 +3636,7 @@ export default {
     LoadDestructableHandle: {
         returnType: "destructable",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3644,7 +3644,7 @@ export default {
     LoadItemHandle: {
         returnType: "item",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3652,7 +3652,7 @@ export default {
     LoadUnitHandle: {
         returnType: "unit",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3660,7 +3660,7 @@ export default {
     LoadAbilityHandle: {
         returnType: "ability",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3668,7 +3668,7 @@ export default {
     LoadTimerHandle: {
         returnType: "timer",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3676,7 +3676,7 @@ export default {
     LoadTriggerHandle: {
         returnType: "trigger",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3684,7 +3684,7 @@ export default {
     LoadTriggerConditionHandle: {
         returnType: "triggercondition",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3692,7 +3692,7 @@ export default {
     LoadTriggerActionHandle: {
         returnType: "triggeraction",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3700,7 +3700,7 @@ export default {
     LoadTriggerEventHandle: {
         returnType: "event",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3708,7 +3708,7 @@ export default {
     LoadForceHandle: {
         returnType: "force",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3716,7 +3716,7 @@ export default {
     LoadGroupHandle: {
         returnType: "group",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3724,7 +3724,7 @@ export default {
     LoadLocationHandle: {
         returnType: "location",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3732,7 +3732,7 @@ export default {
     LoadRectHandle: {
         returnType: "rect",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3740,7 +3740,7 @@ export default {
     LoadBooleanExprHandle: {
         returnType: "boolexpr",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3748,7 +3748,7 @@ export default {
     LoadSoundHandle: {
         returnType: "sound",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3756,7 +3756,7 @@ export default {
     LoadEffectHandle: {
         returnType: "effect",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3764,7 +3764,7 @@ export default {
     LoadUnitPoolHandle: {
         returnType: "unitpool",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3772,7 +3772,7 @@ export default {
     LoadItemPoolHandle: {
         returnType: "itempool",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3780,7 +3780,7 @@ export default {
     LoadQuestHandle: {
         returnType: "quest",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3788,7 +3788,7 @@ export default {
     LoadQuestItemHandle: {
         returnType: "questitem",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3796,7 +3796,7 @@ export default {
     LoadDefeatConditionHandle: {
         returnType: "defeatcondition",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3804,7 +3804,7 @@ export default {
     LoadTimerDialogHandle: {
         returnType: "timerdialog",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3812,7 +3812,7 @@ export default {
     LoadLeaderboardHandle: {
         returnType: "leaderboard",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3820,7 +3820,7 @@ export default {
     LoadMultiboardHandle: {
         returnType: "multiboard",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3828,7 +3828,7 @@ export default {
     LoadMultiboardItemHandle: {
         returnType: "multiboarditem",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3836,7 +3836,7 @@ export default {
     LoadTrackableHandle: {
         returnType: "trackable",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3844,7 +3844,7 @@ export default {
     LoadDialogHandle: {
         returnType: "dialog",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3852,7 +3852,7 @@ export default {
     LoadButtonHandle: {
         returnType: "button",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3860,7 +3860,7 @@ export default {
     LoadTextTagHandle: {
         returnType: "texttag",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3868,7 +3868,7 @@ export default {
     LoadLightningHandle: {
         returnType: "lightning",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3876,7 +3876,7 @@ export default {
     LoadImageHandle: {
         returnType: "image",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3884,7 +3884,7 @@ export default {
     LoadUbersplatHandle: {
         returnType: "ubersplat",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3892,7 +3892,7 @@ export default {
     LoadRegionHandle: {
         returnType: "region",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3900,7 +3900,7 @@ export default {
     LoadFogStateHandle: {
         returnType: "fogstate",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3908,7 +3908,7 @@ export default {
     LoadFogModifierHandle: {
         returnType: "fogmodifier",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3916,7 +3916,7 @@ export default {
     LoadHashtableHandle: {
         returnType: "hashtable",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3924,7 +3924,7 @@ export default {
     HaveSavedInteger: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3932,7 +3932,7 @@ export default {
     HaveSavedReal: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3940,7 +3940,7 @@ export default {
     HaveSavedBoolean: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3948,7 +3948,7 @@ export default {
     HaveSavedString: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3956,7 +3956,7 @@ export default {
     HaveSavedHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3964,7 +3964,7 @@ export default {
     RemoveSavedInteger: {
         returnType: "nothing",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3972,7 +3972,7 @@ export default {
     RemoveSavedReal: {
         returnType: "nothing",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3980,7 +3980,7 @@ export default {
     RemoveSavedBoolean: {
         returnType: "nothing",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3988,7 +3988,7 @@ export default {
     RemoveSavedString: {
         returnType: "nothing",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -3996,16 +3996,16 @@ export default {
     RemoveSavedHandle: {
         returnType: "nothing",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
     },
-    FlushParentHashtable: { returnType: "nothing", args: [{ name: "table", type: "hashtable" }] },
+    FlushParentHashtable: { returnType: "nothing", args: [{ name: "whichHashtable", type: "hashtable" }] },
     FlushChildHashtable: {
         returnType: "nothing",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
         ],
     },
@@ -4044,7 +4044,7 @@ export default {
         returnType: "unit",
         args: [
             { name: "whichPool", type: "unitpool" },
-            { name: "forWhichPlayer", type: "player" },
+            { name: "whichPlayer", type: "player" },
             { name: "x", type: "real" },
             { name: "y", type: "real" },
             { name: "facing", type: "real" },
@@ -4222,11 +4222,11 @@ export default {
     SetAltMinimapIcon: { returnType: "nothing", args: [{ name: "iconPath", type: "string" }] },
     DisableRestartMission: { returnType: "nothing", args: [{ name: "flag", type: "boolean" }] },
     CreateTextTag: { returnType: "texttag", args: [] },
-    DestroyTextTag: { returnType: "nothing", args: [{ name: "t", type: "texttag" }] },
+    DestroyTextTag: { returnType: "nothing", args: [{ name: "whichTextTag", type: "texttag" }] },
     SetTextTagText: {
         returnType: "nothing",
         args: [
-            { name: "t", type: "texttag" },
+            { name: "whichTextTag", type: "texttag" },
             { name: "s", type: "string" },
             { name: "height", type: "real" },
         ],
@@ -4234,7 +4234,7 @@ export default {
     SetTextTagPos: {
         returnType: "nothing",
         args: [
-            { name: "t", type: "texttag" },
+            { name: "whichTextTag", type: "texttag" },
             { name: "x", type: "real" },
             { name: "y", type: "real" },
             { name: "heightOffset", type: "real" },
@@ -4243,7 +4243,7 @@ export default {
     SetTextTagPosUnit: {
         returnType: "nothing",
         args: [
-            { name: "t", type: "texttag" },
+            { name: "whichTextTag", type: "texttag" },
             { name: "whichUnit", type: "unit" },
             { name: "heightOffset", type: "real" },
         ],
@@ -4251,7 +4251,7 @@ export default {
     SetTextTagColor: {
         returnType: "nothing",
         args: [
-            { name: "t", type: "texttag" },
+            { name: "whichTextTag", type: "texttag" },
             { name: "red", type: "integer" },
             { name: "green", type: "integer" },
             { name: "blue", type: "integer" },
@@ -4261,7 +4261,7 @@ export default {
     SetTextTagVelocity: {
         returnType: "nothing",
         args: [
-            { name: "t", type: "texttag" },
+            { name: "whichTextTag", type: "texttag" },
             { name: "xvel", type: "real" },
             { name: "yvel", type: "real" },
         ],
@@ -4269,42 +4269,42 @@ export default {
     SetTextTagVisibility: {
         returnType: "nothing",
         args: [
-            { name: "t", type: "texttag" },
+            { name: "whichTextTag", type: "texttag" },
             { name: "flag", type: "boolean" },
         ],
     },
     SetTextTagSuspended: {
         returnType: "nothing",
         args: [
-            { name: "t", type: "texttag" },
+            { name: "whichTextTag", type: "texttag" },
             { name: "flag", type: "boolean" },
         ],
     },
     SetTextTagPermanent: {
         returnType: "nothing",
         args: [
-            { name: "t", type: "texttag" },
+            { name: "whichTextTag", type: "texttag" },
             { name: "flag", type: "boolean" },
         ],
     },
     SetTextTagAge: {
         returnType: "nothing",
         args: [
-            { name: "t", type: "texttag" },
+            { name: "whichTextTag", type: "texttag" },
             { name: "age", type: "real" },
         ],
     },
     SetTextTagLifespan: {
         returnType: "nothing",
         args: [
-            { name: "t", type: "texttag" },
+            { name: "whichTextTag", type: "texttag" },
             { name: "lifespan", type: "real" },
         ],
     },
     SetTextTagFadepoint: {
         returnType: "nothing",
         args: [
-            { name: "t", type: "texttag" },
+            { name: "whichTextTag", type: "texttag" },
             { name: "fadepoint", type: "real" },
         ],
     },
@@ -4440,7 +4440,7 @@ export default {
     },
     FlashQuestDialogButton: { returnType: "nothing", args: [] },
     ForceQuestDialogUpdate: { returnType: "nothing", args: [] },
-    CreateTimerDialog: { returnType: "timerdialog", args: [{ name: "t", type: "timer" }] },
+    CreateTimerDialog: { returnType: "timerdialog", args: [{ name: "whichTimer", type: "timer" }] },
     DestroyTimerDialog: { returnType: "nothing", args: [{ name: "whichDialog", type: "timerdialog" }] },
     TimerDialogSetTitle: {
         returnType: "nothing",
@@ -4492,102 +4492,102 @@ export default {
         ],
     },
     CreateLeaderboard: { returnType: "leaderboard", args: [] },
-    DestroyLeaderboard: { returnType: "nothing", args: [{ name: "lb", type: "leaderboard" }] },
+    DestroyLeaderboard: { returnType: "nothing", args: [{ name: "whichLeaderboard", type: "leaderboard" }] },
     LeaderboardDisplay: {
         returnType: "nothing",
         args: [
-            { name: "lb", type: "leaderboard" },
+            { name: "whichLeaderboard", type: "leaderboard" },
             { name: "show", type: "boolean" },
         ],
     },
-    IsLeaderboardDisplayed: { returnType: "boolean", args: [{ name: "lb", type: "leaderboard" }] },
-    LeaderboardGetItemCount: { returnType: "integer", args: [{ name: "lb", type: "leaderboard" }] },
+    IsLeaderboardDisplayed: { returnType: "boolean", args: [{ name: "whichLeaderboard", type: "leaderboard" }] },
+    LeaderboardGetItemCount: { returnType: "integer", args: [{ name: "whichLeaderboard", type: "leaderboard" }] },
     LeaderboardSetSizeByItemCount: {
         returnType: "nothing",
         args: [
-            { name: "lb", type: "leaderboard" },
+            { name: "whichLeaderboard", type: "leaderboard" },
             { name: "count", type: "integer" },
         ],
     },
     LeaderboardAddItem: {
         returnType: "nothing",
         args: [
-            { name: "lb", type: "leaderboard" },
+            { name: "whichLeaderboard", type: "leaderboard" },
             { name: "label", type: "string" },
             { name: "value", type: "integer" },
-            { name: "p", type: "player" },
+            { name: "whichPlayer", type: "player" },
         ],
     },
     LeaderboardRemoveItem: {
         returnType: "nothing",
         args: [
-            { name: "lb", type: "leaderboard" },
+            { name: "whichLeaderboard", type: "leaderboard" },
             { name: "index", type: "integer" },
         ],
     },
     LeaderboardRemovePlayerItem: {
         returnType: "nothing",
         args: [
-            { name: "lb", type: "leaderboard" },
-            { name: "p", type: "player" },
+            { name: "whichLeaderboard", type: "leaderboard" },
+            { name: "whichPlayer", type: "player" },
         ],
     },
-    LeaderboardClear: { returnType: "nothing", args: [{ name: "lb", type: "leaderboard" }] },
+    LeaderboardClear: { returnType: "nothing", args: [{ name: "whichLeaderboard", type: "leaderboard" }] },
     LeaderboardSortItemsByValue: {
         returnType: "nothing",
         args: [
-            { name: "lb", type: "leaderboard" },
+            { name: "whichLeaderboard", type: "leaderboard" },
             { name: "ascending", type: "boolean" },
         ],
     },
     LeaderboardSortItemsByPlayer: {
         returnType: "nothing",
         args: [
-            { name: "lb", type: "leaderboard" },
+            { name: "whichLeaderboard", type: "leaderboard" },
             { name: "ascending", type: "boolean" },
         ],
     },
     LeaderboardSortItemsByLabel: {
         returnType: "nothing",
         args: [
-            { name: "lb", type: "leaderboard" },
+            { name: "whichLeaderboard", type: "leaderboard" },
             { name: "ascending", type: "boolean" },
         ],
     },
     LeaderboardHasPlayerItem: {
         returnType: "boolean",
         args: [
-            { name: "lb", type: "leaderboard" },
-            { name: "p", type: "player" },
+            { name: "whichLeaderboard", type: "leaderboard" },
+            { name: "whichPlayer", type: "player" },
         ],
     },
     LeaderboardGetPlayerIndex: {
         returnType: "integer",
         args: [
-            { name: "lb", type: "leaderboard" },
-            { name: "p", type: "player" },
+            { name: "whichLeaderboard", type: "leaderboard" },
+            { name: "whichPlayer", type: "player" },
         ],
     },
     LeaderboardSetLabel: {
         returnType: "nothing",
         args: [
-            { name: "lb", type: "leaderboard" },
+            { name: "whichLeaderboard", type: "leaderboard" },
             { name: "label", type: "string" },
         ],
     },
-    LeaderboardGetLabelText: { returnType: "string", args: [{ name: "lb", type: "leaderboard" }] },
+    LeaderboardGetLabelText: { returnType: "string", args: [{ name: "whichLeaderboard", type: "leaderboard" }] },
     PlayerSetLeaderboard: {
         returnType: "nothing",
         args: [
             { name: "toPlayer", type: "player" },
-            { name: "lb", type: "leaderboard" },
+            { name: "whichLeaderboard", type: "leaderboard" },
         ],
     },
     PlayerGetLeaderboard: { returnType: "leaderboard", args: [{ name: "toPlayer", type: "player" }] },
     LeaderboardSetLabelColor: {
         returnType: "nothing",
         args: [
-            { name: "lb", type: "leaderboard" },
+            { name: "whichLeaderboard", type: "leaderboard" },
             { name: "red", type: "integer" },
             { name: "green", type: "integer" },
             { name: "blue", type: "integer" },
@@ -4597,7 +4597,7 @@ export default {
     LeaderboardSetValueColor: {
         returnType: "nothing",
         args: [
-            { name: "lb", type: "leaderboard" },
+            { name: "whichLeaderboard", type: "leaderboard" },
             { name: "red", type: "integer" },
             { name: "green", type: "integer" },
             { name: "blue", type: "integer" },
@@ -4607,7 +4607,7 @@ export default {
     LeaderboardSetStyle: {
         returnType: "nothing",
         args: [
-            { name: "lb", type: "leaderboard" },
+            { name: "whichLeaderboard", type: "leaderboard" },
             { name: "showLabel", type: "boolean" },
             { name: "showNames", type: "boolean" },
             { name: "showValues", type: "boolean" },
@@ -4617,7 +4617,7 @@ export default {
     LeaderboardSetItemValue: {
         returnType: "nothing",
         args: [
-            { name: "lb", type: "leaderboard" },
+            { name: "whichLeaderboard", type: "leaderboard" },
             { name: "whichItem", type: "integer" },
             { name: "val", type: "integer" },
         ],
@@ -4625,7 +4625,7 @@ export default {
     LeaderboardSetItemLabel: {
         returnType: "nothing",
         args: [
-            { name: "lb", type: "leaderboard" },
+            { name: "whichLeaderboard", type: "leaderboard" },
             { name: "whichItem", type: "integer" },
             { name: "val", type: "string" },
         ],
@@ -4633,7 +4633,7 @@ export default {
     LeaderboardSetItemStyle: {
         returnType: "nothing",
         args: [
-            { name: "lb", type: "leaderboard" },
+            { name: "whichLeaderboard", type: "leaderboard" },
             { name: "whichItem", type: "integer" },
             { name: "showLabel", type: "boolean" },
             { name: "showValue", type: "boolean" },
@@ -4643,7 +4643,7 @@ export default {
     LeaderboardSetItemLabelColor: {
         returnType: "nothing",
         args: [
-            { name: "lb", type: "leaderboard" },
+            { name: "whichLeaderboard", type: "leaderboard" },
             { name: "whichItem", type: "integer" },
             { name: "red", type: "integer" },
             { name: "green", type: "integer" },
@@ -4654,7 +4654,7 @@ export default {
     LeaderboardSetItemValueColor: {
         returnType: "nothing",
         args: [
-            { name: "lb", type: "leaderboard" },
+            { name: "whichLeaderboard", type: "leaderboard" },
             { name: "whichItem", type: "integer" },
             { name: "red", type: "integer" },
             { name: "green", type: "integer" },
@@ -4663,62 +4663,62 @@ export default {
         ],
     },
     CreateMultiboard: { returnType: "multiboard", args: [] },
-    DestroyMultiboard: { returnType: "nothing", args: [{ name: "lb", type: "multiboard" }] },
+    DestroyMultiboard: { returnType: "nothing", args: [{ name: "whichMultiboard", type: "multiboard" }] },
     MultiboardDisplay: {
         returnType: "nothing",
         args: [
-            { name: "lb", type: "multiboard" },
+            { name: "whichMultiboard", type: "multiboard" },
             { name: "show", type: "boolean" },
         ],
     },
-    IsMultiboardDisplayed: { returnType: "boolean", args: [{ name: "lb", type: "multiboard" }] },
+    IsMultiboardDisplayed: { returnType: "boolean", args: [{ name: "whichMultiboard", type: "multiboard" }] },
     MultiboardMinimize: {
         returnType: "nothing",
         args: [
-            { name: "lb", type: "multiboard" },
+            { name: "whichMultiboard", type: "multiboard" },
             { name: "minimize", type: "boolean" },
         ],
     },
-    IsMultiboardMinimized: { returnType: "boolean", args: [{ name: "lb", type: "multiboard" }] },
-    MultiboardClear: { returnType: "nothing", args: [{ name: "lb", type: "multiboard" }] },
+    IsMultiboardMinimized: { returnType: "boolean", args: [{ name: "whichMultiboard", type: "multiboard" }] },
+    MultiboardClear: { returnType: "nothing", args: [{ name: "whichMultiboard", type: "multiboard" }] },
     MultiboardSetTitleText: {
         returnType: "nothing",
         args: [
-            { name: "lb", type: "multiboard" },
+            { name: "whichMultiboard", type: "multiboard" },
             { name: "label", type: "string" },
         ],
     },
-    MultiboardGetTitleText: { returnType: "string", args: [{ name: "lb", type: "multiboard" }] },
+    MultiboardGetTitleText: { returnType: "string", args: [{ name: "whichMultiboard", type: "multiboard" }] },
     MultiboardSetTitleTextColor: {
         returnType: "nothing",
         args: [
-            { name: "lb", type: "multiboard" },
+            { name: "whichMultiboard", type: "multiboard" },
             { name: "red", type: "integer" },
             { name: "green", type: "integer" },
             { name: "blue", type: "integer" },
             { name: "alpha", type: "integer" },
         ],
     },
-    MultiboardGetRowCount: { returnType: "integer", args: [{ name: "lb", type: "multiboard" }] },
-    MultiboardGetColumnCount: { returnType: "integer", args: [{ name: "lb", type: "multiboard" }] },
+    MultiboardGetRowCount: { returnType: "integer", args: [{ name: "whichMultiboard", type: "multiboard" }] },
+    MultiboardGetColumnCount: { returnType: "integer", args: [{ name: "whichMultiboard", type: "multiboard" }] },
     MultiboardSetColumnCount: {
         returnType: "nothing",
         args: [
-            { name: "lb", type: "multiboard" },
+            { name: "whichMultiboard", type: "multiboard" },
             { name: "count", type: "integer" },
         ],
     },
     MultiboardSetRowCount: {
         returnType: "nothing",
         args: [
-            { name: "lb", type: "multiboard" },
+            { name: "whichMultiboard", type: "multiboard" },
             { name: "count", type: "integer" },
         ],
     },
     MultiboardSetItemsStyle: {
         returnType: "nothing",
         args: [
-            { name: "lb", type: "multiboard" },
+            { name: "whichMultiboard", type: "multiboard" },
             { name: "showValues", type: "boolean" },
             { name: "showIcons", type: "boolean" },
         ],
@@ -4726,14 +4726,14 @@ export default {
     MultiboardSetItemsValue: {
         returnType: "nothing",
         args: [
-            { name: "lb", type: "multiboard" },
+            { name: "whichMultiboard", type: "multiboard" },
             { name: "value", type: "string" },
         ],
     },
     MultiboardSetItemsValueColor: {
         returnType: "nothing",
         args: [
-            { name: "lb", type: "multiboard" },
+            { name: "whichMultiboard", type: "multiboard" },
             { name: "red", type: "integer" },
             { name: "green", type: "integer" },
             { name: "blue", type: "integer" },
@@ -4743,30 +4743,30 @@ export default {
     MultiboardSetItemsWidth: {
         returnType: "nothing",
         args: [
-            { name: "lb", type: "multiboard" },
+            { name: "whichMultiboard", type: "multiboard" },
             { name: "width", type: "real" },
         ],
     },
     MultiboardSetItemsIcon: {
         returnType: "nothing",
         args: [
-            { name: "lb", type: "multiboard" },
+            { name: "whichMultiboard", type: "multiboard" },
             { name: "iconPath", type: "string" },
         ],
     },
     MultiboardGetItem: {
         returnType: "multiboarditem",
         args: [
-            { name: "lb", type: "multiboard" },
+            { name: "whichMultiboard", type: "multiboard" },
             { name: "row", type: "integer" },
             { name: "column", type: "integer" },
         ],
     },
-    MultiboardReleaseItem: { returnType: "nothing", args: [{ name: "mbi", type: "multiboarditem" }] },
+    MultiboardReleaseItem: { returnType: "nothing", args: [{ name: "whichMultiboardItem", type: "multiboarditem" }] },
     MultiboardSetItemStyle: {
         returnType: "nothing",
         args: [
-            { name: "mbi", type: "multiboarditem" },
+            { name: "whichMultiboardItem", type: "multiboarditem" },
             { name: "showValue", type: "boolean" },
             { name: "showIcon", type: "boolean" },
         ],
@@ -4774,14 +4774,14 @@ export default {
     MultiboardSetItemValue: {
         returnType: "nothing",
         args: [
-            { name: "mbi", type: "multiboarditem" },
+            { name: "whichMultiboardItem", type: "multiboarditem" },
             { name: "val", type: "string" },
         ],
     },
     MultiboardSetItemValueColor: {
         returnType: "nothing",
         args: [
-            { name: "mbi", type: "multiboarditem" },
+            { name: "whichMultiboardItem", type: "multiboarditem" },
             { name: "red", type: "integer" },
             { name: "green", type: "integer" },
             { name: "blue", type: "integer" },
@@ -4791,14 +4791,14 @@ export default {
     MultiboardSetItemWidth: {
         returnType: "nothing",
         args: [
-            { name: "mbi", type: "multiboarditem" },
+            { name: "whichMultiboardItem", type: "multiboarditem" },
             { name: "width", type: "real" },
         ],
     },
     MultiboardSetItemIcon: {
         returnType: "nothing",
         args: [
-            { name: "mbi", type: "multiboarditem" },
+            { name: "whichMultiboardItem", type: "multiboarditem" },
             { name: "iconFileName", type: "string" },
         ],
     },
@@ -4911,7 +4911,7 @@ export default {
     CameraSetupSetField: {
         returnType: "nothing",
         args: [
-            { name: "whichSetup", type: "camerasetup" },
+            { name: "whichCameraSetup", type: "camerasetup" },
             { name: "whichField", type: "camerafield" },
             { name: "value", type: "real" },
             { name: "duration", type: "real" },
@@ -4920,26 +4920,29 @@ export default {
     CameraSetupGetField: {
         returnType: "real",
         args: [
-            { name: "whichSetup", type: "camerasetup" },
+            { name: "whichCameraSetup", type: "camerasetup" },
             { name: "whichField", type: "camerafield" },
         ],
     },
     CameraSetupSetDestPosition: {
         returnType: "nothing",
         args: [
-            { name: "whichSetup", type: "camerasetup" },
+            { name: "whichCameraSetup", type: "camerasetup" },
             { name: "x", type: "real" },
             { name: "y", type: "real" },
             { name: "duration", type: "real" },
         ],
     },
-    CameraSetupGetDestPositionLoc: { returnType: "location", args: [{ name: "whichSetup", type: "camerasetup" }] },
-    CameraSetupGetDestPositionX: { returnType: "real", args: [{ name: "whichSetup", type: "camerasetup" }] },
-    CameraSetupGetDestPositionY: { returnType: "real", args: [{ name: "whichSetup", type: "camerasetup" }] },
+    CameraSetupGetDestPositionLoc: {
+        returnType: "location",
+        args: [{ name: "whichCameraSetup", type: "camerasetup" }],
+    },
+    CameraSetupGetDestPositionX: { returnType: "real", args: [{ name: "whichCameraSetup", type: "camerasetup" }] },
+    CameraSetupGetDestPositionY: { returnType: "real", args: [{ name: "whichCameraSetup", type: "camerasetup" }] },
     CameraSetupApply: {
         returnType: "nothing",
         args: [
-            { name: "whichSetup", type: "camerasetup" },
+            { name: "whichCameraSetup", type: "camerasetup" },
             { name: "doPan", type: "boolean" },
             { name: "panTimed", type: "boolean" },
         ],
@@ -4947,14 +4950,14 @@ export default {
     CameraSetupApplyWithZ: {
         returnType: "nothing",
         args: [
-            { name: "whichSetup", type: "camerasetup" },
+            { name: "whichCameraSetup", type: "camerasetup" },
             { name: "zDestOffset", type: "real" },
         ],
     },
     CameraSetupApplyForceDuration: {
         returnType: "nothing",
         args: [
-            { name: "whichSetup", type: "camerasetup" },
+            { name: "whichCameraSetup", type: "camerasetup" },
             { name: "doPan", type: "boolean" },
             { name: "forceDuration", type: "real" },
         ],
@@ -4962,7 +4965,7 @@ export default {
     CameraSetupApplyForceDurationWithZ: {
         returnType: "nothing",
         args: [
-            { name: "whichSetup", type: "camerasetup" },
+            { name: "whichCameraSetup", type: "camerasetup" },
             { name: "zDestOffset", type: "real" },
             { name: "forceDuration", type: "real" },
         ],
@@ -5286,7 +5289,7 @@ export default {
     AddWeatherEffect: {
         returnType: "weathereffect",
         args: [
-            { name: "where", type: "rect" },
+            { name: "whichRect", type: "rect" },
             { name: "effectID", type: "integer" },
         ],
     },
@@ -5387,7 +5390,7 @@ export default {
         returnType: "effect",
         args: [
             { name: "abilityString", type: "string" },
-            { name: "t", type: "effecttype" },
+            { name: "whichEffectType", type: "effecttype" },
             { name: "x", type: "real" },
             { name: "y", type: "real" },
         ],
@@ -5396,7 +5399,7 @@ export default {
         returnType: "effect",
         args: [
             { name: "abilityString", type: "string" },
-            { name: "t", type: "effecttype" },
+            { name: "whichEffectType", type: "effecttype" },
             { name: "where", type: "location" },
         ],
     },
@@ -5404,7 +5407,7 @@ export default {
         returnType: "effect",
         args: [
             { name: "abilCode", type: "integer" },
-            { name: "t", type: "effecttype" },
+            { name: "whichEffectType", type: "effecttype" },
             { name: "x", type: "real" },
             { name: "y", type: "real" },
         ],
@@ -5413,7 +5416,7 @@ export default {
         returnType: "effect",
         args: [
             { name: "abilCode", type: "integer" },
-            { name: "t", type: "effecttype" },
+            { name: "whichEffectType", type: "effecttype" },
             { name: "where", type: "location" },
         ],
     },
@@ -5421,7 +5424,7 @@ export default {
         returnType: "effect",
         args: [
             { name: "modelName", type: "string" },
-            { name: "t", type: "effecttype" },
+            { name: "whichEffectType", type: "effecttype" },
             { name: "targetWidget", type: "widget" },
             { name: "attachPoint", type: "string" },
         ],
@@ -5430,7 +5433,7 @@ export default {
         returnType: "effect",
         args: [
             { name: "abilCode", type: "integer" },
-            { name: "t", type: "effecttype" },
+            { name: "whichEffectType", type: "effecttype" },
             { name: "targetWidget", type: "widget" },
             { name: "attachPoint", type: "string" },
         ],
@@ -5502,7 +5505,7 @@ export default {
         returnType: "string",
         args: [
             { name: "abilityString", type: "string" },
-            { name: "t", type: "effecttype" },
+            { name: "whichEffectType", type: "effecttype" },
             { name: "index", type: "integer" },
         ],
     },
@@ -5510,7 +5513,7 @@ export default {
         returnType: "string",
         args: [
             { name: "abilCode", type: "integer" },
-            { name: "t", type: "effecttype" },
+            { name: "whichEffectType", type: "effecttype" },
             { name: "index", type: "integer" },
         ],
     },
@@ -5518,14 +5521,14 @@ export default {
         returnType: "string",
         args: [
             { name: "abilityString", type: "string" },
-            { name: "t", type: "soundtype" },
+            { name: "whichSoundType", type: "soundtype" },
         ],
     },
     GetAbilitySoundById: {
         returnType: "string",
         args: [
             { name: "abilCode", type: "integer" },
-            { name: "t", type: "soundtype" },
+            { name: "whichSoundType", type: "soundtype" },
         ],
     },
     GetTerrainCliffLevel: {
@@ -5575,7 +5578,7 @@ export default {
         args: [
             { name: "x", type: "real" },
             { name: "y", type: "real" },
-            { name: "t", type: "pathingtype" },
+            { name: "whichPathingType", type: "pathingtype" },
         ],
     },
     SetTerrainPathable: {
@@ -5583,7 +5586,7 @@ export default {
         args: [
             { name: "x", type: "real" },
             { name: "y", type: "real" },
-            { name: "t", type: "pathingtype" },
+            { name: "whichPathingType", type: "pathingtype" },
             { name: "flag", type: "boolean" },
         ],
     },
@@ -5719,7 +5722,7 @@ export default {
         returnType: "nothing",
         args: [
             { name: "whichPlayer", type: "player" },
-            { name: "r", type: "rect" },
+            { name: "whichRect", type: "rect" },
             { name: "addBlight", type: "boolean" },
         ],
     },
@@ -5744,10 +5747,10 @@ export default {
     CreateBlightedGoldmine: {
         returnType: "unit",
         args: [
-            { name: "id", type: "player" },
+            { name: "whichPlayer", type: "player" },
             { name: "x", type: "real" },
             { name: "y", type: "real" },
-            { name: "face", type: "real" },
+            { name: "facing", type: "real" },
         ],
     },
     IsPointBlighted: {
@@ -5772,7 +5775,7 @@ export default {
     SetDoodadAnimationRect: {
         returnType: "nothing",
         args: [
-            { name: "r", type: "rect" },
+            { name: "whichRect", type: "rect" },
             { name: "doodadID", type: "integer" },
             { name: "animName", type: "string" },
             { name: "animRandom", type: "boolean" },
@@ -5781,21 +5784,21 @@ export default {
     StartMeleeAI: {
         returnType: "nothing",
         args: [
-            { name: "num", type: "player" },
+            { name: "whichPlayer", type: "player" },
             { name: "script", type: "string" },
         ],
     },
     StartCampaignAI: {
         returnType: "nothing",
         args: [
-            { name: "num", type: "player" },
+            { name: "whichPlayer", type: "player" },
             { name: "script", type: "string" },
         ],
     },
     CommandAI: {
         returnType: "nothing",
         args: [
-            { name: "num", type: "player" },
+            { name: "whichPlayer", type: "player" },
             { name: "command", type: "integer" },
             { name: "data", type: "integer" },
         ],
@@ -5803,14 +5806,14 @@ export default {
     PauseCompAI: {
         returnType: "nothing",
         args: [
-            { name: "p", type: "player" },
+            { name: "whichPlayer", type: "player" },
             { name: "pause", type: "boolean" },
         ],
     },
-    GetAIDifficulty: { returnType: "aidifficulty", args: [{ name: "num", type: "player" }] },
-    RemoveGuardPosition: { returnType: "nothing", args: [{ name: "hUnit", type: "unit" }] },
-    RecycleGuardPosition: { returnType: "nothing", args: [{ name: "hUnit", type: "unit" }] },
-    RemoveAllGuardPositions: { returnType: "nothing", args: [{ name: "num", type: "player" }] },
+    GetAIDifficulty: { returnType: "aidifficulty", args: [{ name: "whichPlayer", type: "player" }] },
+    RemoveGuardPosition: { returnType: "nothing", args: [{ name: "whichUnit", type: "unit" }] },
+    RecycleGuardPosition: { returnType: "nothing", args: [{ name: "whichUnit", type: "unit" }] },
+    RemoveAllGuardPositions: { returnType: "nothing", args: [{ name: "whichPlayer", type: "player" }] },
     Cheat: { returnType: "nothing", args: [{ name: "cheatStr", type: "string" }] },
     IsNoVictoryCheat: { returnType: "boolean", args: [] },
     IsNoDefeatCheat: { returnType: "boolean", args: [] },
@@ -5857,22 +5860,22 @@ export default {
     BitwiseAND: {
         returnType: "integer",
         args: [
-            { name: "bit1", type: "integer" },
-            { name: "bit2", type: "integer" },
+            { name: "a", type: "integer" },
+            { name: "b", type: "integer" },
         ],
     },
     BitwiseOR: {
         returnType: "integer",
         args: [
-            { name: "bit1", type: "integer" },
-            { name: "bit2", type: "integer" },
+            { name: "a", type: "integer" },
+            { name: "b", type: "integer" },
         ],
     },
     BitwiseXOR: {
         returnType: "integer",
         args: [
-            { name: "bit1", type: "integer" },
-            { name: "bit2", type: "integer" },
+            { name: "a", type: "integer" },
+            { name: "b", type: "integer" },
         ],
     },
     BitwiseShiftLeft: {
@@ -5929,102 +5932,102 @@ export default {
     },
     IntegerToHandle: { returnType: "handle", args: [{ name: "i", type: "integer" }] },
     AddressToHandle: { returnType: "handle", args: [{ name: "i", type: "integer" }] },
-    HandleToAddress: { returnType: "integer", args: [{ name: "h", type: "handle" }] },
+    HandleToAddress: { returnType: "integer", args: [{ name: "whichHandle", type: "handle" }] },
     I2C: { returnType: "code", args: [{ name: "i", type: "integer" }] },
     C2I: { returnType: "integer", args: [{ name: "c", type: "code" }] },
-    HandleToHandle: { returnType: "handle", args: [{ name: "h", type: "handle" }] },
-    HandleToAgent: { returnType: "agent", args: [{ name: "h", type: "handle" }] },
-    HandleToEvent: { returnType: "event", args: [{ name: "h", type: "handle" }] },
-    HandleToWidget: { returnType: "widget", args: [{ name: "h", type: "handle" }] },
-    HandleToUnit: { returnType: "unit", args: [{ name: "h", type: "handle" }] },
-    HandleToDestructable: { returnType: "destructable", args: [{ name: "h", type: "handle" }] },
-    HandleToItem: { returnType: "item", args: [{ name: "h", type: "handle" }] },
-    HandleToAbility: { returnType: "ability", args: [{ name: "h", type: "handle" }] },
-    HandleToBuff: { returnType: "buff", args: [{ name: "h", type: "handle" }] },
-    HandleToForce: { returnType: "force", args: [{ name: "h", type: "handle" }] },
-    HandleToGroup: { returnType: "group", args: [{ name: "h", type: "handle" }] },
-    HandleToTrigger: { returnType: "trigger", args: [{ name: "h", type: "handle" }] },
-    HandleToTriggercondition: { returnType: "triggercondition", args: [{ name: "h", type: "handle" }] },
-    HandleToTriggeraction: { returnType: "triggeraction", args: [{ name: "h", type: "handle" }] },
-    HandleToTimer: { returnType: "timer", args: [{ name: "h", type: "handle" }] },
-    HandleToLocation: { returnType: "location", args: [{ name: "h", type: "handle" }] },
-    HandleToRegion: { returnType: "region", args: [{ name: "h", type: "handle" }] },
-    HandleToRect: { returnType: "rect", args: [{ name: "h", type: "handle" }] },
-    HandleToBoolexpr: { returnType: "boolexpr", args: [{ name: "h", type: "handle" }] },
-    HandleToSound: { returnType: "sound", args: [{ name: "h", type: "handle" }] },
-    HandleToConditionfunc: { returnType: "conditionfunc", args: [{ name: "h", type: "handle" }] },
-    HandleToFilterfunc: { returnType: "filterfunc", args: [{ name: "h", type: "handle" }] },
-    HandleToUnitpool: { returnType: "unitpool", args: [{ name: "h", type: "handle" }] },
-    HandleToItempool: { returnType: "itempool", args: [{ name: "h", type: "handle" }] },
-    HandleToRace: { returnType: "race", args: [{ name: "h", type: "handle" }] },
-    HandleToAlliancetype: { returnType: "alliancetype", args: [{ name: "h", type: "handle" }] },
-    HandleToRacepreference: { returnType: "racepreference", args: [{ name: "h", type: "handle" }] },
-    HandleToGamestate: { returnType: "gamestate", args: [{ name: "h", type: "handle" }] },
-    HandleToIGamestate: { returnType: "igamestate", args: [{ name: "h", type: "handle" }] },
-    HandleToFGamestate: { returnType: "fgamestate", args: [{ name: "h", type: "handle" }] },
-    HandleToPlayerstate: { returnType: "playerstate", args: [{ name: "h", type: "handle" }] },
-    HandleToPlayerscore: { returnType: "playerscore", args: [{ name: "h", type: "handle" }] },
-    HandleToPlayergameresult: { returnType: "playergameresult", args: [{ name: "h", type: "handle" }] },
-    HandleToUnitstate: { returnType: "unitstate", args: [{ name: "h", type: "handle" }] },
-    HandleToAIDifficulty: { returnType: "aidifficulty", args: [{ name: "h", type: "handle" }] },
-    HandleToEventid: { returnType: "eventid", args: [{ name: "h", type: "handle" }] },
-    HandleToGameevent: { returnType: "gameevent", args: [{ name: "h", type: "handle" }] },
-    HandleToPlayerevent: { returnType: "playerevent", args: [{ name: "h", type: "handle" }] },
-    HandleToPlayerunitevent: { returnType: "playerunitevent", args: [{ name: "h", type: "handle" }] },
-    HandleToUnitevent: { returnType: "unitevent", args: [{ name: "h", type: "handle" }] },
-    HandleToLimitop: { returnType: "limitop", args: [{ name: "h", type: "handle" }] },
-    HandleToWidgetevent: { returnType: "widgetevent", args: [{ name: "h", type: "handle" }] },
-    HandleToDialogevent: { returnType: "dialogevent", args: [{ name: "h", type: "handle" }] },
-    HandleToUnittype: { returnType: "unittype", args: [{ name: "h", type: "handle" }] },
-    HandleToGamespeed: { returnType: "gamespeed", args: [{ name: "h", type: "handle" }] },
-    HandleToGamedifficulty: { returnType: "gamedifficulty", args: [{ name: "h", type: "handle" }] },
-    HandleToGametype: { returnType: "gametype", args: [{ name: "h", type: "handle" }] },
-    HandleToMapflag: { returnType: "mapflag", args: [{ name: "h", type: "handle" }] },
-    HandleToMapvisibility: { returnType: "mapvisibility", args: [{ name: "h", type: "handle" }] },
-    HandleToMapsetting: { returnType: "mapsetting", args: [{ name: "h", type: "handle" }] },
-    HandleToMapdensity: { returnType: "mapdensity", args: [{ name: "h", type: "handle" }] },
-    HandleToMapcontrol: { returnType: "mapcontrol", args: [{ name: "h", type: "handle" }] },
-    HandleToPlayerslotstate: { returnType: "playerslotstate", args: [{ name: "h", type: "handle" }] },
-    HandleToVolumegroup: { returnType: "volumegroup", args: [{ name: "h", type: "handle" }] },
-    HandleToCamerafield: { returnType: "camerafield", args: [{ name: "h", type: "handle" }] },
-    HandleToCamerasetup: { returnType: "camerasetup", args: [{ name: "h", type: "handle" }] },
-    HandleToPlayercolor: { returnType: "playercolor", args: [{ name: "h", type: "handle" }] },
-    HandleToPlacement: { returnType: "placement", args: [{ name: "h", type: "handle" }] },
-    HandleToStartlocprio: { returnType: "startlocprio", args: [{ name: "h", type: "handle" }] },
-    HandleToRaritycontrol: { returnType: "raritycontrol", args: [{ name: "h", type: "handle" }] },
-    HandleToBlendmode: { returnType: "blendmode", args: [{ name: "h", type: "handle" }] },
-    HandleToTexmapflags: { returnType: "texmapflags", args: [{ name: "h", type: "handle" }] },
-    HandleToEffect: { returnType: "effect", args: [{ name: "h", type: "handle" }] },
-    HandleToEffecttype: { returnType: "effecttype", args: [{ name: "h", type: "handle" }] },
-    HandleToWeathereffect: { returnType: "weathereffect", args: [{ name: "h", type: "handle" }] },
-    HandleToTerraindeformation: { returnType: "terraindeformation", args: [{ name: "h", type: "handle" }] },
-    HandleToFogstate: { returnType: "fogstate", args: [{ name: "h", type: "handle" }] },
-    HandleToFogmodifier: { returnType: "fogmodifier", args: [{ name: "h", type: "handle" }] },
-    HandleToDialog: { returnType: "dialog", args: [{ name: "h", type: "handle" }] },
-    HandleToButton: { returnType: "button", args: [{ name: "h", type: "handle" }] },
-    HandleToQuest: { returnType: "quest", args: [{ name: "h", type: "handle" }] },
-    HandleToQuestitem: { returnType: "questitem", args: [{ name: "h", type: "handle" }] },
-    HandleToDefeatcondition: { returnType: "defeatcondition", args: [{ name: "h", type: "handle" }] },
-    HandleToTimerdialog: { returnType: "timerdialog", args: [{ name: "h", type: "handle" }] },
-    HandleToLeaderboard: { returnType: "leaderboard", args: [{ name: "h", type: "handle" }] },
-    HandleToMultiboard: { returnType: "multiboard", args: [{ name: "h", type: "handle" }] },
-    HandleToMultiboarditem: { returnType: "multiboarditem", args: [{ name: "h", type: "handle" }] },
-    HandleToTrackable: { returnType: "trackable", args: [{ name: "h", type: "handle" }] },
-    HandleToGamecache: { returnType: "gamecache", args: [{ name: "h", type: "handle" }] },
-    HandleToVersion: { returnType: "version", args: [{ name: "h", type: "handle" }] },
-    HandleToItemtype: { returnType: "itemtype", args: [{ name: "h", type: "handle" }] },
-    HandleToTexttag: { returnType: "texttag", args: [{ name: "h", type: "handle" }] },
-    HandleToAttacktype: { returnType: "attacktype", args: [{ name: "h", type: "handle" }] },
-    HandleToDamagetype: { returnType: "damagetype", args: [{ name: "h", type: "handle" }] },
-    HandleToWeapontype: { returnType: "weapontype", args: [{ name: "h", type: "handle" }] },
-    HandleToSoundtype: { returnType: "soundtype", args: [{ name: "h", type: "handle" }] },
-    HandleToLightning: { returnType: "lightning", args: [{ name: "h", type: "handle" }] },
-    HandleToPathingtype: { returnType: "pathingtype", args: [{ name: "h", type: "handle" }] },
-    HandleToImage: { returnType: "image", args: [{ name: "h", type: "handle" }] },
-    HandleToUbersplat: { returnType: "ubersplat", args: [{ name: "h", type: "handle" }] },
-    HandleToHashtable: { returnType: "hashtable", args: [{ name: "h", type: "handle" }] },
-    HandleToAnimType: { returnType: "animtype", args: [{ name: "h", type: "handle" }] },
-    HandleToSubAnimType: { returnType: "subanimtype", args: [{ name: "h", type: "handle" }] },
+    HandleToHandle: { returnType: "handle", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToAgent: { returnType: "agent", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToEvent: { returnType: "event", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToWidget: { returnType: "widget", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToUnit: { returnType: "unit", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToDestructable: { returnType: "destructable", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToItem: { returnType: "item", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToAbility: { returnType: "ability", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToBuff: { returnType: "buff", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToForce: { returnType: "force", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToGroup: { returnType: "group", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToTrigger: { returnType: "trigger", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToTriggercondition: { returnType: "triggercondition", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToTriggeraction: { returnType: "triggeraction", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToTimer: { returnType: "timer", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToLocation: { returnType: "location", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToRegion: { returnType: "region", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToRect: { returnType: "rect", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToBoolexpr: { returnType: "boolexpr", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToSound: { returnType: "sound", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToConditionfunc: { returnType: "conditionfunc", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToFilterfunc: { returnType: "filterfunc", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToUnitpool: { returnType: "unitpool", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToItempool: { returnType: "itempool", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToRace: { returnType: "race", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToAlliancetype: { returnType: "alliancetype", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToRacepreference: { returnType: "racepreference", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToGamestate: { returnType: "gamestate", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToIGamestate: { returnType: "igamestate", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToFGamestate: { returnType: "fgamestate", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToPlayerstate: { returnType: "playerstate", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToPlayerscore: { returnType: "playerscore", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToPlayergameresult: { returnType: "playergameresult", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToUnitstate: { returnType: "unitstate", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToAIDifficulty: { returnType: "aidifficulty", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToEventid: { returnType: "eventid", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToGameevent: { returnType: "gameevent", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToPlayerevent: { returnType: "playerevent", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToPlayerunitevent: { returnType: "playerunitevent", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToUnitevent: { returnType: "unitevent", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToLimitop: { returnType: "limitop", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToWidgetevent: { returnType: "widgetevent", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToDialogevent: { returnType: "dialogevent", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToUnittype: { returnType: "unittype", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToGamespeed: { returnType: "gamespeed", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToGamedifficulty: { returnType: "gamedifficulty", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToGametype: { returnType: "gametype", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToMapflag: { returnType: "mapflag", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToMapvisibility: { returnType: "mapvisibility", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToMapsetting: { returnType: "mapsetting", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToMapdensity: { returnType: "mapdensity", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToMapcontrol: { returnType: "mapcontrol", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToPlayerslotstate: { returnType: "playerslotstate", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToVolumegroup: { returnType: "volumegroup", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToCamerafield: { returnType: "camerafield", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToCamerasetup: { returnType: "camerasetup", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToPlayercolor: { returnType: "playercolor", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToPlacement: { returnType: "placement", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToStartlocprio: { returnType: "startlocprio", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToRaritycontrol: { returnType: "raritycontrol", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToBlendmode: { returnType: "blendmode", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToTexmapflags: { returnType: "texmapflags", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToEffect: { returnType: "effect", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToEffecttype: { returnType: "effecttype", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToWeathereffect: { returnType: "weathereffect", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToTerraindeformation: { returnType: "terraindeformation", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToFogstate: { returnType: "fogstate", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToFogmodifier: { returnType: "fogmodifier", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToDialog: { returnType: "dialog", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToButton: { returnType: "button", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToQuest: { returnType: "quest", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToQuestitem: { returnType: "questitem", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToDefeatcondition: { returnType: "defeatcondition", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToTimerdialog: { returnType: "timerdialog", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToLeaderboard: { returnType: "leaderboard", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToMultiboard: { returnType: "multiboard", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToMultiboarditem: { returnType: "multiboarditem", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToTrackable: { returnType: "trackable", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToGamecache: { returnType: "gamecache", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToVersion: { returnType: "version", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToItemtype: { returnType: "itemtype", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToTexttag: { returnType: "texttag", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToAttacktype: { returnType: "attacktype", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToDamagetype: { returnType: "damagetype", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToWeapontype: { returnType: "weapontype", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToSoundtype: { returnType: "soundtype", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToLightning: { returnType: "lightning", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToPathingtype: { returnType: "pathingtype", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToImage: { returnType: "image", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToUbersplat: { returnType: "ubersplat", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToHashtable: { returnType: "hashtable", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToAnimType: { returnType: "animtype", args: [{ name: "whichHandle", type: "handle" }] },
+    HandleToSubAnimType: { returnType: "subanimtype", args: [{ name: "whichHandle", type: "handle" }] },
     GetHandleCount: { returnType: "integer", args: [] },
     GetNextHandleIndex: { returnType: "integer", args: [] },
     GetStringCount: { returnType: "integer", args: [] },
@@ -6733,7 +6736,7 @@ export default {
     SaveHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichHandle", type: "handle" },
@@ -6742,7 +6745,7 @@ export default {
     SaveCode: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichCode", type: "code" },
@@ -6751,7 +6754,7 @@ export default {
     SaveAttackTypeHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichAttackType", type: "attacktype" },
@@ -6760,7 +6763,7 @@ export default {
     SaveDamageTypeHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichDamageType", type: "damagetype" },
@@ -6769,7 +6772,7 @@ export default {
     SaveWeaponTypeHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichWeaponType", type: "weapontype" },
@@ -6778,7 +6781,7 @@ export default {
     SaveBuffHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichBuff", type: "buff" },
@@ -6787,7 +6790,7 @@ export default {
     SaveSpriteHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichsprite", type: "sprite" },
@@ -6796,7 +6799,7 @@ export default {
     SaveWar3ImageHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichWar3Image", type: "war3image" },
@@ -6805,7 +6808,7 @@ export default {
     SaveDoodadHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichDoodad", type: "doodad" },
@@ -6814,7 +6817,7 @@ export default {
     SaveTextFileHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichFile", type: "textfilehandle" },
@@ -6823,7 +6826,7 @@ export default {
     SaveProjectileHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichProjectile", type: "projectile" },
@@ -6832,7 +6835,7 @@ export default {
     SaveFrameHandle: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichFrame", type: "framehandle" },
@@ -6841,7 +6844,7 @@ export default {
     SaveHandleList: {
         returnType: "boolean",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
             { name: "whichHandleList", type: "handlelist" },
@@ -6850,7 +6853,7 @@ export default {
     LoadHandle: {
         returnType: "handle",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -6858,7 +6861,7 @@ export default {
     LoadCode: {
         returnType: "code",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -6866,7 +6869,7 @@ export default {
     LoadAttackTypeHandle: {
         returnType: "attacktype",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -6874,7 +6877,7 @@ export default {
     LoadDamageTypeHandle: {
         returnType: "damagetype",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -6882,7 +6885,7 @@ export default {
     LoadWeaponTypeHandle: {
         returnType: "weapontype",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -6890,7 +6893,7 @@ export default {
     LoadBuffHandle: {
         returnType: "buff",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -6898,7 +6901,7 @@ export default {
     LoadSpriteHandle: {
         returnType: "sprite",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -6906,7 +6909,7 @@ export default {
     LoadWar3ImageHandle: {
         returnType: "war3image",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -6914,7 +6917,7 @@ export default {
     LoadDoodadHandle: {
         returnType: "doodad",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -6922,7 +6925,7 @@ export default {
     LoadTextFileHandle: {
         returnType: "textfilehandle",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -6930,7 +6933,7 @@ export default {
     LoadProjectileHandle: {
         returnType: "projectile",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -6938,7 +6941,7 @@ export default {
     LoadFrameHandle: {
         returnType: "framehandle",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -6946,7 +6949,7 @@ export default {
     LoadHandleList: {
         returnType: "handlelist",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -6967,7 +6970,7 @@ export default {
         returnType: "nothing",
         args: [
             { name: "whichFogModifier", type: "fogmodifier" },
-            { name: "forWhichPlayer", type: "player" },
+            { name: "whichPlayer", type: "player" },
         ],
     },
     IsFogModifierFogState: {
@@ -7055,7 +7058,7 @@ export default {
         returnType: "nothing",
         args: [
             { name: "whichFogModifier", type: "fogmodifier" },
-            { name: "where", type: "rect" },
+            { name: "whichRect", type: "rect" },
         ],
     },
     SetFogModifierRectEx: {
@@ -8058,7 +8061,7 @@ export default {
             { name: "objectid", type: "integer" },
             { name: "x", type: "real" },
             { name: "y", type: "real" },
-            { name: "face", type: "real" },
+            { name: "facing", type: "real" },
             { name: "scale", type: "real" },
             { name: "variation", type: "integer" },
         ],
@@ -8070,7 +8073,7 @@ export default {
             { name: "x", type: "real" },
             { name: "y", type: "real" },
             { name: "z", type: "real" },
-            { name: "face", type: "real" },
+            { name: "facing", type: "real" },
             { name: "scale", type: "real" },
             { name: "variation", type: "integer" },
         ],
@@ -13455,7 +13458,7 @@ export default {
     QueueNeutralImmediateOrderById: {
         returnType: "boolean",
         args: [
-            { name: "forWhichPlayer", type: "player" },
+            { name: "whichPlayer", type: "player" },
             { name: "neutralStructure", type: "unit" },
             { name: "unitId", type: "integer" },
         ],
@@ -13463,7 +13466,7 @@ export default {
     QueueNeutralPointOrderById: {
         returnType: "boolean",
         args: [
-            { name: "forWhichPlayer", type: "player" },
+            { name: "whichPlayer", type: "player" },
             { name: "neutralStructure", type: "unit" },
             { name: "unitId", type: "integer" },
             { name: "x", type: "real" },
@@ -13473,7 +13476,7 @@ export default {
     QueueNeutralTargetOrderById: {
         returnType: "boolean",
         args: [
-            { name: "forWhichPlayer", type: "player" },
+            { name: "whichPlayer", type: "player" },
             { name: "neutralStructure", type: "unit" },
             { name: "unitId", type: "integer" },
             { name: "target", type: "widget" },
@@ -15008,14 +15011,14 @@ export default {
         args: [
             { name: "whichTrigger", type: "trigger" },
             { name: "whichFrame", type: "framehandle" },
-            { name: "frameEvent", type: "frameeventtype" },
+            { name: "eventId", type: "frameeventtype" },
         ],
     },
     RegisterFrameMouseButton: {
         returnType: "nothing",
         args: [
             { name: "whichFrame", type: "framehandle" },
-            { name: "whichButton", type: "mousebuttontype" },
+            { name: "whichMouseButton", type: "mousebuttontype" },
             { name: "isAdd", type: "boolean" },
         ],
     },
@@ -15254,7 +15257,7 @@ export default {
     SyncSavedInteger: {
         returnType: "nothing",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -15262,7 +15265,7 @@ export default {
     SyncSavedReal: {
         returnType: "nothing",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -15270,7 +15273,7 @@ export default {
     SyncSavedString: {
         returnType: "nothing",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -15278,7 +15281,7 @@ export default {
     SyncSavedHandle: {
         returnType: "nothing",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -15286,7 +15289,7 @@ export default {
     SyncSavedBoolean: {
         returnType: "nothing",
         args: [
-            { name: "table", type: "hashtable" },
+            { name: "whichHashtable", type: "hashtable" },
             { name: "parentKey", type: "integer" },
             { name: "childKey", type: "integer" },
         ],
@@ -15317,8 +15320,8 @@ export default {
             { name: "fromServer", type: "boolean" },
         ],
     },
-    IsKeyPressed: { returnType: "boolean", args: [{ name: "key", type: "oskeytype" }] },
-    IsMouseKeyPressed: { returnType: "boolean", args: [{ name: "mouseKey", type: "mousebuttontype" }] },
+    IsKeyPressed: { returnType: "boolean", args: [{ name: "whichKey", type: "oskeytype" }] },
+    IsMouseKeyPressed: { returnType: "boolean", args: [{ name: "whichMouseButton", type: "mousebuttontype" }] },
     GetTriggerPlayerIsKeyDown: { returnType: "boolean", args: [] },
     GetTriggerPlayerKey: { returnType: "oskeytype", args: [] },
     GetTriggerPlayerMouseButton: { returnType: "mousebuttontype", args: [] },
@@ -15502,7 +15505,7 @@ export default {
         ],
     },
     SkinManagerGetLocalPath: { returnType: "string", args: [{ name: "key", type: "string" }] },
-    DestroyMinimapIcon: { returnType: "nothing", args: [{ name: "pingId", type: "minimapicon" }] },
+    DestroyMinimapIcon: { returnType: "nothing", args: [{ name: "whichMinimapIcon", type: "minimapicon" }] },
     SetMinimapIconVisible: {
         returnType: "nothing",
         args: [
@@ -15520,11 +15523,11 @@ export default {
     BlzCameraSetupSetLabel: {
         returnType: "nothing",
         args: [
-            { name: "whichSetup", type: "camerasetup" },
+            { name: "whichCameraSetup", type: "camerasetup" },
             { name: "label", type: "string" },
         ],
     },
-    BlzCameraSetupGetLabel: { returnType: "string", args: [{ name: "whichSetup", type: "camerasetup" }] },
+    BlzCameraSetupGetLabel: { returnType: "string", args: [{ name: "whichCameraSetup", type: "camerasetup" }] },
     CameraSetFocalDistance: { returnType: "nothing", args: [{ name: "distance", type: "real" }] },
     CameraSetDepthOfFieldScale: { returnType: "nothing", args: [{ name: "scale", type: "real" }] },
     SetCinematicAudio: { returnType: "nothing", args: [{ name: "cinematicAudio", type: "boolean" }] },
@@ -16132,7 +16135,7 @@ export default {
     BlzCameraSetupApplyForceDurationSmooth: {
         returnType: "nothing",
         args: [
-            { name: "whichSetup", type: "camerasetup" },
+            { name: "whichCameraSetup", type: "camerasetup" },
             { name: "doPan", type: "boolean" },
             { name: "forcedDuration", type: "real" },
             { name: "easeInDuration", type: "real" },
@@ -16459,7 +16462,7 @@ export default {
         args: [
             { name: "whichTrigger", type: "trigger" },
             { name: "whichPlayer", type: "player" },
-            { name: "key", type: "oskeytype" },
+            { name: "whichKey", type: "oskeytype" },
             { name: "metaKey", type: "integer" },
             { name: "keyDown", type: "boolean" },
         ],
@@ -17086,11 +17089,11 @@ export default {
     BlzCreateUnitWithSkin: {
         returnType: "unit",
         args: [
-            { name: "id", type: "player" },
+            { name: "whichPlayer", type: "player" },
             { name: "unitid", type: "integer" },
             { name: "x", type: "real" },
             { name: "y", type: "real" },
-            { name: "face", type: "real" },
+            { name: "facing", type: "real" },
             { name: "skinId", type: "integer" },
         ],
     },
@@ -17100,7 +17103,7 @@ export default {
             { name: "objectid", type: "integer" },
             { name: "x", type: "real" },
             { name: "y", type: "real" },
-            { name: "face", type: "real" },
+            { name: "facing", type: "real" },
             { name: "scale", type: "real" },
             { name: "variation", type: "integer" },
             { name: "skinId", type: "integer" },
@@ -17113,7 +17116,7 @@ export default {
             { name: "x", type: "real" },
             { name: "y", type: "real" },
             { name: "z", type: "real" },
-            { name: "face", type: "real" },
+            { name: "facing", type: "real" },
             { name: "scale", type: "real" },
             { name: "variation", type: "integer" },
             { name: "skinId", type: "integer" },
@@ -17125,7 +17128,7 @@ export default {
             { name: "objectid", type: "integer" },
             { name: "x", type: "real" },
             { name: "y", type: "real" },
-            { name: "face", type: "real" },
+            { name: "facing", type: "real" },
             { name: "scale", type: "real" },
             { name: "variation", type: "integer" },
             { name: "skinId", type: "integer" },
@@ -17138,7 +17141,7 @@ export default {
             { name: "x", type: "real" },
             { name: "y", type: "real" },
             { name: "z", type: "real" },
-            { name: "face", type: "real" },
+            { name: "facing", type: "real" },
             { name: "scale", type: "real" },
             { name: "variation", type: "integer" },
             { name: "skinId", type: "integer" },
@@ -17200,7 +17203,7 @@ export default {
     BlzQueueNeutralImmediateOrderById: {
         returnType: "boolean",
         args: [
-            { name: "forWhichPlayer", type: "player" },
+            { name: "whichPlayer", type: "player" },
             { name: "neutralStructure", type: "unit" },
             { name: "unitId", type: "integer" },
         ],
@@ -17208,7 +17211,7 @@ export default {
     BlzQueueNeutralPointOrderById: {
         returnType: "boolean",
         args: [
-            { name: "forWhichPlayer", type: "player" },
+            { name: "whichPlayer", type: "player" },
             { name: "neutralStructure", type: "unit" },
             { name: "unitId", type: "integer" },
             { name: "x", type: "real" },
@@ -17218,7 +17221,7 @@ export default {
     BlzQueueNeutralTargetOrderById: {
         returnType: "boolean",
         args: [
-            { name: "forWhichPlayer", type: "player" },
+            { name: "whichPlayer", type: "player" },
             { name: "neutralStructure", type: "unit" },
             { name: "unitId", type: "integer" },
             { name: "target", type: "widget" },
