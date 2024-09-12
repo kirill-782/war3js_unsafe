@@ -37,8 +37,10 @@ export default {
     eventid: "\n@patch 1.00\n",
     gameevent: "\n@patch 1.00\n",
     playerevent: "\n@patch 1.00\n",
-    playerunitevent: "\n@patch 1.00\n",
-    unitevent: "\n@patch 1.00\n",
+    playerunitevent:
+        '\nEvents of this type are similar to `unitevent` but are limited to the specified player.\n\nThis can be useful to reduce the amount of triggered events, because the "condition" check\nwill be handled within the game rather than your code.\n\n@note See: `TriggerRegisterPlayerUnitEvent`,\nor BJ `TriggerRegisterAnyUnitEventBJ`, `TriggerRegisterPlayerUnitEventSimple` to register for this event.\n@patch 1.00\n',
+    unitevent:
+        "\n@note See: `TriggerRegisterUnitEvent`, `TriggerRegisterFilterUnitEvent` to register for this event.\n@patch 1.00\n",
     limitop: "\n@patch 1.00\n",
     widgetevent: "\nCurrently useless, there are no functions that take `widgetevent`.\n\n@patch 1.00\n",
     dialogevent: "\n@patch 1.00\n",
@@ -270,9 +272,9 @@ export default {
     ConvertUnitCategory: "\n\n\n@pure \n@patch 1.31.0.11889\n\n",
     ConvertPathingFlag: "\n\n\n@pure \n@patch 1.31.0.11889\n\n",
     OrderId:
-        '\nReturns an internal ID for the unit order string.\n\n**Example (Lua):**\n\n```{.lua}\nOrderId("humanbuild") == 851995 -- this order opens the human build menu\n```\n\n\n@note See: `OrderId2String`\n\n@bug Do not use this in a global initialisation (map init) as it returns 0 there.\n@bug \nOrders: `humainbuild` / `orcbuild` / `nightelfbuild` / `undeadbuild` are [totally broken](https://www.hiveworkshop.com/threads/build-order-causing-all-player-builders-to-open-build-menu.339196/post-3529953), don\'t issue them.\n\n@pure \n\n@patch 1.00\n',
+        '\nReturns an internal ID for the unit order string.\n\n**Example (Lua):**\n\n```{.lua}\nOrderId("humanbuild") == 851995 -- this order opens the human build menu\n```\n\n\n@note See: `OrderId2String`, `GetIssuedOrderId`\n\n@bug Do not use this in a global initialisation (map init) as it returns 0 there.\n@bug \nOrders: `humainbuild` / `orcbuild` / `nightelfbuild` / `undeadbuild` are [totally broken](https://www.hiveworkshop.com/threads/build-order-causing-all-player-builders-to-open-build-menu.339196/post-3529953), don\'t issue them.\n\n@pure \n\n@patch 1.00\n',
     OrderId2String:
-        '\nReturns the human-readable unit order string.\n\n**Example (Lua):**\n\n```{.lua}\nOrderId2String(851995) --> returns "humanbuild" (opens human build menu)\n```\n\n\n@note See: `OrderId`\n\n@pure \n@bug Always returns null after the game is loaded/if the game is a replay.\n@bug Do not use this in a global initialisation (map init) as it returns null there.\n\n@patch 1.00\n',
+        '\nReturns the human-readable unit order string.\n\nNot all order IDs have a corresponding text string. Returns empty string in this case.\n\n**Example (Lua):**\n\n```{.lua}\nOrderId2String(851995) --> returns "humanbuild" (opens human build menu)\n```\n\n\n@note See: `OrderId`, `GetIssuedOrderId`\n\n@pure \n@bug Always returns null after the game is loaded/if the game is a replay.\n@bug Do not use this in a global initialisation (map init) as it returns null there.\n\n@patch 1.00\n',
     UnitId: "\n@patch 1.00\n",
     UnitId2String:
         '\n**Example (Lua):** `UnitId2String( FourCC("hfoo") ) --> "footman" (internal name, not localized)`{.lua}\n\n\n@note See `GetObjectName` if you need to retrieve a unit\'s localized pretty name by the type ID.\n\n@bug Always returns null after the game is loaded/if the game is a replay.\n@bug Do not use this in a global initialisation (on map init) as it returns null there.\n\n@patch 1.00\n',
@@ -649,10 +651,11 @@ export default {
     EVENT_PLAYER_UNIT_RESEARCH_START: "\n@patch 1.00\n",
     EVENT_PLAYER_UNIT_RESEARCH_CANCEL: "\n@patch 1.00\n",
     EVENT_PLAYER_UNIT_RESEARCH_FINISH: "\n@patch 1.00\n",
-    EVENT_PLAYER_UNIT_ISSUED_ORDER: "\n@patch 1.00\n",
-    EVENT_PLAYER_UNIT_ISSUED_POINT_ORDER: "\n@patch 1.00\n",
-    EVENT_PLAYER_UNIT_ISSUED_TARGET_ORDER: "\n@patch 1.00\n",
-    EVENT_PLAYER_UNIT_ISSUED_UNIT_ORDER: "\n@patch 1.00\n",
+    EVENT_PLAYER_UNIT_ISSUED_ORDER: "\nSee description of `EVENT_UNIT_ISSUED_ORDER`.\n@patch 1.00\n",
+    EVENT_PLAYER_UNIT_ISSUED_POINT_ORDER: "\nSee description of `EVENT_UNIT_ISSUED_POINT_ORDER`.\n@patch 1.00\n",
+    EVENT_PLAYER_UNIT_ISSUED_TARGET_ORDER: "\nSee description of `EVENT_UNIT_ISSUED_TARGET_ORDER`.\n@patch 1.00\n",
+    EVENT_PLAYER_UNIT_ISSUED_UNIT_ORDER:
+        '\n@note A generic, "non-player" version of this does not exist.\n@patch 1.00\n',
     EVENT_PLAYER_HERO_LEVEL: "\n@patch 1.00\n",
     EVENT_PLAYER_HERO_SKILL: "\n@patch 1.00\n",
     EVENT_PLAYER_HERO_REVIVABLE: "\n@patch 1.00\n",
@@ -691,9 +694,12 @@ export default {
     EVENT_UNIT_RESEARCH_START: "\n@patch 1.00\n",
     EVENT_UNIT_RESEARCH_CANCEL: "\n@patch 1.00\n",
     EVENT_UNIT_RESEARCH_FINISH: "\n@patch 1.00\n",
-    EVENT_UNIT_ISSUED_ORDER: "\n@patch 1.00\n",
-    EVENT_UNIT_ISSUED_POINT_ORDER: "\n@patch 1.00\n",
-    EVENT_UNIT_ISSUED_TARGET_ORDER: "\n@patch 1.00\n",
+    EVENT_UNIT_ISSUED_ORDER:
+        '\nA generic order for a unit, without an explicit target.\n\nExamples:\n\n- Hold aka "holdposition", 851993\n- Stop current action aka "stop", 851972\n\n@patch 1.00\n',
+    EVENT_UNIT_ISSUED_POINT_ORDER:
+        '\nAn order for a unit, with a map position (terrain) as the target.\n\nExamples:\n\n- Move somewhere on the map aka "move", 851986\n- Right click to move somewhre aka "smart", 851971\n- Patrol aka "patrol", 851990\n\n@patch 1.00\n',
+    EVENT_UNIT_ISSUED_TARGET_ORDER:
+        '\nAn order for a unit, with a widget (unit, destructable etc.) as the target.\n\nExamples:\n\n- Move to teleport through a waygate aka "move", 851986 or "smart", 851971\n- Attack aka "attack", 851983\n- Patrol when clicked on another unit aka "patrol", 851990\n\n@patch 1.00\n',
     EVENT_UNIT_HERO_LEVEL: "\n@patch 1.00\n",
     EVENT_UNIT_HERO_SKILL: "\n@patch 1.00\n",
     EVENT_UNIT_HERO_REVIVABLE: "\n@patch 1.00\n",
@@ -2227,13 +2233,14 @@ export default {
         "\nRemoves a single cell from a region.\n\n@param whichRegion The region to be modified.\n@param x The x-coordinate of the cell to be removed.\n@param y The y-coordinate of the cell to be removed.\n\n@note Cells are 32x32 world units and aligned with multiples of 32 in each direction (smallest grid in World Editor).\n\n@note The passed coordinates rounded down to a multiple of 32 are the minimum coordinates of the cell. E.g., (32, 32),\n(40, 40) and (63, 63) all yield the cell [minX=32, minY=32, maxX=64, maxY=64], (-64, -64), (-40, -40) and (-32, -32)\nall yield the cell [minX=-64, minY=-64, maxX=-32, maxY=-32].\n\n@patch 1.00\n",
     RegionClearCellAtLoc:
         "\nRemoves a single cell from a region.\n\n@param whichRegion The region to be modified.\n@param whichLocation The location with the coordinates of the cell to be removed.\n\n@note See: `RegionClearCell`\n\n@patch 1.00\n",
-    Location: "\n@patch 1.00\n",
+    Location:
+        "\nCreates a new location that points to the (x,y) map coordinates.\n\nThe current Z-height at that map position can be retrieved with `GetLocationZ`.\n\nTo avoid leaks, use `RemoveLocation` to destroy the location.\n\n@note Some natives may return a location with (0,0,0) which is different from\na manually created location at (x=0,y=0) that will return the map's height via `GetLocationZ`. \n\n@patch 1.00\n",
     RemoveLocation: "\n@patch 1.00\n",
     MoveLocation: "\n@patch 1.00\n",
     GetLocationX: "\n@patch 1.00\n",
     GetLocationY: "\n@patch 1.00\n",
     GetLocationZ:
-        "\nReturns the current terrain height at a location.\n\n@note Reasons for returning different values might be terrain-deformations\ncaused by spells/abilities and different graphic settings.\nOther reasons could be the rendering state of destructables and visibility differences.\n\n@note Returns 0 if `whichLocation` is null.\n\n@async \n\n@patch 1.18a\n",
+        '\nReturns the current surface elevation at the (x,y) location.\n\nThis includes the terrain (hills or water) and walkable destructables.\n\n@note Destructables spawn in the dead state/animation by default.\n\nIf the "dead" animation has a different height than its "alive" animation, then the following code\nwill return the Z position as if the destructable was dead:\n\n```{.lua}\nx, y = 0, -1024\nplatform = CreateDestructable(FourCC("DTrx"), x, y, 180, 1, 0)\nloc = Location(x, y)\nprint("IsDead, HP: ", IsDestructableDeadBJ(platform), GetDestructableLife(platform))\n\nprint(GetLocationX(loc), GetLocationY(loc), GetLocationZ(loc)) -- "dead" state height\n\n--KillDestructable(platform)\n--RemoveDestructable(platform); RemoveLocation(loc)\n```\n\nAnd if you rerun the last print line in the next tick like after `TriggerSleepAction` then\nyou will see its expected lower height because it\'s now in the "alive" animation.\n\n`SetDestructableAnimation(platform, "stand")` does not work as a workaround.\n\nHD Model: "Stand 1", "Death 1" & SD Model: "Stand", "Death".\n\n@note Reasons for returning different values between players might be terrain-deformations\ncaused by spells/abilities and different graphic settings.\nOther reasons could be the rendering state of destructables and visibility differences.\n\n@note Returns 0 if `whichLocation` is null.\n\n@async \n\n@patch 1.18a\n',
     IsUnitInRegion:
         "\nChecks whether a unit is contained within a region.\n\n@param whichRegion The region to check.\n@param whichUnit The unit to check for.\n\n@note Only checks the origin of the unit. Its collision size is not considered.\n\n@note Returns false if `whichRegion` or `whichUnit` is null.\n\n@patch 1.00\n",
     IsPointInRegion:
@@ -2372,23 +2379,23 @@ export default {
         "\nTarget is the item getting charges.\n\n\n@event EVENT_PLAYER_UNIT_STACK_ITEM\n@patch 1.32.10.18820\n\n",
     BlzGetStackingItemTargetPreviousCharges: "\n\n\n@event EVENT_PLAYER_UNIT_STACK_ITEM\n@patch 1.32.10.18820\n\n",
     GetOrderedUnit:
-        "\n\n\n@event EVENT_PLAYER_UNIT_ISSUED_ORDER\n\n@event EVENT_UNIT_ISSUED_ORDER\n@event EVENT_UNIT_ISSUED_POINT_ORDER\n@event EVENT_UNIT_ISSUED_TARGET_ORDER\n\n@patch 1.00\n",
+        "\nReturns the unit that received the order.\n\nSame as `GetTriggerUnit` in this context.\n\n@note When you order a group of units, each of them receives the order at the same time.\nThe event will run once per registered unit in the group.\n\n@note See: `GetIssuedOrderId`, `GetOrderPointX`, `GetOrderTargetUnit`\n\n@event EVENT_PLAYER_UNIT_ISSUED_ORDER\n@event EVENT_PLAYER_UNIT_ISSUED_UNIT_ORDER\n@event EVENT_PLAYER_UNIT_ISSUED_POINT_ORDER\n@event EVENT_PLAYER_UNIT_ISSUED_TARGET_ORDER\n\n@event EVENT_UNIT_ISSUED_ORDER\n@event EVENT_UNIT_ISSUED_POINT_ORDER\n@event EVENT_UNIT_ISSUED_TARGET_ORDER\n\n@patch 1.00\n",
     GetIssuedOrderId:
-        "\n\n\n@event EVENT_PLAYER_UNIT_ISSUED_ORDER\n\n@event EVENT_UNIT_ISSUED_ORDER\n@event EVENT_UNIT_ISSUED_POINT_ORDER\n@event EVENT_UNIT_ISSUED_TARGET_ORDER\n\n@patch 1.00\n",
+        '\nReturns the numeric order ID constant of the currently issued unit order.\n\n@note See: `OrderId`, `OrderId2String`, `GetOrderedUnit`, `GetOrderPointX`, `GetOrderTargetUnit`.\n@note See the list of all known order IDs <https://www.hiveworkshop.com/threads/list-of-order-ids.350361/>.\n\n@note **Example (Lua):**\n\nThe code below creates a unit and registers all issued order events for debugging.\n\n```{.lua}\nfunction printOrderInfo()\n\tlocal orderId = GetIssuedOrderId()\n\tlocal unitName = GetUnitName(GetTriggerUnit())\n\tassert(GetOrderedUnit() == GetTriggerUnit(), "GetOrderedUnit() expected to equal GetTriggerUnit()")\n\tprint("For: ".. unitName ..", Order: ".. orderId ..", oName:".. OrderId2String(orderId))\nend\nfunction printIssuedOrder()\n\tprint("Next is an Issued Order:")\n\tprintOrderInfo()\nend\nfunction printIssuedTargetOrder()\n\tlocal widget = GetOrderTarget()\n\tlocal destr = GetOrderTargetDestructable()\n\tlocal item = GetOrderTargetItem()\n\tlocal unit = GetOrderTargetUnit()\n\n\tlocal targetIsText = "Target is a \'"\n\tif widget then targetIsText = targetIsText .. "widget," end\n\tif destr then targetIsText = targetIsText .. "destructable" end\n\tif item then targetIsText = targetIsText .. "item" end\n\tif unit then targetIsText = targetIsText .. "unit" end\n\ttargetIsText = targetIsText .."\'"\n\n\tprint("Next is an Issued Target Order:")\n\tprint(targetIsText)\n\tprintOrderInfo()\nend\nfunction printIssuedPointOrder()\n\tlocal loc = GetOrderPointLoc()\n\tlocal x,y,z = GetLocationX(loc),GetLocationY(loc),GetLocationZ(loc)\n\t-- GetOrderPointX(),GetOrderPointY() is identical to location...\n\t-- if you only wanted (x,y)\n\tprint("Next is an Issued Point Order at:", x,y,z)\n\tprintOrderInfo()\nend\n\nfootman = CreateUnit(Player(0), FourCC("hfoo"), -30, 0, 90)\npeasant = CreateUnit(Player(0), FourCC("hpea"), 30, 0, 90)\nitem = CreateItem(FourCC("war2"), 64, 128)\ndestructable = CreateDestructable(FourCC("LTbr"), 96, 0, 180, 1, 0)\n\nwhichIssuedOrderTrig = CreateTrigger()\nwhichIssuedTargetOrderTrig = CreateTrigger()\nwhichIssuedPointOrderTrig = CreateTrigger()\n\nwhichOrderTrigEvent = \n\tTriggerRegisterUnitEvent(whichIssuedOrderTrig,       footman, EVENT_UNIT_ISSUED_ORDER)\n\nwhichIssuedTargetOrderTrigEvent =\n\tTriggerRegisterUnitEvent(whichIssuedTargetOrderTrig, footman, EVENT_UNIT_ISSUED_TARGET_ORDER)\n\nwhichIssuedPointOrderTrigEvent =\n\tTriggerRegisterUnitEvent(whichIssuedPointOrderTrig,  footman, EVENT_UNIT_ISSUED_POINT_ORDER)\n\n\nwhichIssuedOrderTrigAct = TriggerAddAction(      whichIssuedOrderTrig,       printIssuedOrder)\nwhichIssuedTargetOrderTrigAct = TriggerAddAction(whichIssuedTargetOrderTrig, printIssuedTargetOrder)\nwhichIssuedPointOrderTrigAct = TriggerAddAction( whichIssuedPointOrderTrig,  printIssuedPointOrder)\n```\n\n@event EVENT_PLAYER_UNIT_ISSUED_ORDER\n@event EVENT_PLAYER_UNIT_ISSUED_UNIT_ORDER\n@event EVENT_PLAYER_UNIT_ISSUED_POINT_ORDER\n@event EVENT_PLAYER_UNIT_ISSUED_TARGET_ORDER\n\n@event EVENT_UNIT_ISSUED_ORDER\n@event EVENT_UNIT_ISSUED_POINT_ORDER\n@event EVENT_UNIT_ISSUED_TARGET_ORDER\n\n@patch 1.00\n',
     GetOrderPointX:
-        "\n\n\n@event EVENT_PLAYER_UNIT_ISSUED_POINT_ORDER\n@event EVENT_UNIT_ISSUED_POINT_ORDER\n\n@patch 1.00\n",
+        "\nReturns X map coordinate for the current point order (anywhere on map terrain).\n\nReturns 0 for other event types. If you want to get the position of the target for a target order,\nget that target object first.\n\n@note See: `GetOrderPointLoc` if you need the height (Z coordinate).\n@event EVENT_PLAYER_UNIT_ISSUED_POINT_ORDER\n@event EVENT_UNIT_ISSUED_POINT_ORDER\n\n@patch 1.00\n",
     GetOrderPointY:
-        "\n\n\n@event EVENT_PLAYER_UNIT_ISSUED_POINT_ORDER\n@event EVENT_UNIT_ISSUED_POINT_ORDER\n\n@patch 1.00\n",
+        "\nReturns Y map coordinate for the current point order (anywhere on map terrain).\n\nReturns 0 for other event types. If you want to get the position of the target for a target order,\nget that target object first.\n\n@note See: `GetOrderPointLoc` if you need the height (Z coordinate).\n@event EVENT_PLAYER_UNIT_ISSUED_POINT_ORDER\n@event EVENT_UNIT_ISSUED_POINT_ORDER\n\n@patch 1.00\n",
     GetOrderPointLoc:
-        "\n\n\n@event EVENT_PLAYER_UNIT_ISSUED_POINT_ORDER\n@event EVENT_UNIT_ISSUED_POINT_ORDER\n\n@patch 1.00\n",
+        "\nReturns a new location for the current point order (anywhere on map terrain).\n\nReturns 0,0,0 for other event types. If you want to get the position of the target for a target order,\nget that target object first.\n\n@note Returned location must be removed with `RemoveLocation` to avoid leaks.\n\n@note When this is used improperly, it returns a location with (0,0,0) which is different from\na manually created location at (x=0,y=0) that will return the map's height via `GetLocationZ`. \n\n@note See: `GetOrderPointX`, `GetOrderPointY` if you want to avoid object creation or don't need the Z coordinate.\n@event EVENT_PLAYER_UNIT_ISSUED_POINT_ORDER\n@event EVENT_UNIT_ISSUED_POINT_ORDER\n\n@patch 1.00\n",
     GetOrderTarget:
-        "\n\n\n@event EVENT_PLAYER_UNIT_ISSUED_TARGET_ORDER\n@event EVENT_UNIT_ISSUED_TARGET_ORDER\n\n@patch 1.00\n",
+        "\nReturns the target widget (unit/item/destructable) for the current order.\n\n@note See: `GetOrderTargetDestructable`, `GetOrderTargetItem`, `GetOrderTargetUnit`.\n@event EVENT_PLAYER_UNIT_ISSUED_TARGET_ORDER\n@event EVENT_UNIT_ISSUED_TARGET_ORDER\n\n@patch 1.00\n",
     GetOrderTargetDestructable:
-        "\n\n\n@event EVENT_PLAYER_UNIT_ISSUED_TARGET_ORDER\n@event EVENT_UNIT_ISSUED_TARGET_ORDER\n\n@patch 1.00\n",
+        "\nReturns the targetted destructable, if the order target is a destructable.\n\n@note See: `GetOrderTarget`, `GetOrderTargetItem`, `GetOrderTargetUnit`.\n@event EVENT_PLAYER_UNIT_ISSUED_TARGET_ORDER\n@event EVENT_UNIT_ISSUED_TARGET_ORDER\n\n@patch 1.00\n",
     GetOrderTargetItem:
-        "\n\n\n@event EVENT_PLAYER_UNIT_ISSUED_TARGET_ORDER\n@event EVENT_UNIT_ISSUED_TARGET_ORDER\n\n@patch 1.00\n",
+        "\nReturns the targetted item, if the order target is an item.\n\n@note See: `GetOrderTarget`, `GetOrderTargetDestructable`, `GetOrderTargetUnit`.\n@event EVENT_PLAYER_UNIT_ISSUED_TARGET_ORDER\n@event EVENT_UNIT_ISSUED_TARGET_ORDER\n\n@patch 1.00\n",
     GetOrderTargetUnit:
-        "\n\n\n@event EVENT_PLAYER_UNIT_ISSUED_TARGET_ORDER\n@event EVENT_UNIT_ISSUED_TARGET_ORDER\n\n@patch 1.00\n",
+        "\nReturns the targetted unit, if the order target is a unit.\n\n@note See: `GetOrderTarget`, `GetOrderTargetDestructable`, `GetOrderTargetItem`.\n@event EVENT_PLAYER_UNIT_ISSUED_TARGET_ORDER\n@event EVENT_UNIT_ISSUED_TARGET_ORDER\n\n@patch 1.00\n",
     GetSpellAbilityUnit:
         "\n\n\n@event EVENT_UNIT_SPELL_CHANNEL\n@event EVENT_UNIT_SPELL_CAST\n@event EVENT_UNIT_SPELL_EFFECT\n@event EVENT_UNIT_SPELL_FINISH\n@event EVENT_UNIT_SPELL_ENDCAST\n@event EVENT_PLAYER_UNIT_SPELL_CHANNEL\n@event EVENT_PLAYER_UNIT_SPELL_CAST\n@event EVENT_PLAYER_UNIT_SPELL_EFFECT\n@event EVENT_PLAYER_UNIT_SPELL_FINISH\n@event EVENT_PLAYER_UNIT_SPELL_ENDCAST\n\n@patch 1.07\n",
     GetSpellAbilityId:
@@ -2396,7 +2403,7 @@ export default {
     GetSpellAbility:
         "\n\n\n@event EVENT_UNIT_SPELL_CHANNEL\n@event EVENT_UNIT_SPELL_CAST\n@event EVENT_UNIT_SPELL_EFFECT\n@event EVENT_UNIT_SPELL_FINISH\n@event EVENT_UNIT_SPELL_ENDCAST\n@event EVENT_PLAYER_UNIT_SPELL_CHANNEL\n@event EVENT_PLAYER_UNIT_SPELL_CAST\n@event EVENT_PLAYER_UNIT_SPELL_EFFECT\n@event EVENT_PLAYER_UNIT_SPELL_FINISH\n@event EVENT_PLAYER_UNIT_SPELL_ENDCAST\n\n@patch 1.07\n",
     GetSpellTargetLoc:
-        "\n\n\n@event EVENT_UNIT_SPELL_CHANNEL\n@event EVENT_UNIT_SPELL_CAST\n@event EVENT_UNIT_SPELL_EFFECT\n@event EVENT_UNIT_SPELL_FINISH\n@event EVENT_UNIT_SPELL_ENDCAST\n@event EVENT_PLAYER_UNIT_SPELL_CHANNEL\n@event EVENT_PLAYER_UNIT_SPELL_CAST\n@event EVENT_PLAYER_UNIT_SPELL_EFFECT\n@event EVENT_PLAYER_UNIT_SPELL_FINISH\n@event EVENT_PLAYER_UNIT_SPELL_ENDCAST\n\n@patch 1.13\n",
+        "\n\n@note (TODO) See location-specific notes in `GetOrderPointLoc`.\n\n@event EVENT_UNIT_SPELL_CHANNEL\n@event EVENT_UNIT_SPELL_CAST\n@event EVENT_UNIT_SPELL_EFFECT\n@event EVENT_UNIT_SPELL_FINISH\n@event EVENT_UNIT_SPELL_ENDCAST\n@event EVENT_PLAYER_UNIT_SPELL_CHANNEL\n@event EVENT_PLAYER_UNIT_SPELL_CAST\n@event EVENT_PLAYER_UNIT_SPELL_EFFECT\n@event EVENT_PLAYER_UNIT_SPELL_FINISH\n@event EVENT_PLAYER_UNIT_SPELL_ENDCAST\n\n@patch 1.13\n",
     GetSpellTargetX:
         "\n\n\n@event EVENT_UNIT_SPELL_CHANNEL\n@event EVENT_UNIT_SPELL_CAST\n@event EVENT_UNIT_SPELL_EFFECT\n@event EVENT_UNIT_SPELL_FINISH\n@event EVENT_UNIT_SPELL_ENDCAST\n@event EVENT_PLAYER_UNIT_SPELL_CHANNEL\n@event EVENT_PLAYER_UNIT_SPELL_CAST\n@event EVENT_PLAYER_UNIT_SPELL_EFFECT\n@event EVENT_PLAYER_UNIT_SPELL_FINISH\n@event EVENT_PLAYER_UNIT_SPELL_ENDCAST\n\n@patch 1.24a\n\n",
     GetSpellTargetY:
@@ -2460,13 +2467,14 @@ export default {
         "\nReturns Y map coordinate of widget on success. Returns 0.0 if widget was removed or is null.\n\n@param whichWidget target widget.\n\n@note See: `GetWidgetX`.\nSee `widget` for an explanation how this applies to units, destructables, items.\n\n\n@patch 1.00\n",
     GetTriggerWidget:
         "\nReturns the target widget (that caused the trigger-event) inside a trigger action.\nOtherwise returns null.\n\n\n@note Only works in triggers that operate on actual `widget` type, like `TriggerRegisterDeathEvent`.\n\n@patch 1.00\n",
-    CreateDestructable: "\n@patch 1.00\n",
+    CreateDestructable:
+        "\nCreates a destructable on the ground at the coordinates ( x, y ).\n\n**Example:**\n```\ncall CreateDestructable('LTbr', 96, 0, 180, 1, 0) // Jass\n```\n```{.lua}\nmyDestr = CreateDestructable(FourCC(\"LTbr\"), 96, 0, 180, 1, 0) -- Lua\n```\n\n@param objectid The rawcode of the destructable to be created.\n@param x The map x-coordinate of the destructable.\n@param y The map y-coordinate of the destructable.\n@param face Rotation, destructable facing in degrees.\n\n* 0   = East\n* 90  = North\n* 180 = West\n* 270 = South\n* -90 = South (wraps around)\n\n@param scale The X-Y-Z scaling value of the destructable.\n@param variation The integer representing the variation of the destructable to be created.\n\n@patch 1.00\n",
     CreateDestructableZ:
-        "\nCreates a destructable at the coordinates ( x , y ).\n\n@param objectid The rawcode of the destructable to be created.\n@param x The x-coordinate of the destructable.\n@param y The y-coordinate of the destructable.\n@param face The facing of the destructable.\n@param scale The X-Y-Z scaling value of the destructable.\n@param variation The integer representing the variation of the destructable to be created.\n\n\n@patch 1.00\n",
+        "\nCreates an elevated destructable at the coordinates ( x, y, z ).\n\n@param objectid The rawcode of the destructable to be created.\n@param x The map x-coordinate of the destructable.\n@param y The map y-coordinate of the destructable.\n@param z The map z-coordinate of the destructable.\n@param face Rotation, destructable facing in degrees.\n\n* 0   = East\n* 90  = North\n* 180 = West\n* 270 = South\n* -90 = South (wraps around)\n\n@param scale The X-Y-Z scaling value of the destructable.\n@param variation The integer representing the variation of the destructable to be created.\n\n\n@patch 1.00\n",
     CreateDeadDestructable:
-        "\nCreates the dead version of a destructable at the coordinates ( x , y ).\nIf the destructable has no animations, it will show the destructable's default\nform. If it has a death animation, but no decay animation, then the object will\nbe created in memory but will not visibly appear.\n\n@param objectid The rawcode of the destructable to be created.\n@param x The x-coordinate of the destructable.\n@param y The y-coordinate of the destructable.\n@param face The facing of the destructable.\n@param scale The X-Y-Z scaling value of the destructable.\n@param variation The integer representing the variation of the destructable to be created.\n\n\n@patch 1.00\n",
+        "\nCreates the dead version of a destructable at the coordinates ( x , y ).\nIf the destructable has no animations, it will show the destructable's default\nform. If it has a death animation, but no decay animation, then the object will\nbe created in memory but will not visibly appear.\n\n@param objectid The rawcode of the destructable to be created.\n@param x The x-coordinate of the destructable.\n@param y The y-coordinate of the destructable.\n@param face Rotation, destructable facing in degrees.\n\n* 0   = East\n* 90  = North\n* 180 = West\n* 270 = South\n* -90 = South (wraps around)\n\n@param scale The X-Y-Z scaling value of the destructable.\n@param variation The integer representing the variation of the destructable to be created.\n\n\n@patch 1.00\n",
     CreateDeadDestructableZ:
-        "\nCreates the dead version of a destructable at the coordinates ( x , y , z ).\nIf the destructable has no animations, it will show the destructable's default\nform. If it has a death animation, but no decay animation, then the object will\nbe created in memory but will not visibly appear.\n\n@param objectid The rawcode of the destructable to be created.\n@param x The x-coordinate of the destructable.\n@param y The y-coordinate of the destructable.\n@param z The z-coordinate of the destructable.\n@param face The facing of the destructable.\n@param scale The X-Y-Z scaling value of the destructable.\n@param variation The integer representing the variation of the destructable to be created.\n\n\n@patch 1.00\n",
+        "\nCreates the dead version of a destructable elevating at the coordinates ( x , y , z ).\nIf the destructable has no animations, it will show the destructable's default\nform. If it has a death animation, but no decay animation, then the object will\nbe created in memory but will not visibly appear.\n\n@param objectid The rawcode of the destructable to be created.\n@param x The x-coordinate of the destructable.\n@param y The y-coordinate of the destructable.\n@param z The z-coordinate of the destructable.\n@param face Rotation, destructable facing in degrees.\n\n* 0   = East\n* 90  = North\n* 180 = West\n* 270 = South\n* -90 = South (wraps around)\n\n@param scale The X-Y-Z scaling value of the destructable.\n@param variation The integer representing the variation of the destructable to be created.\n\n\n@patch 1.00\n",
     RemoveDestructable: "\n@patch 1.00\n",
     KillDestructable: "\n@patch 1.00\n",
     SetDestructableInvulnerable: "\n@patch 1.00\n",
@@ -2487,11 +2495,12 @@ export default {
     ShowDestructable: "\n@patch 1.07\n",
     GetDestructableOccluderHeight: "\n@patch 1.07\n",
     SetDestructableOccluderHeight: "\n@patch 1.07\n",
-    GetDestructableName: "\n\n\n@async \n\n@patch 1.13\n",
+    GetDestructableName:
+        '\nReturns localized name for destructable.\n\n**Example (Lua)**:\n\n```{.lua}\nd = CreateDestructable(FourCC("LTbr"), 96, 0, 180, 1, 0)\nprint(GetDestructableName(d)) --> "Barrel"\n```\n\n@async \n@note See: `GetUnitName`, `GetItemName`, `GetObjectName`.\n@patch 1.13\n',
     GetTriggerDestructable:
         "\n\n\n@note Can be used in `TriggerRegisterDeathEvent` if the dead widget is actually\na destructable.\n\n@patch 1.24a\n",
     CreateItem:
-        "\nCreates an item object at the specified coordinates ( x , y ).\n\n@param itemid The rawcode of the item.\n\n@param x The x-coordinate of the item.\n\n@param y The y-coordinate of the item.\n\n\n@patch 1.00\n",
+        "\nCreates an item object at the specified coordinates ( x , y ).\n\n**Example:**\n\n```\ncall CreateItem('war2', 256, 384) // Jass\n```\n```{.lua}\nmyItem = CreateItem(FourCC(\"war2\"), 256, 384) -- Lua\n```\n\n@param itemid The rawcode of the item.\n\n@param x The x-coordinate of the item.\n\n@param y The y-coordinate of the item.\n\n\n@patch 1.00\n",
     RemoveItem: "\n@patch 1.00\n",
     GetItemPlayer: "\n@patch 1.00\n",
     GetItemTypeId: "\n@patch 1.00\n",
@@ -2518,7 +2527,8 @@ export default {
     GetItemLevel: "\n@patch 1.07\n",
     GetItemType: "\n@patch 1.07\n",
     SetItemDropID: "\n@patch 1.07\n",
-    GetItemName: "\n\n\n@async \n\n@patch 1.13\n",
+    GetItemName:
+        '\nReturns localized name of the item.\n\n**Example (Lua):**\n\n```{.lua}\nitem = CreateItem(FourCC("war2"), 64, 128)\nprint(GetItemName(item)) --> Боевые барабаны орков (Orcs\' battledrums)\n```\n\n@async \n@note See: `GetUnitName`, `GetDestructableName`, `GetObjectName`.\n@patch 1.13\n',
     GetItemCharges: "\n@patch 1.13\n",
     SetItemCharges: "\n@patch 1.13\n",
     GetItemUserData: "\n@patch 1.13\n",
@@ -2682,7 +2692,7 @@ export default {
     GetUnitTypeId: "\n@patch 1.00\n",
     GetUnitRace: "\n@patch 1.00\n",
     GetUnitName:
-        '\nReturns localized name for unit.\n\n**Example (Lua)**:\n\n```{.lua}\nu = CreateUnit(Player(0), FourCC("hfoo"), -30, 0, 90)\nprint(GetUnitName(u)) --> "Footman"\n```\n\n@param whichUnit Target unit.\n\n@async \n\n@patch 1.00\n',
+        '\nReturns localized name for unit.\n\n**Example (Lua)**:\n\n```{.lua}\nu = CreateUnit(Player(0), FourCC("hfoo"), -30, 0, 90)\nprint(GetUnitName(u)) --> "Footman"\n```\n\n@param whichUnit Target unit.\n\n@async \n@note See: `GetHeroProperName`, `GetDestructableName`, `GetItemName`, `GetObjectName`.\n\n@patch 1.00\n',
     GetUnitFoodUsed: "\n@patch 1.00\n",
     GetUnitFoodMade: "\n@patch 1.00\n",
     GetFoodMade: "\n@patch 1.00\n",
@@ -2784,11 +2794,16 @@ export default {
         "\nAdds the amount of available gold to a gold mine. The amount can be negative, which is practically the same as 0.\n\n@param whichUnit Add gold to this gold mine unit.\n\n@param amount The amount of gold to add to the unit.\n\n\n@note See `SetResourceAmount` for edge-case descriptions. Also: `SetResourceAmount`, `GetResourceAmount`.\n\n@patch 1.00\n",
     GetResourceAmount:
         "\nReturns the amount of available gold in a gold mine. The amount can be negative, which is practically the same as 0.\n\n@param whichUnit Add gold to this gold mine unit.\n\n\n@note See `SetResourceAmount` for edge-case descriptions. Also: `SetResourceAmount`, `AddResourceAmount`.\n\n@patch 1.00\n",
-    WaygateGetDestinationX: "\n@patch 1.00\n",
-    WaygateGetDestinationY: "\n@patch 1.00\n",
-    WaygateSetDestination: "\n@patch 1.00\n",
-    WaygateActivate: "\n@patch 1.00\n",
-    WaygateIsActive: "\n@patch 1.00\n",
+    WaygateGetDestinationX:
+        "\nReturns the X map coordinate of the teleporter's target.\n\nIf the unit does not have the 'Awrp' ability, returns 0.\n\n@note See: `WaygateGetDestinationY`, `WaygateSetDestination`.\n@patch 1.00\n",
+    WaygateGetDestinationY:
+        "\nReturns the Y map coordinate of the teleporter's target.\n\nIf the unit does not have the 'Awrp' ability, returns 0.\n\n@note See: `WaygateGetDestinationX`, `WaygateSetDestination`.\n@patch 1.00\n",
+    WaygateSetDestination:
+        "\nSets the teleporter's target.\n\nThe unit must have the 'Awrp' ability, otherwise does nothing.\n\n@note If this ability is temporarily removed from the unit and readded later,\nthe unit remembers the previously set target position.\n\n@note The values are rounded to fit on a 64-based grid, offset by 32. (exact formula?)\n\nExamples:\n\n- \\-65 => -96\n- \\-64 => -32\n- \\-63 => -32\n- \\-1 => -32\n- 0 and -0 => 32\n- 63 => 32\n- 64 => 96\n\n@note See: `WaygateIsActive`, `WaygateActivate`, `WaygateGetDestinationX`, `WaygateGetDestinationY`.\n\n@param x map coordinate\n@param y map coordinate\n\n@patch 1.00\n",
+    WaygateActivate:
+        '\nActivates the unit\'s ability to act as a teleporter. It must have the \'Awrp\' ability.\n\n**Example (Lua):**\n\n```{.lua}\nportal = CreateUnit(Player(GetPlayerNeutralPassive()), FourCC("hprt"), 256, 0, 90)\nUnitAddAbility(portal, FourCC(\'Awrp\'))\nWaygateSetDestination(portal, -800, 32)\nWaygateActivate(portal, true)\nprint("Waygate is Active: ", WaygateIsActive(portal))\nprint("Waygate target is: ", WaygateGetDestinationX(portal), WaygateGetDestinationY(portal))\n```\n\n@note The unit should be *walkable* because units, that want to teleport, must reach its center.\n@note Removing the \'Awrp\' ability also deactivates the waygate. Use `WaygateActivate` again.\n@note The advantage of using waygates compared to triggered regions is that units\ncan use waygates for pathing around the map. In contrast, triggered "teleport regions" are not\nrecognized by the game for pathfinding.\n\n@note See: `WaygateIsActive`, `WaygateSetDestination`, `UnitAddAbility`.\n@patch 1.00\n',
+    WaygateIsActive:
+        "\nReturns true if the waygate is enabled and working.\n\nFor this it must have the 'Awrp' ability and have been activated using `WaygateActivate`.\n\n@note Removing the 'Awrp' ability also deactivates the waygate. Use `WaygateActivate` again.\n\n@note See: `WaygateActivate`, `WaygateSetDestination`.\n@patch 1.00\n",
     AddItemToAllStock:
         "\nAdds an item of the type itemId with current stock of currentStock and max stock\nof stockMax to all shops in game.\n\n@param itemId The item to add to the stock.\n\n@param currentStock Determines the amount of that item in stock upon being added\nto the buildings.\n\n@param stockMax The item will grow in stock count up to the value of stockMax.\nThe rate at which the item grows in stock is determined by its stock replenish\ninterval, which can be modified in the object editor.\n\n@note Some issues with default Blizzard initialization and that function were met.\nSee <http://www.hiveworkshop.com/forums/l-715/a-251815/> for details.\n\n@note Adding an item which already is in stock for a building will replace it\nand refresh the interval and stock count.\n\n\n\n\n@patch 1.07\n",
     AddItemToStock:
@@ -3191,7 +3206,7 @@ export default {
     EnableSelect:
         '\nControls whether you can de/select any units and the green visual indicator.\n\n@param state If `true`, you can de/select units (default).\n\nIf `false`, deselects any currently selected units and disables your ability\nto select any unit. Mouse clicks and group binds ("CTRL+1" then press "1")\ndon\'t work any more.\nDrag select will not allow you to select too.\n\n@param ui If `true`, show the green selection indicator around selected units (default).\n\nIf `false`, no visual indicator is shown.\n\n@note \nYou can use `SelectUnit` and other functions to select the units for a player,\neven when `state` is set to `false`.\n\nThe player cannot manually deselect any units they have control over (after `SelectUnit`).\n\n\n@patch 1.18a\n',
     CreateTrackable:
-        "\nCreates a trackable at the given coordinates but with zero z-coordinate.\nTrackables are used to register mouse clicks or hovers at the trackables\nposition. But their functionality is very limited, as you can't, for example\ndistinguish the triggering player out of the box. To get a general overview\nto the common workarounds see the `trackable` documentation.\n\n@param trackableModelPath The path to the model the trackable should use. Models\nwith team colours will use the neutral-hostile team colour. To create an\ninvisible trackable provide the empty string `\"\"`.\n\n@param x The x-coordinate where the trackable should be created.\n\n@param y The x-coordinate where the trackable should be created.\n\n@param facing The facing of the trackable.\n\n\n@note To create a trackable with a non-zero z-coordinate you can use the same\ntechnique as with `AddSpecialEffect`, that is create an invisible platform\nbefore creating the trackable.\n\n```\nfunction CreateTrackableZ takes string trackableModelPath, real x, real y, real z, real facing returns trackable\n    local destructable d = CreateDestructableZ('OTip', x, y, z, 0, 1, 0)\n    local trackable t = CreateTrackable(trackableModelPath, x, y, facing)\n    call RemoveDestructable(d)\n    set d = null\n    return t\nendfunction\n```\n\n\n@patch 1.00\n",
+        "\nCreates a trackable at the given coordinates but with zero z-coordinate.\nTrackables are used to register mouse clicks or hovers at the trackables\nposition. But their functionality is very limited, as you can't, for example\ndistinguish the triggering player out of the box. To get a general overview\nto the common workarounds see the `trackable` documentation.\n\n@param trackableModelPath The path to the model the trackable should use. Models\nwith team colours will use the neutral-hostile team colour. To create an\ninvisible trackable provide the empty string `\"\"`.\n\n@param x The x-coordinate where the trackable should be created.\n\n@param y The x-coordinate where the trackable should be created.\n\n@param facing Rotation, trackable facing in degrees.\n\n* 0   = East\n* 90  = North\n* 180 = West\n* 270 = South\n* -90 = South (wraps around)\n\n\n@note To create a trackable with a non-zero z-coordinate you can use the same\ntechnique as with `AddSpecialEffect`, that is create an invisible platform\nbefore creating the trackable.\n\n```\nfunction CreateTrackableZ takes string trackableModelPath, real x, real y, real z, real facing returns trackable\n    local destructable d = CreateDestructableZ('OTip', x, y, z, 0, 1, 0)\n    local trackable t = CreateTrackable(trackableModelPath, x, y, facing)\n    call RemoveDestructable(d)\n    set d = null\n    return t\nendfunction\n```\n\n\n@patch 1.00\n",
     CreateQuest:
         "\nCreates a new quest.\n\n@note Quests are enabled on default (see `QuestSetEnabled`).\n\n@bug You should either immediately set the description of the quest to a non-null, non-empty string\n(see `QuestSetDescription`), disable it (see `QuestSetEnabled`), or set in undiscovered (see `QuestSetDiscovered`)\nto avoid the game crashing when the quest's description is trying to render in the quest menu.\n\n@bug Do not use this in a global initialisation as it crashes the game there.\n\n@note A new enabled quest will only show after the quest menu is re-opened or when an update is forced\n(see `ForceQuestDialogUpdate`).\n\n@patch 1.00\n",
     DestroyQuest:
@@ -3740,13 +3755,13 @@ export default {
     BlzSetSpecialEffectRoll:
         "\n@note Does not apply if the effect is attached to some model's attachment point (remains 0.0).\n\n@param roll In radian (1*π is a 180° rotation) - rotation around X-axis\n\n@note See: `BlzSetSpecialEffectOrientation`, `BlzSetSpecialEffectYaw`, `BlzSetSpecialEffectPitch`\n\n@patch 1.29.2.9231\n\n",
     BlzSetSpecialEffectX:
-        "\nSets the effect's absolute X map position (east-west). \n\n@note Does not apply if the effect is attached to some model's attachment point (remains 0.0).\n\n@bug In 1.29-?? it will set the X coordinate, but reset the Y and Z to where it was spawned in.\n@bug In 1.36.2 it will set the X coordinate, but reset only Z to zero.\n@note See: `BlzSetSpecialEffectPosition`\n\n@patch 1.29.2.9231\n\n",
+        "\nSets the effect's absolute X map position (east-west). \n\n@note Does not apply if the effect is attached to some model's attachment point (remains 0.0).\n\n@bug In 1.29-?? it will set the X coordinate, but reset the Y and Z to where it was spawned in.\n@bug In 1.36.2 it will set the X coordinate,\nbut reset Z to the height (relative to terrain and walkable elevating doodads) the effect was spawned at.\n@note See: `BlzSetSpecialEffectPosition`\n\n@patch 1.29.2.9231\n\n",
     BlzSetSpecialEffectY:
-        "\nSets the effect's absolute Y map position (north/south). \n\n@note Does not apply if the effect is attached to some model's attachment point (remains 0.0).\n\n@bug In 1.29-?? it will set the Y coordinate, but reset the X and Z to where it was spawned in.\n@bug In 1.36.2 it will set the Y coordinate, but reset only Z to zero.\n@note See: `BlzSetSpecialEffectPosition`\n\n@patch 1.29.2.9231\n\n",
+        "\nSets the effect's absolute Y map position (north/south). \n\n@note Does not apply if the effect is attached to some model's attachment point (remains 0.0).\n\n@bug In 1.29-?? it will set the Y coordinate, but reset the X and Z to where it was spawned in.\n@bug In 1.36.2 it will set the Y coordinate,\nbut reset Z to the height (relative to terrain and walkable elevating doodads) the effect was spawned at.\n@note See: `BlzSetSpecialEffectPosition`\n\n@patch 1.29.2.9231\n\n",
     BlzSetSpecialEffectZ:
         "\nSets the effect's absolute Z map position (altitude aka height).\n\n@note Does not apply if the effect is attached to some model's attachment point (remains 0.0).\n\n@note Before 1.29 there was no direct way to set a special effect's height. The following trick was used as a workaround:\n\n    // Creates a temporary platform in the air, the special effect will be put on top of it:\n    set tempDestr = CreateDestructableZ('OTis', x, y, z, 0, 1, 0)\n    // Effect spawns on top of platform\n    call DestroyEffect(AddSpecialEffect(effectPath, x, y))\n    // Remove platform immediately, only the effect will remain visible for its life duration\n    call RemoveDestructable(tempDestr)\n\n@bug In versions 1.29-?? it will set the Z coordinate, but reset the X and Y to where it was spawned in.\nv1.36.2: Works as expected.\n@note See: `BlzSetSpecialEffectPosition`, `BlzSetSpecialEffectHeight`\n\n@patch 1.29.2.9231\n\n",
     BlzSetSpecialEffectPositionLoc:
-        "\nSets the effect's absolute X and Y map position based on given location.\n\n@note Does not apply if the effect is attached to some model's attachment point (remains 0.0).\n\n@bug In 1.36.2 (and earlier?) it will set the X and Y coordinates, but reset Z to zero.\n@note See: `BlzSetSpecialEffectPosition`\n@patch 1.29.2.9231\n\n",
+        "\nSets the effect's absolute X and Y map position based on given location.\n\n@note Does not apply if the effect is attached to some model's attachment point (remains 0.0).\n\n@bug In 1.36.2 (and earlier?) it will set the X and Y coordinates,\nbut reset Z to the height (relative to terrain and walkable elevating doodads) the effect was spawned at.\n@note See: `BlzSetSpecialEffectPosition`\n@patch 1.29.2.9231\n\n",
     BlzGetLocalSpecialEffectX:
         "\nGet the X map coordinate (Cartesian System; east-west) of the special effect.\n\nIf the effect is attached to something, returns 0.0.\n\n@async \n@patch 1.29.2.9231\n\n",
     BlzGetLocalSpecialEffectY:
