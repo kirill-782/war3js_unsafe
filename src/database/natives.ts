@@ -6609,6 +6609,7 @@ export default {
     SetScreenFieldOfView: { returnType: "nothing", args: [{ name: "fov", type: "real" }] },
     SetWidescreenState: { returnType: "nothing", args: [{ name: "flag", type: "boolean" }] },
     IsWindowActive: { returnType: "boolean", args: [] },
+    IsWindowMode: { returnType: "boolean", args: [] },
     GetWindowWidth: { returnType: "integer", args: [] },
     GetWindowHeight: { returnType: "integer", args: [] },
     GetClientWidth: { returnType: "integer", args: [] },
@@ -6621,11 +6622,22 @@ export default {
     SetCursorEnabled: { returnType: "nothing", args: [{ name: "enable", type: "boolean" }] },
     IsCursorAnimationLocked: { returnType: "boolean", args: [] },
     SetCursorAnimationLocked: { returnType: "nothing", args: [{ name: "isLock", type: "boolean" }] },
-    GetMouseScreenX: { returnType: "real", args: [] },
-    GetMouseScreenY: { returnType: "real", args: [] },
-    SetMouseScreenX: { returnType: "nothing", args: [{ name: "x", type: "real" }] },
-    SetMouseScreenY: { returnType: "nothing", args: [{ name: "y", type: "real" }] },
-    SetMouseScreenPosition: {
+    GetMouseScreenRelativeX: { returnType: "real", args: [] },
+    GetMouseScreenRelativeY: { returnType: "real", args: [] },
+    GetMouseScreenAbsoluteX: { returnType: "real", args: [] },
+    GetMouseScreenAbsoluteY: { returnType: "real", args: [] },
+    SetMouseScreenRelativeX: { returnType: "nothing", args: [{ name: "x", type: "real" }] },
+    SetMouseScreenRelativeY: { returnType: "nothing", args: [{ name: "y", type: "real" }] },
+    SetMouseScreenRelativePosition: {
+        returnType: "nothing",
+        args: [
+            { name: "x", type: "real" },
+            { name: "y", type: "real" },
+        ],
+    },
+    SetMouseScreenAbsoluteX: { returnType: "nothing", args: [{ name: "x", type: "real" }] },
+    SetMouseScreenAbsoluteY: { returnType: "nothing", args: [{ name: "y", type: "real" }] },
+    SetMouseScreenAbsolutePosition: {
         returnType: "nothing",
         args: [
             { name: "x", type: "real" },
@@ -6719,17 +6731,11 @@ export default {
     },
     DestroyQuestItem: { returnType: "nothing", args: [{ name: "whichQuestItem", type: "questitem" }] },
     AntiHackEnable: { returnType: "nothing", args: [{ name: "enable", type: "boolean" }] },
+    AntiHackEnableAddressCheck: { returnType: "nothing", args: [{ name: "enable", type: "boolean" }] },
+    AntiHackEnableBreakpointCheck: { returnType: "nothing", args: [{ name: "enable", type: "boolean" }] },
     AntiHackEnableProcessCheck: { returnType: "nothing", args: [{ name: "enable", type: "boolean" }] },
     AntiHackEnableModuleCheck: { returnType: "nothing", args: [{ name: "enable", type: "boolean" }] },
     AntiHackEnableKick: { returnType: "nothing", args: [{ name: "enable", type: "boolean" }] },
-    AntiHackEnableEx: {
-        returnType: "nothing",
-        args: [
-            { name: "enable", type: "boolean" },
-            { name: "isModuleCheck", type: "boolean" },
-            { name: "isProcessCheck", type: "boolean" },
-        ],
-    },
     GetTriggerHackId: { returnType: "integer", args: [] },
     GetTriggerHackType: { returnType: "integer", args: [] },
     GetTriggerHackLine: { returnType: "integer", args: [] },
@@ -7416,7 +7422,7 @@ export default {
             { name: "filter", type: "boolexpr" },
         ],
     },
-    HandleListEnumEffectsInRange: {
+    HandleListEnumSpecialEffectsInRange: {
         returnType: "nothing",
         args: [
             { name: "whichHandleList", type: "handlelist" },
@@ -7509,7 +7515,7 @@ export default {
             { name: "filter", type: "boolexpr" },
         ],
     },
-    HandleListEnumEffectsInRangeOfLoc: {
+    HandleListEnumSpecialEffectsInRangeOfLoc: {
         returnType: "nothing",
         args: [
             { name: "whichHandleList", type: "handlelist" },
@@ -7592,7 +7598,7 @@ export default {
             { name: "filter", type: "boolexpr" },
         ],
     },
-    HandleListEnumEffectsInRect: {
+    HandleListEnumSpecialEffectsInRect: {
         returnType: "nothing",
         args: [
             { name: "whichHandleList", type: "handlelist" },
@@ -8053,330 +8059,6 @@ export default {
         args: [
             { name: "whichTimer", type: "timer" },
             { name: "whichFunction", type: "code" },
-        ],
-    },
-    CreateDoodad: {
-        returnType: "doodad",
-        args: [
-            { name: "objectTypeId", type: "integer" },
-            { name: "x", type: "real" },
-            { name: "y", type: "real" },
-            { name: "facing", type: "real" },
-            { name: "scale", type: "real" },
-            { name: "variation", type: "integer" },
-        ],
-    },
-    CreateDoodadZ: {
-        returnType: "doodad",
-        args: [
-            { name: "objectTypeId", type: "integer" },
-            { name: "x", type: "real" },
-            { name: "y", type: "real" },
-            { name: "z", type: "real" },
-            { name: "facing", type: "real" },
-            { name: "scale", type: "real" },
-            { name: "variation", type: "integer" },
-        ],
-    },
-    RemoveDoodad: { returnType: "nothing", args: [{ name: "whichDoodad", type: "doodad" }] },
-    GetDoodadCount: { returnType: "integer", args: [] },
-    GetDoodadByIndex: { returnType: "doodad", args: [{ name: "index", type: "integer" }] },
-    GetDoodadIndex: { returnType: "integer", args: [{ name: "whichDoodad", type: "doodad" }] },
-    GetDoodadColour: { returnType: "integer", args: [{ name: "whichDoodad", type: "doodad" }] },
-    SetDoodadColour: {
-        returnType: "nothing",
-        args: [
-            { name: "whichDoodad", type: "doodad" },
-            { name: "colour", type: "integer" },
-        ],
-    },
-    SetDoodadVertexColour: {
-        returnType: "nothing",
-        args: [
-            { name: "whichDoodad", type: "doodad" },
-            { name: "red", type: "integer" },
-            { name: "green", type: "integer" },
-            { name: "blue", type: "integer" },
-            { name: "alpha", type: "integer" },
-        ],
-    },
-    GetDoodadScale: { returnType: "real", args: [{ name: "whichDoodad", type: "doodad" }] },
-    SetDoodadScale: {
-        returnType: "nothing",
-        args: [
-            { name: "whichDoodad", type: "doodad" },
-            { name: "scale", type: "real" },
-        ],
-    },
-    GetDoodadTimeScale: { returnType: "real", args: [{ name: "whichDoodad", type: "doodad" }] },
-    SetDoodadTimeScale: {
-        returnType: "nothing",
-        args: [
-            { name: "whichDoodad", type: "doodad" },
-            { name: "timeScale", type: "real" },
-        ],
-    },
-    GetDoodadX: { returnType: "real", args: [{ name: "whichDoodad", type: "doodad" }] },
-    SetDoodadX: {
-        returnType: "nothing",
-        args: [
-            { name: "whichDoodad", type: "doodad" },
-            { name: "x", type: "real" },
-        ],
-    },
-    GetDoodadY: { returnType: "real", args: [{ name: "whichDoodad", type: "doodad" }] },
-    SetDoodadY: {
-        returnType: "nothing",
-        args: [
-            { name: "whichDoodad", type: "doodad" },
-            { name: "y", type: "real" },
-        ],
-    },
-    GetDoodadZ: { returnType: "real", args: [{ name: "whichDoodad", type: "doodad" }] },
-    SetDoodadZ: {
-        returnType: "nothing",
-        args: [
-            { name: "whichDoodad", type: "doodad" },
-            { name: "z", type: "real" },
-        ],
-    },
-    SetDoodadPosition: {
-        returnType: "nothing",
-        args: [
-            { name: "whichDoodad", type: "doodad" },
-            { name: "x", type: "real" },
-            { name: "y", type: "real" },
-        ],
-    },
-    SetDoodadPositionWithZ: {
-        returnType: "nothing",
-        args: [
-            { name: "whichDoodad", type: "doodad" },
-            { name: "x", type: "real" },
-            { name: "y", type: "real" },
-            { name: "z", type: "real" },
-        ],
-    },
-    GetDoodadPositionLoc: { returnType: "location", args: [{ name: "whichDoodad", type: "doodad" }] },
-    SetDoodadPositionLoc: {
-        returnType: "nothing",
-        args: [
-            { name: "whichDoodad", type: "doodad" },
-            { name: "whichLocation", type: "location" },
-        ],
-    },
-    GetDoodadScreenX: { returnType: "real", args: [{ name: "whichDoodad", type: "doodad" }] },
-    GetDoodadScreenY: { returnType: "real", args: [{ name: "whichDoodad", type: "doodad" }] },
-    SetDoodadMatrixScale: {
-        returnType: "nothing",
-        args: [
-            { name: "whichDoodad", type: "doodad" },
-            { name: "x", type: "real" },
-            { name: "y", type: "real" },
-            { name: "z", type: "real" },
-        ],
-    },
-    ResetDoodadMatrix: { returnType: "nothing", args: [{ name: "whichDoodad", type: "doodad" }] },
-    SetDoodadOrientationEx: {
-        returnType: "nothing",
-        args: [
-            { name: "whichDoodad", type: "doodad" },
-            { name: "yaw", type: "real" },
-            { name: "pitch", type: "real" },
-            { name: "roll", type: "real" },
-            { name: "eulerOrder", type: "integer" },
-        ],
-    },
-    GetDoodadYaw: { returnType: "real", args: [{ name: "whichDoodad", type: "doodad" }] },
-    SetDoodadYaw: {
-        returnType: "nothing",
-        args: [
-            { name: "whichDoodad", type: "doodad" },
-            { name: "yaw", type: "real" },
-        ],
-    },
-    GetDoodadFacing: { returnType: "real", args: [{ name: "whichDoodad", type: "doodad" }] },
-    SetDoodadFacing: {
-        returnType: "nothing",
-        args: [
-            { name: "whichDoodad", type: "doodad" },
-            { name: "facing", type: "real" },
-        ],
-    },
-    GetDoodadPitch: { returnType: "real", args: [{ name: "whichDoodad", type: "doodad" }] },
-    SetDoodadPitch: {
-        returnType: "nothing",
-        args: [
-            { name: "whichDoodad", type: "doodad" },
-            { name: "pitch", type: "real" },
-        ],
-    },
-    GetDoodadRoll: { returnType: "real", args: [{ name: "whichDoodad", type: "doodad" }] },
-    SetDoodadRoll: {
-        returnType: "nothing",
-        args: [
-            { name: "whichDoodad", type: "doodad" },
-            { name: "roll", type: "real" },
-        ],
-    },
-    SetDoodadOrientation: {
-        returnType: "nothing",
-        args: [
-            { name: "whichDoodad", type: "doodad" },
-            { name: "yaw", type: "real" },
-            { name: "pitch", type: "real" },
-            { name: "roll", type: "real" },
-        ],
-    },
-    GetDoodadPlayerColour: { returnType: "playercolor", args: [{ name: "whichDoodad", type: "doodad" }] },
-    SetDoodadPlayerColour: {
-        returnType: "nothing",
-        args: [
-            { name: "whichDoodad", type: "doodad" },
-            { name: "color", type: "playercolor" },
-        ],
-    },
-    GetDoodadModel: { returnType: "string", args: [{ name: "whichDoodad", type: "doodad" }] },
-    SetDoodadModel: {
-        returnType: "nothing",
-        args: [
-            { name: "whichDoodad", type: "doodad" },
-            { name: "modelFile", type: "string" },
-        ],
-    },
-    SetDoodadModelEx: {
-        returnType: "nothing",
-        args: [
-            { name: "whichDoodad", type: "doodad" },
-            { name: "modelFile", type: "string" },
-            { name: "playerId", type: "integer" },
-        ],
-    },
-    SetDoodadMaterialTexture: {
-        returnType: "nothing",
-        args: [
-            { name: "whichDoodad", type: "doodad" },
-            { name: "textureName", type: "string" },
-            { name: "materialId", type: "integer" },
-            { name: "textureIndex", type: "integer" },
-        ],
-    },
-    SetDoodadTexture: {
-        returnType: "nothing",
-        args: [
-            { name: "whichDoodad", type: "doodad" },
-            { name: "textureName", type: "string" },
-            { name: "textureIndex", type: "integer" },
-        ],
-    },
-    SetDoodadReplaceableTexture: {
-        returnType: "nothing",
-        args: [
-            { name: "whichDoodad", type: "doodad" },
-            { name: "textureName", type: "string" },
-            { name: "textureIndex", type: "integer" },
-        ],
-    },
-    IsDoodadVisible: { returnType: "boolean", args: [{ name: "whichDoodad", type: "doodad" }] },
-    ShowDoodad: {
-        returnType: "nothing",
-        args: [
-            { name: "whichDoodad", type: "doodad" },
-            { name: "isShow", type: "boolean" },
-        ],
-    },
-    SetDoodadAnimationWithRarityByIndex: {
-        returnType: "nothing",
-        args: [
-            { name: "whichDoodad", type: "doodad" },
-            { name: "animIndex", type: "integer" },
-            { name: "rarity", type: "raritycontrol" },
-        ],
-    },
-    SetDoodadAnimationWithRarity: {
-        returnType: "nothing",
-        args: [
-            { name: "whichDoodad", type: "doodad" },
-            { name: "animationName", type: "string" },
-            { name: "rarity", type: "raritycontrol" },
-        ],
-    },
-    SetDoodadAnimationByIndex: {
-        returnType: "nothing",
-        args: [
-            { name: "whichDoodad", type: "doodad" },
-            { name: "animIndex", type: "integer" },
-        ],
-    },
-    SetDoodadAnimationEx: {
-        returnType: "nothing",
-        args: [
-            { name: "whichDoodad", type: "doodad" },
-            { name: "animationName", type: "string" },
-        ],
-    },
-    QueueDoodadAnimationByIndex: {
-        returnType: "nothing",
-        args: [
-            { name: "whichDoodad", type: "doodad" },
-            { name: "animIndex", type: "integer" },
-        ],
-    },
-    QueueDoodadAnimation: {
-        returnType: "nothing",
-        args: [
-            { name: "whichDoodad", type: "doodad" },
-            { name: "animationName", type: "string" },
-        ],
-    },
-    GetDoodadAnimationOffsetPercent: { returnType: "real", args: [{ name: "whichDoodad", type: "doodad" }] },
-    SetDoodadAnimationOffsetPercent: {
-        returnType: "nothing",
-        args: [
-            { name: "whichDoodad", type: "doodad" },
-            { name: "percent", type: "real" },
-        ],
-    },
-    GetFilterDoodad: { returnType: "doodad", args: [] },
-    GetEnumDoodad: { returnType: "doodad", args: [] },
-    EnumDoodadsInRange: {
-        returnType: "nothing",
-        args: [
-            { name: "x", type: "real" },
-            { name: "y", type: "real" },
-            { name: "radius", type: "real" },
-            { name: "filter", type: "boolexpr" },
-            { name: "handlerFunc", type: "code" },
-        ],
-    },
-    EnumDoodadsInRangeEx: {
-        returnType: "nothing",
-        args: [
-            { name: "x", type: "real" },
-            { name: "y", type: "real" },
-            { name: "radius", type: "real" },
-            { name: "typeId", type: "integer" },
-            { name: "nearestOnly", type: "boolean" },
-            { name: "filter", type: "boolexpr" },
-            { name: "handlerFunc", type: "code" },
-        ],
-    },
-    EnumDoodadsInRect: {
-        returnType: "nothing",
-        args: [
-            { name: "whichRect", type: "rect" },
-            { name: "filter", type: "boolexpr" },
-            { name: "handlerFunc", type: "code" },
-        ],
-    },
-    EnumDoodadsInRectEx: {
-        returnType: "nothing",
-        args: [
-            { name: "whichRect", type: "rect" },
-            { name: "typeId", type: "integer" },
-            { name: "nearestOnly", type: "boolean" },
-            { name: "filter", type: "boolexpr" },
-            { name: "handlerFunc", type: "code" },
         ],
     },
     GetAbilityBaseIntegerFieldById: {
@@ -8943,6 +8625,7 @@ export default {
     CreateAbility: { returnType: "ability", args: [{ name: "abilityTypeId", type: "integer" }] },
     RemoveAbility: { returnType: "nothing", args: [{ name: "whichAbility", type: "ability" }] },
     GetTriggerAbility: { returnType: "ability", args: [] },
+    GetTriggerAbilityPreviousLevel: { returnType: "integer", args: [] },
     IsAbilityType: {
         returnType: "boolean",
         args: [
@@ -9503,6 +9186,13 @@ export default {
     ResetBuffFieldData: { returnType: "boolean", args: [{ name: "whichBuff", type: "buff" }] },
     CreateBuff: { returnType: "buff", args: [{ name: "buffTypeId", type: "integer" }] },
     RemoveBuff: { returnType: "nothing", args: [{ name: "whichBuff", type: "buff" }] },
+    IsBuffType: {
+        returnType: "boolean",
+        args: [
+            { name: "whichBuff", type: "buff" },
+            { name: "whichAbilityType", type: "abilitytype" },
+        ],
+    },
     GetBuffTypeId: { returnType: "integer", args: [{ name: "whichBuff", type: "buff" }] },
     GetBuffBaseTypeId: { returnType: "integer", args: [{ name: "whichBuff", type: "buff" }] },
     GetBuffOwner: { returnType: "unit", args: [{ name: "whichbuff", type: "buff" }] },
@@ -9688,6 +9378,9 @@ export default {
             { name: "isInstant", type: "boolean" },
         ],
     },
+    GetWar3ImageMatrixScaleX: { returnType: "real", args: [{ name: "whichWar3Image", type: "war3image" }] },
+    GetWar3ImageMatrixScaleY: { returnType: "real", args: [{ name: "whichWar3Image", type: "war3image" }] },
+    GetWar3ImageMatrixScaleZ: { returnType: "real", args: [{ name: "whichWar3Image", type: "war3image" }] },
     SetWar3ImageMatrixScale: {
         returnType: "nothing",
         args: [
@@ -10000,6 +9693,9 @@ export default {
             { name: "alpha", type: "integer" },
         ],
     },
+    GetSpriteMatrixScaleX: { returnType: "real", args: [{ name: "whichSprite", type: "sprite" }] },
+    GetSpriteMatrixScaleY: { returnType: "real", args: [{ name: "whichSprite", type: "sprite" }] },
+    GetSpriteMatrixScaleZ: { returnType: "real", args: [{ name: "whichSprite", type: "sprite" }] },
     SetSpriteMatrixScale: {
         returnType: "nothing",
         args: [
@@ -10184,6 +9880,333 @@ export default {
             { name: "percent", type: "real" },
         ],
     },
+    CreateDoodad: {
+        returnType: "doodad",
+        args: [
+            { name: "objectTypeId", type: "integer" },
+            { name: "x", type: "real" },
+            { name: "y", type: "real" },
+            { name: "facing", type: "real" },
+            { name: "scale", type: "real" },
+            { name: "variation", type: "integer" },
+        ],
+    },
+    CreateDoodadZ: {
+        returnType: "doodad",
+        args: [
+            { name: "objectTypeId", type: "integer" },
+            { name: "x", type: "real" },
+            { name: "y", type: "real" },
+            { name: "z", type: "real" },
+            { name: "facing", type: "real" },
+            { name: "scale", type: "real" },
+            { name: "variation", type: "integer" },
+        ],
+    },
+    RemoveDoodad: { returnType: "nothing", args: [{ name: "whichDoodad", type: "doodad" }] },
+    GetDoodadCount: { returnType: "integer", args: [] },
+    GetDoodadByIndex: { returnType: "doodad", args: [{ name: "index", type: "integer" }] },
+    GetDoodadIndex: { returnType: "integer", args: [{ name: "whichDoodad", type: "doodad" }] },
+    GetDoodadColour: { returnType: "integer", args: [{ name: "whichDoodad", type: "doodad" }] },
+    SetDoodadColour: {
+        returnType: "nothing",
+        args: [
+            { name: "whichDoodad", type: "doodad" },
+            { name: "colour", type: "integer" },
+        ],
+    },
+    SetDoodadVertexColour: {
+        returnType: "nothing",
+        args: [
+            { name: "whichDoodad", type: "doodad" },
+            { name: "red", type: "integer" },
+            { name: "green", type: "integer" },
+            { name: "blue", type: "integer" },
+            { name: "alpha", type: "integer" },
+        ],
+    },
+    GetDoodadScale: { returnType: "real", args: [{ name: "whichDoodad", type: "doodad" }] },
+    SetDoodadScale: {
+        returnType: "nothing",
+        args: [
+            { name: "whichDoodad", type: "doodad" },
+            { name: "scale", type: "real" },
+        ],
+    },
+    GetDoodadTimeScale: { returnType: "real", args: [{ name: "whichDoodad", type: "doodad" }] },
+    SetDoodadTimeScale: {
+        returnType: "nothing",
+        args: [
+            { name: "whichDoodad", type: "doodad" },
+            { name: "timeScale", type: "real" },
+        ],
+    },
+    GetDoodadX: { returnType: "real", args: [{ name: "whichDoodad", type: "doodad" }] },
+    SetDoodadX: {
+        returnType: "nothing",
+        args: [
+            { name: "whichDoodad", type: "doodad" },
+            { name: "x", type: "real" },
+        ],
+    },
+    GetDoodadY: { returnType: "real", args: [{ name: "whichDoodad", type: "doodad" }] },
+    SetDoodadY: {
+        returnType: "nothing",
+        args: [
+            { name: "whichDoodad", type: "doodad" },
+            { name: "y", type: "real" },
+        ],
+    },
+    GetDoodadZ: { returnType: "real", args: [{ name: "whichDoodad", type: "doodad" }] },
+    SetDoodadZ: {
+        returnType: "nothing",
+        args: [
+            { name: "whichDoodad", type: "doodad" },
+            { name: "z", type: "real" },
+        ],
+    },
+    SetDoodadPosition: {
+        returnType: "nothing",
+        args: [
+            { name: "whichDoodad", type: "doodad" },
+            { name: "x", type: "real" },
+            { name: "y", type: "real" },
+        ],
+    },
+    SetDoodadPositionWithZ: {
+        returnType: "nothing",
+        args: [
+            { name: "whichDoodad", type: "doodad" },
+            { name: "x", type: "real" },
+            { name: "y", type: "real" },
+            { name: "z", type: "real" },
+        ],
+    },
+    GetDoodadPositionLoc: { returnType: "location", args: [{ name: "whichDoodad", type: "doodad" }] },
+    SetDoodadPositionLoc: {
+        returnType: "nothing",
+        args: [
+            { name: "whichDoodad", type: "doodad" },
+            { name: "whichLocation", type: "location" },
+        ],
+    },
+    GetDoodadScreenX: { returnType: "real", args: [{ name: "whichDoodad", type: "doodad" }] },
+    GetDoodadScreenY: { returnType: "real", args: [{ name: "whichDoodad", type: "doodad" }] },
+    GetDoodadMatrixScaleX: { returnType: "real", args: [{ name: "whichDoodad", type: "doodad" }] },
+    GetDoodadMatrixScaleY: { returnType: "real", args: [{ name: "whichDoodad", type: "doodad" }] },
+    GetDoodadMatrixScaleZ: { returnType: "real", args: [{ name: "whichDoodad", type: "doodad" }] },
+    SetDoodadMatrixScale: {
+        returnType: "nothing",
+        args: [
+            { name: "whichDoodad", type: "doodad" },
+            { name: "x", type: "real" },
+            { name: "y", type: "real" },
+            { name: "z", type: "real" },
+        ],
+    },
+    ResetDoodadMatrix: { returnType: "nothing", args: [{ name: "whichDoodad", type: "doodad" }] },
+    SetDoodadOrientationEx: {
+        returnType: "nothing",
+        args: [
+            { name: "whichDoodad", type: "doodad" },
+            { name: "yaw", type: "real" },
+            { name: "pitch", type: "real" },
+            { name: "roll", type: "real" },
+            { name: "eulerOrder", type: "integer" },
+        ],
+    },
+    GetDoodadYaw: { returnType: "real", args: [{ name: "whichDoodad", type: "doodad" }] },
+    SetDoodadYaw: {
+        returnType: "nothing",
+        args: [
+            { name: "whichDoodad", type: "doodad" },
+            { name: "yaw", type: "real" },
+        ],
+    },
+    GetDoodadFacing: { returnType: "real", args: [{ name: "whichDoodad", type: "doodad" }] },
+    SetDoodadFacing: {
+        returnType: "nothing",
+        args: [
+            { name: "whichDoodad", type: "doodad" },
+            { name: "facing", type: "real" },
+        ],
+    },
+    GetDoodadPitch: { returnType: "real", args: [{ name: "whichDoodad", type: "doodad" }] },
+    SetDoodadPitch: {
+        returnType: "nothing",
+        args: [
+            { name: "whichDoodad", type: "doodad" },
+            { name: "pitch", type: "real" },
+        ],
+    },
+    GetDoodadRoll: { returnType: "real", args: [{ name: "whichDoodad", type: "doodad" }] },
+    SetDoodadRoll: {
+        returnType: "nothing",
+        args: [
+            { name: "whichDoodad", type: "doodad" },
+            { name: "roll", type: "real" },
+        ],
+    },
+    SetDoodadOrientation: {
+        returnType: "nothing",
+        args: [
+            { name: "whichDoodad", type: "doodad" },
+            { name: "yaw", type: "real" },
+            { name: "pitch", type: "real" },
+            { name: "roll", type: "real" },
+        ],
+    },
+    GetDoodadPlayerColour: { returnType: "playercolor", args: [{ name: "whichDoodad", type: "doodad" }] },
+    SetDoodadPlayerColour: {
+        returnType: "nothing",
+        args: [
+            { name: "whichDoodad", type: "doodad" },
+            { name: "color", type: "playercolor" },
+        ],
+    },
+    GetDoodadModel: { returnType: "string", args: [{ name: "whichDoodad", type: "doodad" }] },
+    SetDoodadModel: {
+        returnType: "nothing",
+        args: [
+            { name: "whichDoodad", type: "doodad" },
+            { name: "modelFile", type: "string" },
+        ],
+    },
+    SetDoodadModelEx: {
+        returnType: "nothing",
+        args: [
+            { name: "whichDoodad", type: "doodad" },
+            { name: "modelFile", type: "string" },
+            { name: "playerId", type: "integer" },
+        ],
+    },
+    SetDoodadMaterialTexture: {
+        returnType: "nothing",
+        args: [
+            { name: "whichDoodad", type: "doodad" },
+            { name: "textureName", type: "string" },
+            { name: "materialId", type: "integer" },
+            { name: "textureIndex", type: "integer" },
+        ],
+    },
+    SetDoodadTexture: {
+        returnType: "nothing",
+        args: [
+            { name: "whichDoodad", type: "doodad" },
+            { name: "textureName", type: "string" },
+            { name: "textureIndex", type: "integer" },
+        ],
+    },
+    SetDoodadReplaceableTexture: {
+        returnType: "nothing",
+        args: [
+            { name: "whichDoodad", type: "doodad" },
+            { name: "textureName", type: "string" },
+            { name: "textureIndex", type: "integer" },
+        ],
+    },
+    IsDoodadVisible: { returnType: "boolean", args: [{ name: "whichDoodad", type: "doodad" }] },
+    ShowDoodad: {
+        returnType: "nothing",
+        args: [
+            { name: "whichDoodad", type: "doodad" },
+            { name: "isShow", type: "boolean" },
+        ],
+    },
+    SetDoodadAnimationWithRarityByIndex: {
+        returnType: "nothing",
+        args: [
+            { name: "whichDoodad", type: "doodad" },
+            { name: "animIndex", type: "integer" },
+            { name: "rarity", type: "raritycontrol" },
+        ],
+    },
+    SetDoodadAnimationWithRarity: {
+        returnType: "nothing",
+        args: [
+            { name: "whichDoodad", type: "doodad" },
+            { name: "animationName", type: "string" },
+            { name: "rarity", type: "raritycontrol" },
+        ],
+    },
+    SetDoodadAnimationByIndex: {
+        returnType: "nothing",
+        args: [
+            { name: "whichDoodad", type: "doodad" },
+            { name: "animIndex", type: "integer" },
+        ],
+    },
+    SetDoodadAnimationEx: {
+        returnType: "nothing",
+        args: [
+            { name: "whichDoodad", type: "doodad" },
+            { name: "animationName", type: "string" },
+        ],
+    },
+    QueueDoodadAnimationByIndex: {
+        returnType: "nothing",
+        args: [
+            { name: "whichDoodad", type: "doodad" },
+            { name: "animIndex", type: "integer" },
+        ],
+    },
+    QueueDoodadAnimation: {
+        returnType: "nothing",
+        args: [
+            { name: "whichDoodad", type: "doodad" },
+            { name: "animationName", type: "string" },
+        ],
+    },
+    GetDoodadAnimationOffsetPercent: { returnType: "real", args: [{ name: "whichDoodad", type: "doodad" }] },
+    SetDoodadAnimationOffsetPercent: {
+        returnType: "nothing",
+        args: [
+            { name: "whichDoodad", type: "doodad" },
+            { name: "percent", type: "real" },
+        ],
+    },
+    GetFilterDoodad: { returnType: "doodad", args: [] },
+    GetEnumDoodad: { returnType: "doodad", args: [] },
+    EnumDoodadsInRange: {
+        returnType: "nothing",
+        args: [
+            { name: "x", type: "real" },
+            { name: "y", type: "real" },
+            { name: "radius", type: "real" },
+            { name: "filter", type: "boolexpr" },
+            { name: "handlerFunc", type: "code" },
+        ],
+    },
+    EnumDoodadsInRangeEx: {
+        returnType: "nothing",
+        args: [
+            { name: "x", type: "real" },
+            { name: "y", type: "real" },
+            { name: "radius", type: "real" },
+            { name: "typeId", type: "integer" },
+            { name: "nearestOnly", type: "boolean" },
+            { name: "filter", type: "boolexpr" },
+            { name: "handlerFunc", type: "code" },
+        ],
+    },
+    EnumDoodadsInRect: {
+        returnType: "nothing",
+        args: [
+            { name: "whichRect", type: "rect" },
+            { name: "filter", type: "boolexpr" },
+            { name: "handlerFunc", type: "code" },
+        ],
+    },
+    EnumDoodadsInRectEx: {
+        returnType: "nothing",
+        args: [
+            { name: "whichRect", type: "rect" },
+            { name: "typeId", type: "integer" },
+            { name: "nearestOnly", type: "boolean" },
+            { name: "filter", type: "boolexpr" },
+            { name: "handlerFunc", type: "code" },
+        ],
+    },
     GetSpecialEffectSprite: { returnType: "sprite", args: [{ name: "whichEffect", type: "effect" }] },
     IsSpecialEffectVisible: { returnType: "boolean", args: [{ name: "whichEffect", type: "effect" }] },
     SetSpecialEffectVisible: {
@@ -10301,6 +10324,9 @@ export default {
             { name: "alpha", type: "integer" },
         ],
     },
+    GetSpecialEffectMatrixScaleX: { returnType: "real", args: [{ name: "whichEffect", type: "effect" }] },
+    GetSpecialEffectMatrixScaleY: { returnType: "real", args: [{ name: "whichEffect", type: "effect" }] },
+    GetSpecialEffectMatrixScaleZ: { returnType: "real", args: [{ name: "whichEffect", type: "effect" }] },
     SetSpecialEffectMatrixScale: {
         returnType: "nothing",
         args: [
@@ -10615,7 +10641,10 @@ export default {
             { name: "alpha", type: "integer" },
         ],
     },
-    SetTrackableEffectMatrixScale: {
+    GetTrackableMatrixScaleX: { returnType: "real", args: [{ name: "whichTrackable", type: "trackable" }] },
+    GetTrackableMatrixScaleY: { returnType: "real", args: [{ name: "whichTrackable", type: "trackable" }] },
+    GetTrackableMatrixScaleZ: { returnType: "real", args: [{ name: "whichTrackable", type: "trackable" }] },
+    SetTrackableMatrixScale: {
         returnType: "nothing",
         args: [
             { name: "whichTrackable", type: "trackable" },
@@ -10944,6 +10973,9 @@ export default {
             { name: "isInstant", type: "boolean" },
         ],
     },
+    GetWidgetMatrixScaleX: { returnType: "real", args: [{ name: "whichWidget", type: "widget" }] },
+    GetWidgetMatrixScaleY: { returnType: "real", args: [{ name: "whichWidget", type: "widget" }] },
+    GetWidgetMatrixScaleZ: { returnType: "real", args: [{ name: "whichWidget", type: "widget" }] },
     SetWidgetMatrixScale: {
         returnType: "nothing",
         args: [
@@ -11274,6 +11306,9 @@ export default {
             { name: "isInstant", type: "boolean" },
         ],
     },
+    GetDestructableMatrixScaleX: { returnType: "real", args: [{ name: "whichDestructable", type: "destructable" }] },
+    GetDestructableMatrixScaleY: { returnType: "real", args: [{ name: "whichDestructable", type: "destructable" }] },
+    GetDestructableMatrixScaleZ: { returnType: "real", args: [{ name: "whichDestructable", type: "destructable" }] },
     SetDestructableMatrixScale: {
         returnType: "nothing",
         args: [
@@ -11748,6 +11783,9 @@ export default {
             { name: "isInstant", type: "boolean" },
         ],
     },
+    GetItemMatrixScaleX: { returnType: "real", args: [{ name: "whichItem", type: "item" }] },
+    GetItemMatrixScaleY: { returnType: "real", args: [{ name: "whichItem", type: "item" }] },
+    GetItemMatrixScaleZ: { returnType: "real", args: [{ name: "whichItem", type: "item" }] },
     SetItemMatrixScale: {
         returnType: "nothing",
         args: [
@@ -12220,8 +12258,17 @@ export default {
         ],
     },
     ResetUnitZ: { returnType: "nothing", args: [{ name: "whichUnit", type: "unit" }] },
+    GetUnitScale: { returnType: "real", args: [{ name: "whichUnit", type: "unit" }] },
     GetUnitHeight: { returnType: "real", args: [{ name: "whichUnit", type: "unit" }] },
     SetUnitHeight: {
+        returnType: "nothing",
+        args: [
+            { name: "whichUnit", type: "unit" },
+            { name: "height", type: "real" },
+        ],
+    },
+    GetUnitStatbarHeight: { returnType: "real", args: [{ name: "whichUnit", type: "unit" }] },
+    SetUnitStatbarHeight: {
         returnType: "nothing",
         args: [
             { name: "whichUnit", type: "unit" },
@@ -13062,12 +13109,12 @@ export default {
     GetUnitMinimapY: { returnType: "real", args: [{ name: "whichUnit", type: "unit" }] },
     GetUnitRallyPointX: { returnType: "real", args: [{ name: "whichUnit", type: "unit" }] },
     GetUnitRallyPointY: { returnType: "real", args: [{ name: "whichUnit", type: "unit" }] },
-    GetHeroMaxLevelExperienceNeeded: { returnType: "integer", args: [{ name: "whichUnit", type: "unit" }] },
-    GetHeroExperienceNeeded: {
+    GetHeroExperienceCurrent: { returnType: "integer", args: [{ name: "whichUnit", type: "unit" }] },
+    GetHeroExperienceRequiredAt: {
         returnType: "integer",
         args: [
             { name: "whichUnit", type: "unit" },
-            { name: "forLevel", type: "integer" },
+            { name: "level", type: "integer" },
         ],
     },
     UnitApplySilence: {
@@ -13175,6 +13222,21 @@ export default {
             { name: "whichObject", type: "string" },
         ],
     },
+    SetUnitAnimationWithRarityByIndex: {
+        returnType: "nothing",
+        args: [
+            { name: "whichUnit", type: "unit" },
+            { name: "animIndex", type: "integer" },
+            { name: "rarity", type: "raritycontrol" },
+        ],
+    },
+    QueueUnitAnimationByIndex: {
+        returnType: "nothing",
+        args: [
+            { name: "whichUnit", type: "unit" },
+            { name: "animIndex", type: "integer" },
+        ],
+    },
     GetUnitCurrentAnimationId: { returnType: "integer", args: [{ name: "whichUnit", type: "unit" }] },
     GetUnitCurrentAnimationName: { returnType: "string", args: [{ name: "whichUnit", type: "unit" }] },
     GetUnitAnimationOffsetPercent: { returnType: "real", args: [{ name: "whichUnit", type: "unit" }] },
@@ -13217,6 +13279,9 @@ export default {
             { name: "roll", type: "real" },
         ],
     },
+    GetUnitMatrixScaleX: { returnType: "real", args: [{ name: "whichUnit", type: "unit" }] },
+    GetUnitMatrixScaleY: { returnType: "real", args: [{ name: "whichUnit", type: "unit" }] },
+    GetUnitMatrixScaleZ: { returnType: "real", args: [{ name: "whichUnit", type: "unit" }] },
     SetUnitMatrixScale: {
         returnType: "nothing",
         args: [
@@ -13711,6 +13776,9 @@ export default {
             { name: "alpha", type: "integer" },
         ],
     },
+    GetProjectileMatrixScaleX: { returnType: "real", args: [{ name: "whichProjectile", type: "projectile" }] },
+    GetProjectileMatrixScaleY: { returnType: "real", args: [{ name: "whichProjectile", type: "projectile" }] },
+    GetProjectileMatrixScaleZ: { returnType: "real", args: [{ name: "whichProjectile", type: "projectile" }] },
     SetProjectileMatrixScale: {
         returnType: "nothing",
         args: [
@@ -15135,6 +15203,9 @@ export default {
             { name: "textureIndex", type: "integer" },
         ],
     },
+    GetFrameSpriteMatrixScaleX: { returnType: "real", args: [{ name: "whichFrame", type: "framehandle" }] },
+    GetFrameSpriteMatrixScaleY: { returnType: "real", args: [{ name: "whichFrame", type: "framehandle" }] },
+    GetFrameSpriteMatrixScaleZ: { returnType: "real", args: [{ name: "whichFrame", type: "framehandle" }] },
     SetFrameSpriteMatrixScale: {
         returnType: "nothing",
         args: [
