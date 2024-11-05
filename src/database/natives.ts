@@ -6177,7 +6177,13 @@ export default {
     MathRealFloor: { returnType: "real", args: [{ name: "r", type: "real" }] },
     MathRealCeil: { returnType: "real", args: [{ name: "r", type: "real" }] },
     MathRealAbs: { returnType: "real", args: [{ name: "r", type: "real" }] },
-    MathRealLog: { returnType: "real", args: [{ name: "r", type: "real" }] },
+    MathRealLog: {
+        returnType: "real",
+        args: [
+            { name: "r", type: "real" },
+            { name: "base", type: "integer" },
+        ],
+    },
     MathRealLn: { returnType: "real", args: [{ name: "r", type: "real" }] },
     MathRealModulo: {
         returnType: "real",
@@ -6218,7 +6224,13 @@ export default {
         ],
     },
     MathIntegerAbs: { returnType: "integer", args: [{ name: "i", type: "integer" }] },
-    MathIntegerLog: { returnType: "real", args: [{ name: "i", type: "integer" }] },
+    MathIntegerLog: {
+        returnType: "real",
+        args: [
+            { name: "i", type: "integer" },
+            { name: "base", type: "integer" },
+        ],
+    },
     MathIntegerLn: { returnType: "real", args: [{ name: "i", type: "integer" }] },
     MathIntegerModulo: {
         returnType: "integer",
@@ -6961,6 +6973,29 @@ export default {
         ],
     },
     GetHostPlayer: { returnType: "player", args: [] },
+    IsPlayerMuted: { returnType: "boolean", args: [{ name: "whichPlayer", type: "player" }] },
+    SetPlayerMuted: {
+        returnType: "nothing",
+        args: [
+            { name: "whichPlayer", type: "player" },
+            { name: "isMute", type: "boolean" },
+        ],
+    },
+    IsPlayerMutedForPlayer: {
+        returnType: "boolean",
+        args: [
+            { name: "whichPlayer", type: "player" },
+            { name: "toPlayer", type: "player" },
+        ],
+    },
+    SetPlayerMutedForPlayer: {
+        returnType: "nothing",
+        args: [
+            { name: "whichPlayer", type: "player" },
+            { name: "toPlayer", type: "player" },
+            { name: "isMute", type: "boolean" },
+        ],
+    },
     ForceHasPlayer: {
         returnType: "boolean",
         args: [
@@ -9219,6 +9254,14 @@ export default {
             { name: "isSet", type: "boolean" },
         ],
     },
+    IsBuffDrawEnabled: { returnType: "boolean", args: [{ name: "whichBuff", type: "buff" }] },
+    SetBuffDrawEnabled: {
+        returnType: "nothing",
+        args: [
+            { name: "whichBuff", type: "buff" },
+            { name: "isSet", type: "boolean" },
+        ],
+    },
     GetBuffLevel: { returnType: "integer", args: [{ name: "whichBuff", type: "buff" }] },
     SetBuffLevel: {
         returnType: "nothing",
@@ -9450,12 +9493,27 @@ export default {
             { name: "playerId", type: "integer" },
         ],
     },
+    GetWar3ImageMaterialTexture: {
+        returnType: "string",
+        args: [
+            { name: "whichWar3Image", type: "war3image" },
+            { name: "materialId", type: "integer" },
+            { name: "textureIndex", type: "integer" },
+        ],
+    },
     SetWar3ImageMaterialTexture: {
         returnType: "nothing",
         args: [
             { name: "whichWar3Image", type: "war3image" },
             { name: "textureName", type: "string" },
             { name: "materialId", type: "integer" },
+            { name: "textureIndex", type: "integer" },
+        ],
+    },
+    GetWar3ImageTexture: {
+        returnType: "string",
+        args: [
+            { name: "whichWar3Image", type: "war3image" },
             { name: "textureIndex", type: "integer" },
         ],
     },
@@ -9757,12 +9815,27 @@ export default {
             { name: "roll", type: "real" },
         ],
     },
+    GetSpriteMaterialTexture: {
+        returnType: "string",
+        args: [
+            { name: "whichSprite", type: "sprite" },
+            { name: "materialId", type: "integer" },
+            { name: "textureIndex", type: "integer" },
+        ],
+    },
     SetSpriteMaterialTexture: {
         returnType: "nothing",
         args: [
             { name: "whichSprite", type: "sprite" },
             { name: "textureName", type: "string" },
             { name: "materialId", type: "integer" },
+            { name: "textureIndex", type: "integer" },
+        ],
+    },
+    GetSpriteTexture: {
+        returnType: "string",
+        args: [
+            { name: "whichSprite", type: "sprite" },
             { name: "textureIndex", type: "integer" },
         ],
     },
@@ -10080,12 +10153,27 @@ export default {
             { name: "playerId", type: "integer" },
         ],
     },
+    GetDoodadMaterialTexture: {
+        returnType: "string",
+        args: [
+            { name: "whichDoodad", type: "doodad" },
+            { name: "materialId", type: "integer" },
+            { name: "textureIndex", type: "integer" },
+        ],
+    },
     SetDoodadMaterialTexture: {
         returnType: "nothing",
         args: [
             { name: "whichDoodad", type: "doodad" },
             { name: "textureName", type: "string" },
             { name: "materialId", type: "integer" },
+            { name: "textureIndex", type: "integer" },
+        ],
+    },
+    GetDoodadTexture: {
+        returnType: "string",
+        args: [
+            { name: "whichDoodad", type: "doodad" },
             { name: "textureIndex", type: "integer" },
         ],
     },
@@ -10388,12 +10476,27 @@ export default {
             { name: "roll", type: "real" },
         ],
     },
+    GetSpecialEffectMaterialTexture: {
+        returnType: "string",
+        args: [
+            { name: "whichEffect", type: "effect" },
+            { name: "materialId", type: "integer" },
+            { name: "textureIndex", type: "integer" },
+        ],
+    },
     SetSpecialEffectMaterialTexture: {
         returnType: "nothing",
         args: [
             { name: "whichEffect", type: "effect" },
             { name: "textureName", type: "string" },
             { name: "materialId", type: "integer" },
+            { name: "textureIndex", type: "integer" },
+        ],
+    },
+    GetSpecialEffectTexture: {
+        returnType: "string",
+        args: [
+            { name: "whichEffect", type: "effect" },
             { name: "textureIndex", type: "integer" },
         ],
     },
@@ -10705,12 +10808,27 @@ export default {
             { name: "roll", type: "real" },
         ],
     },
+    GetTrackableMaterialTexture: {
+        returnType: "string",
+        args: [
+            { name: "whichTrackable", type: "trackable" },
+            { name: "materialId", type: "integer" },
+            { name: "textureIndex", type: "integer" },
+        ],
+    },
     SetTrackableMaterialTexture: {
         returnType: "nothing",
         args: [
             { name: "whichTrackable", type: "trackable" },
             { name: "textureName", type: "string" },
             { name: "materialId", type: "integer" },
+            { name: "textureIndex", type: "integer" },
+        ],
+    },
+    GetTrackableTexture: {
+        returnType: "string",
+        args: [
+            { name: "whichTrackable", type: "trackable" },
             { name: "textureIndex", type: "integer" },
         ],
     },
@@ -11045,12 +11163,35 @@ export default {
             { name: "playerId", type: "integer" },
         ],
     },
+    GetWidgetPortrait: { returnType: "string", args: [{ name: "whichWidget", type: "widget" }] },
+    SetWidgetPortrait: {
+        returnType: "nothing",
+        args: [
+            { name: "whichWidget", type: "widget" },
+            { name: "modelName", type: "string" },
+        ],
+    },
+    GetWidgetMaterialTexture: {
+        returnType: "string",
+        args: [
+            { name: "whichWidget", type: "widget" },
+            { name: "materialId", type: "integer" },
+            { name: "textureIndex", type: "integer" },
+        ],
+    },
     SetWidgetMaterialTexture: {
         returnType: "nothing",
         args: [
             { name: "whichWidget", type: "widget" },
             { name: "textureName", type: "string" },
             { name: "materialId", type: "integer" },
+            { name: "textureIndex", type: "integer" },
+        ],
+    },
+    GetWidgetTexture: {
+        returnType: "string",
+        args: [
+            { name: "whichWidget", type: "widget" },
             { name: "textureIndex", type: "integer" },
         ],
     },
@@ -11378,12 +11519,35 @@ export default {
             { name: "playerId", type: "integer" },
         ],
     },
+    GetDestructablePortrait: { returnType: "string", args: [{ name: "whichDestructable", type: "destructable" }] },
+    SetDestructablePortrait: {
+        returnType: "nothing",
+        args: [
+            { name: "whichDestructable", type: "destructable" },
+            { name: "modelName", type: "string" },
+        ],
+    },
+    GetDestructableMaterialTexture: {
+        returnType: "string",
+        args: [
+            { name: "whichDestructable", type: "destructable" },
+            { name: "materialId", type: "integer" },
+            { name: "textureIndex", type: "integer" },
+        ],
+    },
     SetDestructableMaterialTexture: {
         returnType: "nothing",
         args: [
             { name: "whichDestructable", type: "destructable" },
             { name: "textureName", type: "string" },
             { name: "materialId", type: "integer" },
+            { name: "textureIndex", type: "integer" },
+        ],
+    },
+    GetDestructableTexture: {
+        returnType: "string",
+        args: [
+            { name: "whichDestructable", type: "destructable" },
             { name: "textureIndex", type: "integer" },
         ],
     },
@@ -11855,12 +12019,35 @@ export default {
             { name: "playerColourId", type: "integer" },
         ],
     },
+    GetItemPortrait: { returnType: "string", args: [{ name: "whichItem", type: "item" }] },
+    SetItemPortrait: {
+        returnType: "nothing",
+        args: [
+            { name: "whichItem", type: "item" },
+            { name: "modelName", type: "string" },
+        ],
+    },
+    GetItemMaterialTexture: {
+        returnType: "string",
+        args: [
+            { name: "whichItem", type: "item" },
+            { name: "materialId", type: "integer" },
+            { name: "textureIndex", type: "integer" },
+        ],
+    },
     SetItemMaterialTexture: {
         returnType: "nothing",
         args: [
             { name: "whichItem", type: "item" },
             { name: "textureName", type: "string" },
             { name: "materialId", type: "integer" },
+            { name: "textureIndex", type: "integer" },
+        ],
+    },
+    GetItemTexture: {
+        returnType: "string",
+        args: [
+            { name: "whichItem", type: "item" },
             { name: "textureIndex", type: "integer" },
         ],
     },
@@ -12364,6 +12551,14 @@ export default {
             { name: "alsoCountBuffs", type: "boolean" },
         ],
     },
+    CountUnitAbilitiesWithTypeId: {
+        returnType: "integer",
+        args: [
+            { name: "whichUnit", type: "unit" },
+            { name: "alsoCountBuffs", type: "boolean" },
+            { name: "abilityTypeId", type: "integer" },
+        ],
+    },
     GetUnitAbility: {
         returnType: "ability",
         args: [
@@ -12479,6 +12674,13 @@ export default {
         ],
     },
     CountUnitBuffs: { returnType: "integer", args: [{ name: "whichUnit", type: "unit" }] },
+    CountUnitBuffsWithTypeId: {
+        returnType: "integer",
+        args: [
+            { name: "whichUnit", type: "unit" },
+            { name: "buffTypeId", type: "integer" },
+        ],
+    },
     GetUnitBuff: {
         returnType: "buff",
         args: [
@@ -12509,6 +12711,7 @@ export default {
         ],
     },
     UnitCancelTimedLife: { returnType: "nothing", args: [{ name: "whichUnit", type: "unit" }] },
+    UnitRestartTimedLife: { returnType: "nothing", args: [{ name: "whichUnit", type: "unit" }] },
     GetUnitRemainingTimedLife: { returnType: "real", args: [{ name: "whichUnit", type: "unit" }] },
     SetUnitRemainingTimedLife: {
         returnType: "nothing",
@@ -13033,12 +13236,35 @@ export default {
             { name: "playercolourId", type: "integer" },
         ],
     },
+    GetUnitPortrait: { returnType: "string", args: [{ name: "whichUnit", type: "unit" }] },
+    SetUnitPortrait: {
+        returnType: "nothing",
+        args: [
+            { name: "whichUnit", type: "unit" },
+            { name: "modelName", type: "string" },
+        ],
+    },
+    GetUnitMaterialTexture: {
+        returnType: "string",
+        args: [
+            { name: "whichUnit", type: "unit" },
+            { name: "materialId", type: "integer" },
+            { name: "textureIndex", type: "integer" },
+        ],
+    },
     SetUnitMaterialTexture: {
         returnType: "nothing",
         args: [
             { name: "whichUnit", type: "unit" },
             { name: "textureName", type: "string" },
             { name: "materialId", type: "integer" },
+            { name: "textureIndex", type: "integer" },
+        ],
+    },
+    GetUnitTexture: {
+        returnType: "string",
+        args: [
+            { name: "whichUnit", type: "unit" },
             { name: "textureIndex", type: "integer" },
         ],
     },
@@ -13840,12 +14066,27 @@ export default {
             { name: "roll", type: "real" },
         ],
     },
+    GetProjectileMaterialTexture: {
+        returnType: "string",
+        args: [
+            { name: "whichProjectile", type: "projectile" },
+            { name: "materialId", type: "integer" },
+            { name: "textureIndex", type: "integer" },
+        ],
+    },
     SetProjectileMaterialTexture: {
         returnType: "nothing",
         args: [
             { name: "whichProjectile", type: "projectile" },
             { name: "textureName", type: "string" },
             { name: "materialId", type: "integer" },
+            { name: "textureIndex", type: "integer" },
+        ],
+    },
+    GetProjectileTexture: {
+        returnType: "string",
+        args: [
+            { name: "whichProjectile", type: "projectile" },
             { name: "textureIndex", type: "integer" },
         ],
     },
@@ -15194,15 +15435,6 @@ export default {
             { name: "roll", type: "real" },
         ],
     },
-    SetFrameSpriteMaterialTexture: {
-        returnType: "nothing",
-        args: [
-            { name: "whichFrame", type: "framehandle" },
-            { name: "textureName", type: "string" },
-            { name: "materialId", type: "integer" },
-            { name: "textureIndex", type: "integer" },
-        ],
-    },
     GetFrameSpriteMatrixScaleX: { returnType: "real", args: [{ name: "whichFrame", type: "framehandle" }] },
     GetFrameSpriteMatrixScaleY: { returnType: "real", args: [{ name: "whichFrame", type: "framehandle" }] },
     GetFrameSpriteMatrixScaleZ: { returnType: "real", args: [{ name: "whichFrame", type: "framehandle" }] },
@@ -15216,6 +15448,30 @@ export default {
         ],
     },
     ResetFrameSpriteMatrix: { returnType: "nothing", args: [{ name: "whichFrame", type: "framehandle" }] },
+    GetFrameSpriteMaterialTexture: {
+        returnType: "string",
+        args: [
+            { name: "whichFrame", type: "framehandle" },
+            { name: "materialId", type: "integer" },
+            { name: "textureIndex", type: "integer" },
+        ],
+    },
+    SetFrameSpriteMaterialTexture: {
+        returnType: "nothing",
+        args: [
+            { name: "whichFrame", type: "framehandle" },
+            { name: "textureName", type: "string" },
+            { name: "materialId", type: "integer" },
+            { name: "textureIndex", type: "integer" },
+        ],
+    },
+    GetFrameSpriteTexture: {
+        returnType: "string",
+        args: [
+            { name: "whichFrame", type: "framehandle" },
+            { name: "textureIndex", type: "integer" },
+        ],
+    },
     SetFrameSpriteTexture: {
         returnType: "nothing",
         args: [
@@ -15448,6 +15704,7 @@ export default {
     GetEventWeaponType: { returnType: "weapontype", args: [] },
     SetEventWeaponType: { returnType: "boolean", args: [{ name: "weaponType", type: "weapontype" }] },
     GetEventIsAttack: { returnType: "boolean", args: [] },
+    GetEventIsAttackEx: { returnType: "boolean", args: [{ name: "checkActual", type: "boolean" }] },
     GetEventIsRanged: { returnType: "boolean", args: [] },
     GetEventIsCritical: { returnType: "boolean", args: [] },
     GetEventPreDamage: { returnType: "real", args: [] },
